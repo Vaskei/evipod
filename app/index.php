@@ -9,13 +9,13 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="styles/bootstrap.css">
 
-  <title>Landing Page</title>
+  <title>App Page</title>
 </head>
 
 <body>
   <div class="container">
-    <h1>Landing Page</h1>
-    <a class="btn btn-primary" href="app" role="button">App</a>
+    <h1>App Page</h1>
+    <a class="btn btn-primary" href=".." role="button">Back</a>
   </div>
 
 
