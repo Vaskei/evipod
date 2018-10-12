@@ -1,0 +1,13 @@
+.card {
+    max-width: 30rem;
+    /* margin: 0 auto; */
+    padding: 20px 20px 10px;
+}
+
+.card-img-top {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
