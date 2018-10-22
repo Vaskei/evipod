@@ -21,7 +21,7 @@
 <body>
   <div class="container">
     <div class="card mx-auto mt-5">
-      <img class="card-img-top" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Card image cap">
+      <img class="card-img-top" src="../../templates/evipod/images/agriculture-barley-field-beautiful-512.jpg" alt="Card image cap">
       <div class="card-body">
         <h4 class="card-title text-center">REGISTRACIJA</h4>
         <hr>

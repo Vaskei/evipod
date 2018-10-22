@@ -1,0 +1,25 @@
+.card-tabs-custom {
+    margin-top: 1px;
+    border-radius: 0% !important;
+    border: none;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: rgba(238, 232, 213, 0.125);
+}
+
+.card-img-top {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
