@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="styles/bootstrap.css">
+  <link rel="stylesheet" href="styles/bootstrap_solar.css">
 
   <!-- FontAwesome CSS -->
   <link rel="stylesheet" href="styles/fontawesome_all.css">
