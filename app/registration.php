@@ -1,69 +1,144 @@
-<!doctype html>
-<html lang="en">
+<?php
+session_start();
+require_once './includes/connection.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\OAuth;
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+use League\OAuth2\Client\Provider\Google;
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="styles/bootstrap.css">
+require './includes/PHPMailer/Exception.php';
+require './includes/PHPMailer/PHPMailer.php';
+require './includes/PHPMailer/OAuth.php';
+require './includes/PHPMailer/SMTP.php';
 
-  <!-- FontAwesome CSS -->
-  <link rel="stylesheet" href="styles/fontawesome_all.css">
+/* 
+userName = min 3 znakova, max 100 znakova
+userEmail = filter_var
+userPass = min 6 znakova, max 50 znakova, slova i brojke
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="styles/reg_login.css">
+ */
 
-  <title>App Page</title>
-</head>
+if (isset($_POST['registrationSubmit'])) {
+  // var_dump($_POST);
+  $userName = htmlentities(trim($_POST['registrationName']));
+  $userEmail = trim($_POST['registrationEmail']);
+  $userPass = trim($_POST['registrationPass']);
+  $userPassConfirm = trim($_POST['registrationPassConfirm']);
 
-<body>
-  <div class="container">
-    <div class="card mx-auto mt-5">
-      <img class="card-img-top" src="../../templates/evipod/images/agriculture-barley-field-beautiful-512.jpg" alt="Card image cap">
-      <div class="card-body">
-        <h4 class="card-title text-center">REGISTRACIJA</h4>
-        <hr>
-        <form>
-          <div class="form-group">
-            <label for="registrationName">Ime</label>
-            <input type="text" class="form-control" id="registrationName" placeholder="Unesite ime...">
-          </div>
-          <div class="form-group">
-            <label for="registrationEmail">Email</label>
-            <input type="email" class="form-control" id="registrationEmail" placeholder="Unesite email...">
-          </div>
-          <div class="form-group">
-            <label for="registrationPass">Lozinka</label>
-            <input type="password" class="form-control" id="registrationPass" placeholder="Unesite lozinku...">
-          </div>
-          <div class="form-group">
-            <label for="registrationPassConfirm">Ponovite lozinku</label>
-            <input type="password" class="form-control" id="registrationPassConfirm" placeholder="Ponovite lozinku...">
-          </div>
-          <button type="submit" class="btn btn-primary">Registracija</button>
-        </form>
-        <hr>
-        <div class="form-row text-center">
-          <div class="col-md-6 mt-3">
-            <i class="fas fa-arrow-alt-circle-left"></i>&nbsp;
-            <a href=".">Natrag</a>
-          </div>
-          <div class="col-md-6 mt-3">
-            <i class="fas fa-sign-in-alt"></i>&nbsp;
-            <a href="login">Prijava</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  // Provjera da li su polja prazna
+  if ($userName == "" || $userEmail == "" || $userPass == "" || $userPassConfirm == "") {
+    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Sva polja su obavezna!</strong></div>';
+    header("Location: ./membership");
+    exit();
+  } 
+  // Provjera da li se lozinke poklapaju
+  else if ($userPass != $userPassConfirm) {
+    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Lozinke se ne podudaraju!</strong></div>';
+    header("Location: ./membership");
+    exit();
+  } 
+  // Provjera da li se Email adresa valjana
+  else if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
+    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Nepodržani format Email adrese!</strong></div>';
+    header("Location: ./membership");
+    exit();
+  } 
+  // Provjera da li je ime korisnika u zadanim granicama
+  else if (strlen($userName) < 3 || strlen($userName) > 100) {
+    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Ime može imati min. 3 i max. 100 znakova!</strong></div>';
+    header("Location: ./membership");
+    exit();
+  } 
+  // Provjera da li korisnicka zaporka ima nedozvoljene znakove
+  else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
+    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!</strong></div>';
+    header("Location: ./membership");
+    exit();
+  } else {
+    // Provjera da li postoji korisnik sa unsesenom Email adresom
+    $query = $conn->prepare("SELECT * FROM users WHERE user_email=? LIMIT 1");
+    $query->bind_param("s", $userEmail);
+    if ($query->execute()) {
+      $result = $query->get_result();
+      if ($result->num_rows > 0) {
+        $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Email već postoji u bazi.</strong></div>';
+        header("Location: ./membership");
+        exit();
+      } else {
+        $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+        $token = substr(str_shuffle($token), 0, 20);
+        // var_dump($token);
+        $userPassHash = password_hash($userPass, PASSWORD_DEFAULT);
+        // var_dump($userPassHash);
 
+        require_once '../templates/techgmail.php';
+        // var_dump($techusername);
+        // var_dump($techpassword);
+        // var_dump($techtoken);
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="scripts/jquery-3.3.1.min.js"></script>
-  <script src="scripts/bootstrap.bundle.js"></script>
-</body>
+        date_default_timezone_set('Etc/UTC');
+        require '../vendor/autoload.php';
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        //Enable SMTP debugging
+        // 0 = off (for production use)
+        // 1 = client messages
+        // 2 = client and server messages
+        $mail->SMTPDebug = 2;
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->SMTPSecure = 'tls';
+        $mail->SMTPAuth = true;
+        $mail->AuthType = 'XOAUTH2';
+        $email = $techusername;
+        $clientId = $techclientID;
+        $clientSecret = $techclientSecret;
+        $refreshToken = $techtoken;
+        $provider = new Google(
+          [
+            'clientId' => $clientId,
+            'clientSecret' => $clientSecret,
+          ]
+        );
+        $mail->setOAuth(
+          new OAuth(
+            [
+              'provider' => $provider,
+              'clientId' => $clientId,
+              'clientSecret' => $clientSecret,
+              'refreshToken' => $refreshToken,
+              'userName' => $email,
+            ]
+          )
+        );
+        $mail->setFrom($email, 'Evipod');
+        $mail->addAddress($userEmail, $userName);
+        $mail->Subject = 'Evipod - Potvrda';
+        $mail->CharSet = 'utf-8';
+        $mail->isHTML(true);
+        $mail->Body = '
+        Pozdrav ' . $userName . '.<br><br>
+        Hvala što Ste izradili Evipod račun.<br>
+        Za potvrdu korisničkog računa i korištenje aplikacije, pritisnite poveznicu ispod:<br><br>
+        <a href="http://localhost/evipod/app/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>
+        ';
 
-</html>
+        $query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, tokenConfirm) VALUES (?,?,?,?)");
+        $query->bind_param("ssss", $userName, $userEmail, $userPass, $token);
+
+        if ($mail->send() && $query->execute()) {
+          $_SESSION['msg'] = '<div class="alert alert-info text-center"><strong>Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.</strong></div>';
+          header("Location: ./membership");
+        } else {
+          $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Nije bilo moguće kreirati korisnika!</strong></div>';
+          header("Location: ./membership");
+        }
+      }
+    } else {
+      $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Greška!</strong></div>';
+      header("Location: ./membership");
+    }
+  }
+}
+?>
