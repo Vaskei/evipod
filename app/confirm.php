@@ -32,6 +32,5 @@ if (!isset($_GET['email']) || !isset($_GET['token'])) {
   } else {
     redirectWithMsg("warning", "Greška prilikom čitanja baze!", "./membership");
   }
-
 }
 ?>
