@@ -103,13 +103,13 @@ if (isset($_POST['registrationSubmit'])) {
         );
         $mail->setFrom($email, 'Evipod');
         $mail->addAddress($userEmail, $userName);
-        $mail->Subject = 'Evipod - Potvrda';
+        $mail->Subject = 'Evipod - Aktivacija računa';
         $mail->CharSet = 'utf-8';
         $mail->isHTML(true);
         $mail->Body = '
         Pozdrav ' . $userName . '.<br><br>
         Hvala što Ste izradili Evipod račun.<br>
-        Za potvrdu korisničkog računa i korištenje aplikacije, pritisnite poveznicu ispod:<br><br>
+        Za aktiviranje korisničkog računa i korištenje aplikacije, pritisnite poveznicu ispod:<br><br>
         <a href="http://localhost/evipod/app/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>
         ';
 
@@ -117,7 +117,7 @@ if (isset($_POST['registrationSubmit'])) {
         $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
 
         if ($mail->send() && $query->execute()) {
-          redirectWithMsg("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "./membership");
+          redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "./membership");
         } else {
           redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "./membership");
         }
@@ -126,5 +126,8 @@ if (isset($_POST['registrationSubmit'])) {
       redirectWithMsg("warning", "Greška!", "./membership");
     }
   }
+} else {
+  header("Location: ./membership");
+  exit();
 }
 ?>

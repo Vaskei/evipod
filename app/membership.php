@@ -50,6 +50,7 @@ require_once "./includes/connection.php";
         <div class="card card-tabs-custom">
           <div class="card-body">
             <div class="tab-content" id="myTabContentLoginReg">
+              <!-- Login panel -->
               <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                 <img class="card-img-top" src="../../templates/evipod/images/acer-agriculture-environment-512.jpg" alt="Photo by Kaboompics.com from Pexels">
                 <div class="card-body">
@@ -76,6 +77,9 @@ require_once "./includes/connection.php";
                   <hr>
                 </div>
               </div>
+              <!-- /.Login panel -->
+
+              <!-- Registration panel -->
               <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                 <img class="card-img-top" src="../../templates/evipod/images/afterglow-agriculture-back-light-512.jpg"
                   alt="Photo by Felix Mittermeier from Pexels">
@@ -107,6 +111,7 @@ require_once "./includes/connection.php";
                   <hr>
                 </div>
               </div>
+              <!-- /.Registration panel -->
             </div>
           </div>
         </div>
