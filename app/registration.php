@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once './includes/connection.php';
+require_once './includes/functions.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\OAuth;
@@ -28,33 +29,23 @@ if (isset($_POST['registrationSubmit'])) {
 
   // Provjera da li su polja prazna
   if ($userName == "" || $userEmail == "" || $userPass == "" || $userPassConfirm == "") {
-    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Sva polja su obavezna!</strong></div>';
-    header("Location: ./membership");
-    exit();
+    redirectWithMsg("warning", "Sva polja su obavezna!", "./membership");
   } 
   // Provjera da li se lozinke poklapaju
   else if ($userPass != $userPassConfirm) {
-    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Lozinke se ne podudaraju!</strong></div>';
-    header("Location: ./membership");
-    exit();
+    redirectWithMsg("warning", "Lozinke se ne podudaraju!", "./membership");
   } 
   // Provjera da li se Email adresa valjana
   else if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
-    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Nepodržani format Email adrese!</strong></div>';
-    header("Location: ./membership");
-    exit();
+    redirectWithMsg("warning", "Nepodržani format Email adrese!", "./membership");
   } 
   // Provjera da li je ime korisnika u zadanim granicama
   else if (strlen($userName) < 3 || strlen($userName) > 100) {
-    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Ime može imati min. 3 i max. 100 znakova!</strong></div>';
-    header("Location: ./membership");
-    exit();
+    redirectWithMsg("warning", "Ime može imati min. 3 i max. 100 znakova!", "./membership");
   } 
   // Provjera da li korisnicka zaporka ima nedozvoljene znakove
   else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
-    $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!</strong></div>';
-    header("Location: ./membership");
-    exit();
+    redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "./membership");
   } else {
     // Provjera da li postoji korisnik sa unsesenom Email adresom
     $query = $conn->prepare("SELECT * FROM users WHERE user_email=? LIMIT 1");
@@ -62,9 +53,7 @@ if (isset($_POST['registrationSubmit'])) {
     if ($query->execute()) {
       $result = $query->get_result();
       if ($result->num_rows > 0) {
-        $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Email već postoji u bazi.</strong></div>';
-        header("Location: ./membership");
-        exit();
+        redirectWithMsg("warning", "Email već postoji u bazi.", "./membership");  
       } else {
         $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
         $token = substr(str_shuffle($token), 0, 20);
@@ -125,19 +114,16 @@ if (isset($_POST['registrationSubmit'])) {
         ';
 
         $query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, tokenConfirm) VALUES (?,?,?,?)");
-        $query->bind_param("ssss", $userName, $userEmail, $userPass, $token);
+        $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
 
         if ($mail->send() && $query->execute()) {
-          $_SESSION['msg'] = '<div class="alert alert-info text-center"><strong>Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.</strong></div>';
-          header("Location: ./membership");
+          redirectWithMsg("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "./membership");
         } else {
-          $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Nije bilo moguće kreirati korisnika!</strong></div>';
-          header("Location: ./membership");
+          redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "./membership");
         }
       }
     } else {
-      $_SESSION['msg'] = '<div class="alert alert-warning text-center alertFadeout"><strong>Greška!</strong></div>';
-      header("Location: ./membership");
+      redirectWithMsg("warning", "Greška!", "./membership");
     }
   }
 }
