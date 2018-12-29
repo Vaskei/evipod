@@ -2,6 +2,7 @@
 session_start();
 // ob_start();
 require_once "./includes/connection.php";
+$title = "Evipod - Članstvo"
 ?>
 
 <!doctype html>
@@ -48,7 +49,7 @@ require_once "./includes/connection.php";
           </li>
         </ul>
         <div class="card card-tabs-custom">
-          <div class="card-body">
+          <div class="card-body pb-0">
             <div class="tab-content" id="myTabContentLoginReg">
               <!-- Login panel -->
               <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
@@ -60,21 +61,20 @@ require_once "./includes/connection.php";
                   <form method="POST" action="login.php">
                     <div class="form-group">
                       <label for="loginEmail">Email</label>
-                      <input type="email" class="form-control" id="loginEmail" placeholder="Unesite email...">
+                      <input type="email" class="form-control" id="loginEmail" name="loginEmail" placeholder="Unesite email...">
                     </div>
                     <div class="form-group">
                       <label for="loginPass">Lozinka</label>
-                      <input type="password" class="form-control" id="loginPass" placeholder="Unesite lozinku...">
-                    </div>
-                    <div class="form-group">
-                      <label for="loginPassConfirm">Ponovite lozinku</label>
-                      <input type="password" class="form-control" id="loginPassConfirm" placeholder="Ponovite lozinku...">
+                      <input type="password" class="form-control" id="loginPass" name="loginPass" placeholder="Unesite lozinku...">
                     </div>
                     <button type="submit" name="loginSubmit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>&nbsp;Prijava</button>
                     <a class="btn btn-secondary" href="../" role="button"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>
                   </form>
 
                   <hr>
+                  <div class="text-center">
+                    <a class="text-info" href="../">Zaboravljena lozinka?</a>
+                  </div>
                 </div>
               </div>
               <!-- /.Login panel -->
@@ -94,21 +94,27 @@ require_once "./includes/connection.php";
                     </div>
                     <div class="form-group">
                       <label for="registrationEmail">Email</label>
-                      <input type="email" class="form-control" id="registrationEmail" name="registrationEmail" placeholder="Unesite email...">
+                      <input type="email" class="form-control" id="registrationEmail" name="registrationEmail"
+                        placeholder="Unesite email...">
                     </div>
                     <div class="form-group">
                       <label for="registrationPass">Lozinka</label>
-                      <input type="password" class="form-control" id="registrationPass" name="registrationPass" placeholder="Unesite lozinku...">
+                      <input type="password" class="form-control" id="registrationPass" name="registrationPass"
+                        placeholder="Unesite lozinku...">
                     </div>
                     <div class="form-group">
                       <label for="registrationPassConfirm">Ponovite lozinku</label>
-                      <input type="password" class="form-control" id="registrationPassConfirm" name="registrationPassConfirm" placeholder="Ponovite lozinku...">
+                      <input type="password" class="form-control" id="registrationPassConfirm" name="registrationPassConfirm"
+                        placeholder="Ponovite lozinku...">
                     </div>
                     <button type="submit" name="registrationSubmit" class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;Registracija</button>
                     <a class="btn btn-secondary" href="../" role="button"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>
                   </form>
 
                   <hr>
+                  <div class="text-center">
+                    <a class="text-info" href="../">Zaboravljena lozinka?</a>
+                  </div>
                 </div>
               </div>
               <!-- /.Registration panel -->

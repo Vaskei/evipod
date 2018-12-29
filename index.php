@@ -1,3 +1,7 @@
+<?php
+session_start();
+$title = "Evipod - Uvod"
+?>
 <!doctype html>
 <html lang="en">
 

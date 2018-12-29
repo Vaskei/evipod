@@ -1,3 +1,9 @@
+<?php
+session_start();
+// ob_start();
+require_once "./includes/connection.php";
+$title = "Evipod - Home"
+?>
 <!doctype html>
 <html lang="en">
 
@@ -16,6 +22,7 @@
   <div class="container">
     <h1>App Page</h1>
     <a class="btn btn-primary" href="../" role="button">Back</a>
+    <p><?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "Nema prijavljenog korisnika."; ?></p>
   </div>
 
 
