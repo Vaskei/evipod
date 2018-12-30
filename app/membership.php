@@ -54,7 +54,7 @@ $title = "Evipod - Članstvo"
             <div class="tab-content" id="myTabContentLoginReg">
               <!-- Login panel -->
               <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                <img class="card-img-top" src="../../templates/evipod/images/acer-agriculture-environment-512.jpg" alt="Photo by Kaboompics.com from Pexels">
+                <img class="card-img-top" src="./images/acer-agriculture-environment-512.jpg" alt="Photo by Kaboompics.com from Pexels">
                 <div class="card-body">
 
                   <h4 class="card-title text-center">PRIJAVA</h4>
@@ -82,7 +82,7 @@ $title = "Evipod - Članstvo"
 
               <!-- Registration panel -->
               <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                <img class="card-img-top" src="../../templates/evipod/images/afterglow-agriculture-back-light-512.jpg"
+                <img class="card-img-top" src="./images/afterglow-agriculture-back-light-512.jpg"
                   alt="Photo by Felix Mittermeier from Pexels">
                 <div class="card-body">
 
