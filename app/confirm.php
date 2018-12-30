@@ -30,7 +30,7 @@ if (!isset($_GET['email']) || !isset($_GET['token'])) {
             redirectWithMsg("warning", "Greška prilikom aktivacije računa!", "./membership");
           }
         } else {
-          redirectWithMsg("warning", "Podaci za aktivaciju se ne poklapaju!", "./membership");
+          redirectWithMsg("warning", "Podaci za aktivaciju se ne poklapaju ili je račun aktiviran!", "./membership");
         }
       } else {
         redirectWithMsg("warning", "Greška prilikom čitanja baze!", "./membership");

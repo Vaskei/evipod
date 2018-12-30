@@ -21,6 +21,7 @@ $title = "Evipod - Članstvo"
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./styles/membership.css">
+  <link rel="stylesheet" href="./styles/custom.css">
 
   <title>Prijava / Registracija</title>
 </head>
@@ -87,25 +88,29 @@ $title = "Evipod - Članstvo"
 
                   <h4 class="card-title text-center">REGISTRACIJA</h4>
                   <hr>
-                  <form method="POST" action="registration.php">
+                  <form class="needs-validation" method="POST" action="registration.php" novalidate>
                     <div class="form-group">
                       <label for="registrationName">Ime</label>
-                      <input type="text" class="form-control" id="registrationName" name="registrationName" placeholder="Unesite ime...">
+                      <input type="text" class="form-control" id="registrationName" name="registrationName" placeholder="Unesite ime..." required minlength="3" maxlength="100">
+                      <div class="invalid-feedback">Ime je obavezno (min. 3, max. 100 znakova).</div>
                     </div>
                     <div class="form-group">
                       <label for="registrationEmail">Email</label>
                       <input type="email" class="form-control" id="registrationEmail" name="registrationEmail"
-                        placeholder="Unesite email...">
+                        placeholder="Unesite email..." required>
+                        <div class="invalid-feedback">Email je obavezan i mora imati važeći format.</div>
                     </div>
                     <div class="form-group">
                       <label for="registrationPass">Lozinka</label>
                       <input type="password" class="form-control" id="registrationPass" name="registrationPass"
-                        placeholder="Unesite lozinku...">
+                        placeholder="Unesite lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
+                      <div class="invalid-feedback">Lozinka može imati samo slova i brojke (min. 6, max. 50 znakova).</div>
                     </div>
                     <div class="form-group">
                       <label for="registrationPassConfirm">Ponovite lozinku</label>
                       <input type="password" class="form-control" id="registrationPassConfirm" name="registrationPassConfirm"
-                        placeholder="Ponovite lozinku...">
+                        placeholder="Ponovite lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
+                      <div class="invalid-feedback" id="password_match">Lozinke moraju biti jednake.</div>
                     </div>
                     <button type="submit" name="registrationSubmit" class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;Registracija</button>
                     <a class="btn btn-secondary" href="../" role="button"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>
@@ -128,7 +133,7 @@ $title = "Evipod - Članstvo"
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="./scripts/jquery-3.3.1.min.js"></script>
-  <script src="./scripts/bootstrap.bundle.js"></script>
+  <script src="./scripts/bootstrap.bundle.min.js"></script>
   <script src="./scripts/custom.js"></script>
 </body>
 

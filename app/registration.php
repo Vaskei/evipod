@@ -22,7 +22,8 @@ userPass = min 6 znakova, max 50 znakova, slova i brojke
 
 if (isset($_POST['registrationSubmit'])) {
   // var_dump($_POST);
-  $userName = htmlentities(trim($_POST['registrationName']));
+  //$userName = htmlentities(trim($_POST['registrationName']));
+  $userName = filter_var(trim($_POST['registrationName']), FILTER_SANITIZE_STRING);
   $userEmail = trim($_POST['registrationEmail']);
   $userPass = trim($_POST['registrationPass']);
   $userPassConfirm = trim($_POST['registrationPassConfirm']);
@@ -112,7 +113,7 @@ if (isset($_POST['registrationSubmit'])) {
           $mail->CharSet = 'utf-8';
           $mail->isHTML(true);
           $mail->Body = '
-            Pozdrav ' . $userName . '.<br><br>
+            Pozdrav ' . htmlspecialchars($userName) . '.<br><br>
             Hvala što Ste izradili Evipod račun.<br>
             Za aktiviranje korisničkog računa i korištenje aplikacije, pritisnite poveznicu ispod:<br><br>
             <a href="http://localhost/evipod/app/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>';

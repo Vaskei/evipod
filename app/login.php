@@ -11,10 +11,10 @@ if (isset($_POST['loginSubmit'])) {
 
   // Provjera ispravnosti Email adrese
   if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
-    redirectWithMsg("warning", "Nepodržani format Email adrese!", "./membership");
+    redirectWithMsg("warning", "Neispravno uneseni podaci. Pokušajte ponovno.", "./membership");
   // Provjera ispravnosti tokena
   } else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
-    redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "./membership");
+    redirectWithMsg("warning", "Neispravno uneseni podaci. Pokušajte ponovno.", "./membership");
   } else {
     // Dohvacanje korisnika
     if ($query = $conn->prepare("SELECT * FROM users WHERE user_email=? LIMIT 1")) {
@@ -22,7 +22,7 @@ if (isset($_POST['loginSubmit'])) {
       if ($query->execute()) {
         $user = $query->get_result()->fetch_assoc();
         // Provjera da li je korisnicki racun aktiviran
-        if ($user['isEmailConfirmed'] == 0 || $user['tokenConfirm'] != "") {
+        if (!empty($user['user_email']) && $user['isEmailConfirmed'] === 0 && $user['tokenConfirm'] != "") {
           redirectWithMsg("light", "Korisnički račun nije aktiviran. Provjerite svoj Email.", "./membership");
         } else {
           // Provjera da li korisnik postoji i podudaranje unesene lozinke

@@ -3,7 +3,12 @@
  * Funkcija za definiranje poruke i njezinog Bootstrap tipa (success, danger, warning, info...), te preusmjeravanje korisnika.
  */
 function redirectWithMsg(string $type, string $message, string $location){
-  $_SESSION['msg'] = "<div class='alert alert-{$type} text-center alertFadeout'><strong>{$message}</strong></div>";
+  $_SESSION['msg'] = "<div class='alert alert-{$type} text-center alertFadeout'>
+                        <strong>{$message}</strong>
+                          <div class='progress' id='customAlertBar'>
+                            <div class='progress-bar bg-info' role='progressbar' style='width:100%' id='customBar'></div>
+                          </div> 
+                      </div>";
   header("Location: {$location}");
   exit();
 }
