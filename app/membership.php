@@ -75,7 +75,7 @@ $title = "Evipod - Članstvo"
 
                   <hr>
                   <div class="text-center">
-                    <a class="text-info" href="../">Zaboravljena lozinka?</a>
+                    <a class="text-info" href="./password_reset">Zaboravljena lozinka?</a>
                   </div>
                 </div>
               </div>
@@ -119,7 +119,7 @@ $title = "Evipod - Članstvo"
 
                   <hr>
                   <div class="text-center">
-                    <a class="text-info" href="../">Zaboravljena lozinka?</a>
+                    <a class="text-info" href="./password_reset">Zaboravljena lozinka?</a>
                   </div>
                 </div>
               </div>
