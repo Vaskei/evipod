@@ -1,7 +1,7 @@
-// Skrivanje svih alert-ova nakon 2 sekunde
+// Skrivanje svih alert-ova nakon X sekundi
 $(".alertFadeout").delay(3000).fadeOut();
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
+// Auto-start anonimna funkcija
 (function () {
   'use strict';
   window.addEventListener('load', function () {
@@ -26,17 +26,17 @@ $(".alertFadeout").delay(3000).fadeOut();
         form.classList.add('was-validated');
       }, false);
     });
-  }, false);
 
-  // 
-  var bar = document.getElementById("customBar");
-  var barWidth = 100;
-  var downloadTimer = setInterval(() => {
-    barWidth -= 33.33333;
-    bar.style.width = barWidth + '%';
-    if (barWidth <= 0) {
-      clearInterval(downloadTimer);
-      console.log("Done");
-    }
-  }, 750);
+    // Progress bar za alertove (oznacava korisniku da ce se alert zatvoriti za nekoliko sekundi)
+    var bar = document.getElementById("customBar");
+    var barWidth = 100;
+    var downloadTimer = setInterval(() => {
+      barWidth -= 33.33333;
+      bar.style.width = barWidth + '%';
+      if (barWidth <= 0) {
+        clearInterval(downloadTimer);
+        console.log("Done");
+      }
+    }, 750);
+  }, false);
 })();

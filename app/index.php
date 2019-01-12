@@ -23,7 +23,7 @@ $title = "Evipod - Home"
   <div class="container">
     <h1>App Page</h1>
     <a class="btn btn-primary" href="../" role="button">Back</a>
-    <a class="btn btn-secondary" href="./logout.php" role="button">Logout</a>
+    <a class="btn btn-secondary" href="./includes/logout.php" role="button">Logout</a>
     <p><?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "Nema prijavljenog korisnika."; ?></p>
   </div>
 

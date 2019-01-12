@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (isset($_SESSION['user_id'])) header("Location: ./");
 // ob_start();
 require_once "./includes/connection.php";
 $title = "Evipod - Članstvo"
@@ -59,7 +60,7 @@ $title = "Evipod - Članstvo"
 
                   <h4 class="card-title text-center">PRIJAVA</h4>
                   <hr>
-                  <form method="POST" action="login.php">
+                  <form method="POST" action="./includes/login.php">
                     <div class="form-group">
                       <label for="loginEmail">Email</label>
                       <input type="email" class="form-control" id="loginEmail" name="loginEmail" placeholder="Unesite email...">
@@ -88,7 +89,7 @@ $title = "Evipod - Članstvo"
 
                   <h4 class="card-title text-center">REGISTRACIJA</h4>
                   <hr>
-                  <form class="needs-validation" method="POST" action="registration.php" novalidate>
+                  <form class="needs-validation" method="POST" action="./includes/registration.php" novalidate>
                     <div class="form-group">
                       <label for="registrationName">Ime</label>
                       <input type="text" class="form-control" id="registrationName" name="registrationName" placeholder="Unesite ime..." required minlength="3" maxlength="100">
