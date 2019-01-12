@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="./styles/membership.css">
   <link rel="stylesheet" href="./styles/custom.css">
 
-  <title>Zaboravljena lozinka</title>
+  <title>Nova lozinka</title>
 </head>
 
 <body>
@@ -25,17 +25,24 @@
       <div class="col-md-8 col-lg-6">
         <div class="card card-tabs-custom">
           <div class="card-body pb-0">
-            <img class="card-img-top" src="./images/chain-key-lock-512.jpg">
+            <img class="card-img-top" src="./images/cyber-security-cybersecurity-device-512.jpg">
             <div class="card-body">
-              <h4 class="card-title text-center">ZABORAVILI STE LOZINKU?</h4>
-              <h6 class="card-subtitle text-justify small">Ukoliko ste se već registrirali na našoj aplikaciji, a zaboravili ste lozinku, molimo <strong>upišite svoju e-mail adresu</strong>. Upute za promjenu lozinke doći će vam e-mailom.</h6>
+              <h4 class="card-title text-center">NOVA LOZINKA</h4>
               <hr>
-              <form method="POST" action=""> <!-- TODO: staviti novalidate forme -->
+              <form class="needs-validation" method="POST" action="" novalidate>
                 <div class="form-group">
-                  <label for="pwdResetEmail">Email</label>
-                  <input type="email" class="form-control" id="pwdResetEmail" name="pwdResetEmail" placeholder="Unesite email..."> <!-- TODO: required input -->
+                  <label for="pwdResetConfirm">Nova lozinka</label>
+                  <input type="password" class="form-control" id="pwdResetConfirm" name="pwdResetConfirm" placeholder="Unesite novu lozinku..."
+                    required pattern="^[a-zA-Z0-9]{6,50}$">
+                  <div class="invalid-feedback">Lozinka može imati samo slova i brojke (min. 6, max. 50 znakova).</div>
                 </div>
-                <button type="submit" name="pwdResetSubmit" class="btn btn-primary"><i class="fas fa-passport"></i>&nbsp;Nova
+                <div class="form-group">
+                  <label for="pwdResetConfirmRepeat">Ponovite novu lozinku</label>
+                  <input type="password" class="form-control" id="pwdResetConfirmRepeat" name="pwdResetConfirmRepeat"
+                    placeholder="Ponovite novu lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
+                  <div class="invalid-feedback" id="password_match">Lozinke moraju biti jednake.</div>
+                </div>
+                <button type="submit" name="pwdResetConfirmSubmit" class="btn btn-primary"><i class="fas fa-passport"></i>&nbsp;Nova
                   lozinka</button>
                 <a class="btn btn-secondary" href="./membership" role="button"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>
               </form>
