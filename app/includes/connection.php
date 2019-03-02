@@ -1,6 +1,6 @@
 <?php 
 
-$conn = new MySQLi("localhost", "root", "", "evipod");
+$conn = new mysqli("localhost", "root", "", "evipod");
 if ($conn->connect_error) {
   echo '<div class="alert alert-danger">
         <strong>Nije se moguće spojiti na bazu podataka</strong></div>';

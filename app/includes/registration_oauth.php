@@ -5,11 +5,14 @@ require_once './functions.php';
 
 require './PHPMailer/Exception.php';
 require './PHPMailer/PHPMailer.php';
+require './PHPMailer/OAuth.php';
 require './PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\OAuth;
 
+use League\OAuth2\Client\Provider\Google;
 /* 
 userName = min 3 znakova, max 100 znakova
 userEmail = filter_var
@@ -28,19 +31,19 @@ if (isset($_POST['registrationSubmit'])) {
   // Provjera da li su polja prazna
   if ($userName == "" || $userEmail == "" || $userPass == "" || $userPassConfirm == "") {
     redirectWithMsg("warning", "Sva polja su obavezna!", "../membership");
-  }
+  } 
   // Provjera da li se lozinke poklapaju
   else if ($userPass != $userPassConfirm) {
     redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../membership");
-  }
+  } 
   // Provjera da li se Email adresa valjana
   else if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
     redirectWithMsg("warning", "Nepodržani format Email adrese!", "../membership");
-  }
+  } 
   // Provjera da li je ime korisnika u zadanim granicama
   else if (strlen($userName) < 3 || strlen($userName) > 100) {
     redirectWithMsg("warning", "Ime može imati min. 3 i max. 100 znakova!", "../membership");
-  }
+  } 
   // Provjera da li korisnicka zaporka ima nedozvoljene znakove
   else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
     redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../membership");
@@ -69,6 +72,8 @@ if (isset($_POST['registrationSubmit'])) {
           //var_dump($techtoken);
 
           // Inicijalizacija PHPMailer klase i kreiranje email-a
+          date_default_timezone_set('Etc/UTC');
+          require '../../vendor/autoload.php';
           $mail = new PHPMailer;
           $mail->isSMTP();
           //Enable SMTP debugging
@@ -80,11 +85,28 @@ if (isset($_POST['registrationSubmit'])) {
           $mail->Port = 587;
           $mail->SMTPSecure = 'tls';
           $mail->SMTPAuth = true;
-          $mail->Username = $techusername;
-          $mail->Password = $techpassword;
-          
+          $mail->AuthType = 'XOAUTH2';
           $email = $techusername;
-
+          $clientId = $techclientID;
+          $clientSecret = $techclientSecret;
+          $refreshToken = $techtoken;
+          $provider = new Google(
+            [
+              'clientId' => $clientId,
+              'clientSecret' => $clientSecret,
+            ]
+          );
+          $mail->setOAuth(
+            new OAuth(
+              [
+                'provider' => $provider,
+                'clientId' => $clientId,
+                'clientSecret' => $clientSecret,
+                'refreshToken' => $refreshToken,
+                'userName' => $email,
+              ]
+            )
+          );
           $mail->setFrom($email, 'Evipod');
           $mail->addAddress($userEmail, $userName);
           $mail->Subject = 'Evipod - Aktivacija računa';
@@ -119,4 +141,4 @@ if (isset($_POST['registrationSubmit'])) {
   header("Location: ../membership");
   exit();
 }
- 
+?>
