@@ -33,7 +33,7 @@
               <form method="POST" action=""> <!-- TODO: staviti novalidate forme -->
                 <div class="form-group">
                   <label for="pwdResetEmail">Email</label>
-                  <input type="email" class="form-control" id="pwdResetEmail" name="pwdResetEmail" placeholder="Unesite email..."> <!-- TODO: required input -->
+                  <input type="email" class="form-control" id="pwdResetEmail" name="pwdResetEmail" placeholder="Unesite email..."> <!-- TODO: required validation -->
                 </div>
                 <button type="submit" name="pwdResetSubmit" class="btn btn-primary"><i class="fas fa-passport"></i>&nbsp;Nova
                   lozinka</button>

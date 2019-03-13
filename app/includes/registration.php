@@ -18,9 +18,9 @@ userPass = min 6 znakova, max 50 znakova, slova i brojke
  */
 
 if (isset($_POST['registrationSubmit'])) {
-  // var_dump($_POST);
+  //var_dump($_POST);
   //$userName = htmlentities(trim($_POST['registrationName']));
-  $userName = filter_var(trim($_POST['registrationName']), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $userName = trim($_POST['registrationName']);
   $userEmail = trim($_POST['registrationEmail']);
   $userPass = trim($_POST['registrationPass']);
   $userPassConfirm = trim($_POST['registrationPassConfirm']);
