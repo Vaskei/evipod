@@ -8,8 +8,6 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
   $token = $_POST['pwdResetConfirmToken'];
   $pwdReset = trim($_POST['pwdResetConfirm']);
   $pwdResetRepeat = trim($_POST['pwdResetConfirmRepeat']);
-  // var_dump($_POST);
-  // exit();
 
   // Provjera selektora i tokena
   if (ctype_xdigit($selector) === false || ctype_xdigit($token) === false) {
@@ -28,6 +26,7 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
 
   // Trenutno vrijeme
   $currentDate = date("U");
+
   // Provjera da li postoji redak u tabeli sa istim selektorom i ispravnom valjanoscu
   if ($query = $conn->prepare("SELECT * FROM pwd_reset WHERE pwd_selector=? AND pwd_expiration>=? LIMIT 1")) {
     $query->bind_param("ss", $selector, $currentDate);
@@ -37,7 +36,7 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
         redirectWithMsg("warning", "Valjanost poveznice za resetiranje lozinke je istekla. Pokušajte ponovno.", "../membership");
       } else {
         $row = $result->fetch_assoc();
-        // Pretvaranje token u binarni format i provjera tocnosti sa tokenom iz baze
+        // Pretvaranje tokena u binarni format i provjera tocnosti sa tokenom iz baze
         $tokenBin = hex2bin($token);
         $tokenCheck = password_verify($tokenBin, $row['pwd_token']);
         if ($tokenCheck === false) {
@@ -60,6 +59,7 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
                     if ($query->prepare("DELETE FROM pwd_reset WHERE pwd_email=?")) {
                       $query->bind_param("s", $tokenEmail);
                       if ($query->execute()) {
+                        $query->close();
                         redirectWithMsgNoFadeout("success", "Lozinka izmijenjena.", "../membership");
                       } else {
                         redirectWithMsg("warning", "Greška!", "../membership");

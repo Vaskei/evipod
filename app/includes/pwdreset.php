@@ -46,8 +46,10 @@ if (isset($_POST['pwdResetSubmit'])) {
       $selector = bin2hex(random_bytes(8));
       $token = random_bytes(32);
       $url = 'http://localhost/evipod/app/passwordresetconfirm.php?selector=' . $selector . '&token=' . bin2hex($token);
+
+      // Vrijeme valjansoti = trenutno vrijeme + 900 sek
       $expiration = date('U') + 900;
-      var_dump(date('d.m.Y H:i:s', $expiration));
+      // var_dump(date('d.m.Y H:i:s', $expiration));
 
       // Podaci za spajanje na Gmail korisnicki racun
       require_once '../../templates/techgmail.php';
@@ -80,11 +82,12 @@ if (isset($_POST['pwdResetSubmit'])) {
         Za resetiranje lozinke, pritisnite poveznicu ispod (valjanost poveznice je 15min):<br><br>
         <a href="' . $url . '">Resetiranje lozinke.</a>';
 
-      // 
+      // Upis podataka u pwd_reset tabelu i slanje Emaila
       if ($query = $conn->prepare("INSERT INTO pwd_reset(pwd_email, pwd_selector, pwd_token, pwd_expiration) VALUES (?,?,?,?)")) {
         $hashedToken = password_hash($token, PASSWORD_DEFAULT);
         $query->bind_param("ssss", $resetEmail, $selector, $hashedToken, $expiration);
         if ($mail->send() && $query->execute()) {
+          $query->close();
           redirectWithMsgNoFadeout("info", "Provjerite svoj Email za daljnje upute.", "../membership");
          } else {
           redirectWithMsg("warning", "Greška!", "../passwordreset");

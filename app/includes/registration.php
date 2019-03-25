@@ -100,6 +100,7 @@ if (isset($_POST['registrationSubmit'])) {
           if ($query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, tokenConfirm) VALUES (?,?,?,?)")) {
             $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
             if ($mail->send() && $query->execute()) {
+              $query->close();
               redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "../membership");
             } else {
               redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../membership");
