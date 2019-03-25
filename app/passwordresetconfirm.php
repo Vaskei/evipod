@@ -2,7 +2,9 @@
 session_start();
 require_once './includes/functions.php';
 if (isset($_SESSION['user_id'])) header("Location: ./");
-if (empty($_GET['selector']) || empty($_GET['token'])) {
+$selector = $_GET['selector'];
+$token = $_GET['token'];
+if (empty($selector) || empty($token) || ctype_xdigit($selector) === false || ctype_xdigit($token) === false) {
   redirectWithMsg("warning", "Neispravni podaci!", "./membership");
 }
 // ob_start();
@@ -41,7 +43,7 @@ $title = "Evipod - Nova lozinka"
             <div class="card-body">
               <h4 class="card-title text-center">NOVA LOZINKA</h4>
               <hr>
-              <form class="needs-validation" method="POST" action="" novalidate>
+              <form class="needs-validation" method="POST" action="./includes/pwdresetconfirm.php" novalidate>
                 <div class="form-group">
                   <label for="pwdResetConfirm">Nova lozinka</label>
                   <input type="password" class="form-control" id="pwdResetConfirm" name="pwdResetConfirm" placeholder="Unesite novu lozinku..."
@@ -54,6 +56,8 @@ $title = "Evipod - Nova lozinka"
                     placeholder="Ponovite novu lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
                   <div class="invalid-feedback" id="password_match">Lozinke moraju biti jednake.</div>
                 </div>
+                <input type="hidden" name="pwdResetConfirmSelector" value="<?php echo $selector; ?>">
+                <input type="hidden" name="pwdResetConfirmToken" value="<?php echo $token; ?>">
                 <button type="submit" name="pwdResetConfirmSubmit" class="btn btn-primary"><i class="fas fa-passport"></i>&nbsp;Nova
                   lozinka</button>
                 <a class="btn btn-secondary" href="./membership" role="button"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>

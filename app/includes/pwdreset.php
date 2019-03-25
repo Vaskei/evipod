@@ -22,7 +22,23 @@ if (isset($_POST['pwdResetSubmit'])) {
     redirectWithMsg("warning", "Nepodržani format Email adrese!", "../passwordreset");
   }
 
-  // Ukoliko postoji uneseni Email u bazi, brisemo isti (isteklo dozvoljeno vrijeme za resetiranje lozinke)
+  // Provjera da li Email postoji u tabeli korisnika
+  if ($query = $conn->prepare("SELECT * FROM users WHERE user_email=?")) {
+    $query->bind_param("s", $resetEmail);
+    if ($query->execute()) {
+      $result = $query->get_result();
+      if ($result->num_rows === 0) {
+        redirectWithMsg("warning", "Pogrešan Email! Pokušajte ponovno.", "../passwordreset");
+      }
+    } else {
+      redirectWithMsg("warning", "Greška!", "../passwordreset");
+    }    
+  } else {
+    redirectWithMsg("warning", "Greška!", "../passwordreset");
+  }
+  
+
+  // Ukoliko postoji uneseni Email u tabeli za resetiranje lozinke, brisemo isti (isteklo dozvoljeno vrijeme za resetiranje lozinke)
   if ($query = $conn->prepare("DELETE FROM pwd_reset WHERE pwd_email=?")) {
     $query->bind_param("s", $resetEmail);
     if ($query->execute()) {
@@ -61,7 +77,7 @@ if (isset($_POST['pwdResetSubmit'])) {
       $mail->Body = '
         Poštovani, <br><br>
         Zatražili Ste resetiranje lozinke za pristup Evipod aplikaciji.<br>
-        Za resetiranje lozinke, pritisnite poveznicu ispod:<br><br>
+        Za resetiranje lozinke, pritisnite poveznicu ispod (valjanost poveznice je 15min):<br><br>
         <a href="' . $url . '">Resetiranje lozinke.</a>';
 
       // 
