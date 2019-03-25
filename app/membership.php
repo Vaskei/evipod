@@ -24,7 +24,7 @@ $title = "Evipod - Članstvo"
   <link rel="stylesheet" href="./styles/membership.css">
   <link rel="stylesheet" href="./styles/custom.css">
 
-  <title>Prijava / Registracija</title>
+  <title><?php echo isset($title) ? $title : 'Evipod' ; ?></title>
 </head>
 
 <body>

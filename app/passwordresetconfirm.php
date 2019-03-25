@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once './includes/functions.php';
+if (isset($_SESSION['user_id'])) header("Location: ./");
+if (empty($_GET['selector']) || empty($_GET['token'])) {
+  redirectWithMsg("warning", "Neispravni podaci!", "./membership");
+}
+// ob_start();
+require_once "./includes/connection.php";
+$title = "Evipod - Nova lozinka"
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -16,7 +28,7 @@
   <link rel="stylesheet" href="./styles/membership.css">
   <link rel="stylesheet" href="./styles/custom.css">
 
-  <title>Nova lozinka</title>
+  <title><?php echo isset($title) ? $title : 'Evipod' ; ?></title>
 </head>
 
 <body>

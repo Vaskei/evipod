@@ -15,21 +15,23 @@
         }
         form.classList.add('was-validated');
 
-        // Promjena submit gumba ukoliko je forma tocna prilikom klika
+        // Provjera i romjena submit gumba ukoliko je forma tocna prilikom klika
         if (form.checkValidity()) {
           setTimeout(function () {
-            document.getElementById("registrationSubmit").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Registracija';
-            document.getElementById("registrationSubmit").setAttribute("disabled", "");
+            if (document.getElementById("registrationSubmit")) {
+              document.getElementById("registrationSubmit").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Registracija';
+              document.getElementById("registrationSubmit").setAttribute("disabled", "");
+            }
+            if (document.getElementById("pwdResetSubmit")) {
+              document.getElementById("pwdResetSubmit").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Nova lozinka';
+              document.getElementById("pwdResetSubmit").setAttribute("disabled", "");
+            }
           }, 250);
         }
 
       }, false);
     });
   }, false);
-
-
-
-
 
 })();
 
