@@ -84,14 +84,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
   $("#registrationPass, #registrationPassConfirm").keyup(checkRegistrationPass);
   $("#pwdResetConfirm, #pwdResetConfirmRepeat").keyup(checkResetPass);
 
-  // Ukoliko je validacija forme tocna
-  // $("#registrationSubmit").click(function () {
-  //   var isValid = document.querySelector('#registrationForm');
-  //   if (isValid.checkValidity()) {
-  //     setTimeout(function () {
-  //       $("#registrationSubmit").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
-  //       $("#registrationSubmit").attr('disabled', true);
-  //     }, 200);
-  //   }
-  // });
+  // Sidebar kontrola
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    $(this).toggleClass("fa-rotate-90");
+  });
 });
