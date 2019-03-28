@@ -88,6 +88,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
-    $(this).toggleClass("fa-rotate-90");
+    $(this).toggleClass("fa-flip-horizontal");
   });
 });

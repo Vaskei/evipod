@@ -12,16 +12,26 @@
   overflow-x: hidden;
 }
 
+/* .navbar {
+  height: 55px;
+} */
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
+  /* -webkit-transition: margin 0.3s ease-in-out;
+  -moz-transition: margin 0.3s ease-in-out;
+  -o-transition: margin 0.3s ease-in-out;
+  transition: margin 0.3s ease-in-out; */
+  /* https://matthewlein.com/tools/ceaser */
+  -webkit-transition: margin 400ms cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+  -moz-transition: margin 400ms cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+  -o-transition: margin 400ms cubic-bezier(0.550, 0.085, 0.680, 0.530); 
+  transition: margin 400ms cubic-bezier(0.550, 0.085, 0.680, 0.530);
 }
 
 #sidebar-wrapper .sidebar-heading {
+  height: 54px;
   padding: 0.8rem 1.25rem;
   font-size: 1.2rem;
 }
