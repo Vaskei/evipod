@@ -22,7 +22,7 @@ if (isset($_POST['loginSubmit'])) {
       if ($query->execute()) {
         $user = $query->get_result()->fetch_assoc();
         // Provjera da li je korisnicki racun aktiviran
-        if (!empty($user['user_email']) && $user['isEmailConfirmed'] === 0 && $user['tokenConfirm'] != "") {
+        if (!empty($user['user_email']) && $user['is_email_confirmed'] === 0 && $user['token_confirm'] != "") {
           redirectWithMsg("light", "Korisnički račun nije aktiviran. Provjerite svoj Email.", "../membership");
         } else {
           // Provjera da li korisnik postoji i podudaranje unesene lozinke

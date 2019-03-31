@@ -17,12 +17,12 @@ if (!isset($_GET['email']) || !isset($_GET['token'])) {
     redirectWithMsg("warning", "Nepodržan token!", "../membership");
   } else {
     // Provjera da li se Email adresa i token poklapaju
-    if ($query = $conn->prepare("SELECT * FROM users WHERE user_email=? AND tokenConfirm=? AND isEmailConfirmed=?")) {
+    if ($query = $conn->prepare("SELECT * FROM users WHERE user_email=? AND token_confirm=? AND is_email_confirmed=?")) {
       $query->bind_param("ssi", $email, $token, $emailConfirmed = 0);
       if ($query->execute()) {
         $result = $query->get_result();
         if ($result->num_rows > 0) {
-          $query = $conn->prepare("UPDATE users SET isEmailConfirmed=?, tokenConfirm=? WHERE user_email=?");
+          $query = $conn->prepare("UPDATE users SET is_email_confirmed=?, token_confirm=? WHERE user_email=?");
           $query->bind_param("iss", $emailConfirmed = 1, $token = '', $email);
           if ($query->execute()) {
             redirectWithMsg("success", "Korisnički račun aktiviran.", "../membership");

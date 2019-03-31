@@ -85,9 +85,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
   $("#pwdResetConfirm, #pwdResetConfirmRepeat").keyup(checkResetPass);
 
   // Sidebar kontrola
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
+  $('#sidebarToggle').on('click', function () {
+    $('#sidebar').toggleClass('toggled');
     $(this).toggleClass("fa-flip-horizontal");
+  });
+
+  // Scroll na vrh stranice
+  $('#brandTopScroll').on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 });
+    return false;
   });
 });

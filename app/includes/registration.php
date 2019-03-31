@@ -97,7 +97,7 @@ if (isset($_POST['registrationSubmit'])) {
             <a href="http://localhost/evipod/app/includes/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>';
 
           // Zapisivanje korisnickog racuna u bazu i slanje email-a sa linkom za potvrdu racuna
-          if ($query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, tokenConfirm) VALUES (?,?,?,?)")) {
+          if ($query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, token_confirm) VALUES (?,?,?,?)")) {
             $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
             if ($mail->send() && $query->execute()) {
               $query->close();
