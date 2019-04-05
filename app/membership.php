@@ -61,7 +61,7 @@ $title = "Evipod - Članstvo"
 
                   <h4 class="card-title text-center">PRIJAVA</h4>
                   <hr>
-                  <form class="needs-validation" method="POST" action="./includes/login.php" novalidate>
+                  <form class="needs-validation" method="POST" action="./includes/membership/login.php" novalidate>
                     <div class="form-group">
                       <label for="loginEmail">Email</label>
                       <input type="email" class="form-control" id="loginEmail" name="loginEmail"
@@ -97,7 +97,7 @@ $title = "Evipod - Članstvo"
                   <h4 class="card-title text-center">REGISTRACIJA</h4>
                   <hr>
                   <form class="needs-validation" id="registrationForm" name="registrationForm" method="POST"
-                    action="./includes/registration.php" novalidate>
+                    action="./includes/membership/registration.php" novalidate>
                     <div class="form-group">
                       <label for="registrationName">Ime</label>
                       <input type="text" class="form-control" id="registrationName" name="registrationName"

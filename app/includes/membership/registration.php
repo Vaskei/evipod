@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once './connection.php';
-require_once './functions.php';
+require_once '../connection.php';
+require_once '../functions.php';
 
-require './PHPMailer/Exception.php';
-require './PHPMailer/PHPMailer.php';
-require './PHPMailer/SMTP.php';
+require '../PHPMailer/Exception.php';
+require '../PHPMailer/PHPMailer.php';
+require '../PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -27,23 +27,23 @@ if (isset($_POST['registrationSubmit'])) {
 
   // Provjera da li su polja prazna
   if ($userName == "" || $userEmail == "" || $userPass == "" || $userPassConfirm == "") {
-    redirectWithMsg("warning", "Sva polja su obavezna!", "../membership");
+    redirectWithMsg("warning", "Sva polja su obavezna!", "../../membership");
   }
   // Provjera da li se lozinke poklapaju
   else if ($userPass != $userPassConfirm) {
-    redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../membership");
+    redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../../membership");
   }
   // Provjera da li se Email adresa valjana
   else if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
-    redirectWithMsg("warning", "Nepodržani format Email adrese!", "../membership");
+    redirectWithMsg("warning", "Nepodržani format Email adrese!", "../../membership");
   }
   // Provjera da li je ime korisnika u zadanim granicama
   else if (strlen($userName) < 3 || strlen($userName) > 100) {
-    redirectWithMsg("warning", "Ime može imati min. 3 i max. 100 znakova!", "../membership");
+    redirectWithMsg("warning", "Ime može imati min. 3 i max. 100 znakova!", "../../membership");
   }
   // Provjera da li korisnicka zaporka ima nedozvoljene znakove
   else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
-    redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../membership");
+    redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../../membership");
   } else {
     // Provjera da li postoji korisnik sa unesenom Email adresom
     if ($query = $conn->prepare("SELECT * FROM users WHERE user_email=? LIMIT 1")) {
@@ -51,7 +51,7 @@ if (isset($_POST['registrationSubmit'])) {
       if ($query->execute()) {
         $result = $query->get_result();
         if ($result->num_rows > 0) {
-          redirectWithMsg("warning", "Email već postoji u bazi.", "../membership");
+          redirectWithMsg("warning", "Email već postoji u bazi.", "../../membership");
         } else {
           // Generiranje tokena
           $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
@@ -63,7 +63,7 @@ if (isset($_POST['registrationSubmit'])) {
           //var_dump($userPassHash);
 
           // Podaci za spajanje na Gmail korisnicki racun
-          require_once '../../templates/techgmail.php';
+          require_once '../../../templates/techgmail.php';
           //var_dump($techusername);
           //var_dump($techpassword);
           //var_dump($techtoken);
@@ -94,30 +94,30 @@ if (isset($_POST['registrationSubmit'])) {
             Pozdrav ' . htmlspecialchars($userName) . '.<br><br>
             Hvala što Ste izradili Evipod račun.<br>
             Za aktiviranje korisničkog računa i korištenje aplikacije, pritisnite poveznicu ispod:<br><br>
-            <a href="http://localhost/evipod/app/includes/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>';
+            <a href="http://localhost/evipod/app/includes/membership/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>';
 
           // Zapisivanje korisnickog racuna u bazu i slanje email-a sa linkom za potvrdu racuna
           if ($query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, token_confirm) VALUES (?,?,?,?)")) {
             $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
             if ($mail->send() && $query->execute()) {
               $query->close();
-              redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "../membership");
+              redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "../../membership");
             } else {
-              redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../membership");
+              redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../../membership");
             }
           } else {
-            redirectWithMsg("warning", "Greška!", "../membership");
+            redirectWithMsg("warning", "Greška!", "../../membership");
           }
         }
       } else {
-        redirectWithMsg("warning", "Greška!", "../membership");
+        redirectWithMsg("warning", "Greška!", "../../membership");
       }
     } else {
-      redirectWithMsg("warning", "Greška!", "../membership");
+      redirectWithMsg("warning", "Greška!", "../../membership");
     }
   }
 } else {
-  header("Location: ../membership");
+  header("Location: ../../membership");
   exit();
 }
  

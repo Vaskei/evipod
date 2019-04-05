@@ -7,7 +7,7 @@
 
   <section class="content">
     <div class="container-fluid">
-      <h1 class="mt-4">Start</h1>
+      <h1 class="mt-4">Sadnja/sjetva</h1>
       <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on
         larger screens. When toggled using the button below, the menu will change.</p>
       <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional,
@@ -20,7 +20,7 @@
   <?php include ('./includes/partials/index_footer.php'); ?>
 
   <script>
-    document.querySelector('#app_index').classList.replace('bg-secondary', 'list-group-item-dark');
+    document.querySelector('#app_planting').classList.replace('bg-secondary', 'list-group-item-dark');
   </script>
 
 </body>

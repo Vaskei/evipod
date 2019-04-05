@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once './connection.php';
-require_once './functions.php';
+require_once '../connection.php';
+require_once '../functions.php';
 
 if (isset($_POST['pwdResetConfirmSubmit'])) {
   $selector = $_POST['pwdResetConfirmSelector'];
@@ -11,17 +11,17 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
 
   // Provjera selektora i tokena
   if (ctype_xdigit($selector) === false || ctype_xdigit($token) === false) {
-    redirectWithMsg("warning", "Neispravni podaci!", "../membership");
+    redirectWithMsg("warning", "Neispravni podaci!", "../../membership");
   }
   //Provjera lozinke
   if ($pwdReset == "" || $pwdResetRepeat == "") {
-    redirectWithMsg("warning", "Sva polja su obavezna!", "../membership");
+    redirectWithMsg("warning", "Sva polja su obavezna!", "../../membership");
   }
   if ($pwdReset != $pwdResetRepeat) {
-    redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../membership");    
+    redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../../membership");    
   }
   if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $pwdReset)) {
-    redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../membership");
+    redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../../membership");
   }
 
   // Trenutno vrijeme
@@ -33,14 +33,14 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
     if ($query->execute()) {
       $result = $query->get_result();
       if ($result->num_rows === 0) {
-        redirectWithMsg("warning", "Valjanost poveznice za resetiranje lozinke je istekla. Pokušajte ponovno.", "../membership");
+        redirectWithMsg("warning", "Valjanost poveznice za resetiranje lozinke je istekla. Pokušajte ponovno.", "../../membership");
       } else {
         $row = $result->fetch_assoc();
         // Pretvaranje tokena u binarni format i provjera tocnosti sa tokenom iz baze
         $tokenBin = hex2bin($token);
         $tokenCheck = password_verify($tokenBin, $row['pwd_token']);
         if ($tokenCheck === false) {
-          redirectWithMsg("warning", "Valjanost poveznice je neispravna. Pokušajte ponovno.", "../membership");
+          redirectWithMsg("warning", "Valjanost poveznice je neispravna. Pokušajte ponovno.", "../../membership");
         } else if ($tokenCheck === true) {
           $tokenEmail = $row['pwd_email'];
           // Citanje korisnika sa tabele users sa istim emailom kao u tabeli pwd_reset
@@ -60,38 +60,38 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
                       $query->bind_param("s", $tokenEmail);
                       if ($query->execute()) {
                         $query->close();
-                        redirectWithMsgNoFadeout("success", "Lozinka izmijenjena.", "../membership");
+                        redirectWithMsgNoFadeout("success", "Lozinka izmijenjena.", "../../membership");
                       } else {
-                        redirectWithMsg("warning", "Greška!", "../membership");
+                        redirectWithMsg("warning", "Greška!", "../../membership");
                       }
                     } else {
-                      redirectWithMsg("warning", "Greška!", "../membership");
+                      redirectWithMsg("warning", "Greška!", "../../membership");
                     }
                   } else {
-                    redirectWithMsg("warning", "Greška!", "../membership");
+                    redirectWithMsg("warning", "Greška!", "../../membership");
                   }
                 } else {
-                  redirectWithMsg("warning", "Greška!", "../membership");
+                  redirectWithMsg("warning", "Greška!", "../../membership");
                 }                
               } else {
-                redirectWithMsg("warning", "Nepostojeći Email u bazi.", "../membership");
+                redirectWithMsg("warning", "Nepostojeći Email u bazi.", "../../membership");
               }              
             } else {
-              redirectWithMsg("warning", "Greška!", "../membership");
+              redirectWithMsg("warning", "Greška!", "../../membership");
             }            
           } else {
-            redirectWithMsg("warning", "Greška!", "../membership");
+            redirectWithMsg("warning", "Greška!", "../../membership");
           }          
         }        
       }
     } else {
-      redirectWithMsg("warning", "Greška!", "../membership");
+      redirectWithMsg("warning", "Greška!", "../../membership");
     }    
   } else {
-    redirectWithMsg("warning", "Greška!", "../membership");
+    redirectWithMsg("warning", "Greška!", "../../membership");
   }  
 } else {
-  header("Location: ../membership");
+  header("Location: ../../membership");
   exit();
 }
 

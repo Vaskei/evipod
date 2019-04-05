@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once './connection.php';
-require_once './functions.php';
+require_once '../connection.php';
+require_once '../functions.php';
 
-require './PHPMailer/Exception.php';
-require './PHPMailer/PHPMailer.php';
-require './PHPMailer/SMTP.php';
+require '../PHPMailer/Exception.php';
+require '../PHPMailer/PHPMailer.php';
+require '../PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -15,11 +15,11 @@ if (isset($_POST['pwdResetSubmit'])) {
 
   // Provjera da li su polja prazna
   if ($resetEmail == "") {
-    redirectWithMsg("warning", "Email je obavezan!", "../passwordreset");
+    redirectWithMsg("warning", "Email je obavezan!", "../../passwordreset");
   }
   // Provjera da li se Email adresa valjana
   if (filter_var($resetEmail, FILTER_VALIDATE_EMAIL) === false) {
-    redirectWithMsg("warning", "Nepodržani format Email adrese!", "../passwordreset");
+    redirectWithMsg("warning", "Nepodržani format Email adrese!", "../../passwordreset");
   }
 
   // Provjera da li Email postoji u tabeli korisnika
@@ -28,13 +28,13 @@ if (isset($_POST['pwdResetSubmit'])) {
     if ($query->execute()) {
       $result = $query->get_result();
       if ($result->num_rows === 0) {
-        redirectWithMsg("warning", "Pogrešan Email! Pokušajte ponovno.", "../passwordreset");
+        redirectWithMsg("warning", "Pogrešan Email! Pokušajte ponovno.", "../../passwordreset");
       }
     } else {
-      redirectWithMsg("warning", "Greška!", "../passwordreset");
+      redirectWithMsg("warning", "Greška!", "../../passwordreset");
     }    
   } else {
-    redirectWithMsg("warning", "Greška!", "../passwordreset");
+    redirectWithMsg("warning", "Greška!", "../../passwordreset");
   }
   
 
@@ -52,7 +52,7 @@ if (isset($_POST['pwdResetSubmit'])) {
       // var_dump(date('d.m.Y H:i:s', $expiration));
 
       // Podaci za spajanje na Gmail korisnicki racun
-      require_once '../../templates/techgmail.php';
+      require_once '../../../templates/techgmail.php';
 
       // Inicijalizacija PHPMailer klase i kreiranje email-a
       $mail = new PHPMailer;
@@ -88,21 +88,21 @@ if (isset($_POST['pwdResetSubmit'])) {
         $query->bind_param("ssss", $resetEmail, $selector, $hashedToken, $expiration);
         if ($mail->send() && $query->execute()) {
           $query->close();
-          redirectWithMsgNoFadeout("info", "Provjerite svoj Email za daljnje upute.", "../membership");
+          redirectWithMsgNoFadeout("info", "Provjerite svoj Email za daljnje upute.", "../../membership");
          } else {
-          redirectWithMsg("warning", "Greška!", "../passwordreset");
+          redirectWithMsg("warning", "Greška!", "../../passwordreset");
         }
       } else {
-        redirectWithMsg("warning", "Greška!", "../passwordreset");
+        redirectWithMsg("warning", "Greška!", "../../passwordreset");
       }
     } else {
-      redirectWithMsg("warning", "Greška!", "../passwordreset");
+      redirectWithMsg("warning", "Greška!", "../../passwordreset");
     }
   } else {
-    redirectWithMsg("warning", "Greška!", "../passwordreset");
+    redirectWithMsg("warning", "Greška!", "../../passwordreset");
   }
 } else {
-  header("Location: ../passwordreset");
+  header("Location: ../../passwordreset");
   exit();
 }
  

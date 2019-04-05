@@ -47,10 +47,10 @@ $title = "Evipod - Zaboravljena lozinka"
               <h4 class="card-title text-center">ZABORAVILI STE LOZINKU?</h4>
               <h6 class="card-subtitle text-justify small">Ukoliko ste se već registrirali na našoj aplikaciji, a zaboravili ste lozinku, molimo <strong>upišite svoju e-mail adresu</strong>. Upute za promjenu lozinke doći će vam e-mailom.</h6>
               <hr>
-              <form class="needs-validation" method="POST" action="./includes/pwdreset.php" novalidate> <!-- TODO: staviti novalidate forme -->
+              <form class="needs-validation" method="POST" action="./includes/membership/pwdreset.php" novalidate>
                 <div class="form-group">
                   <label for="pwdResetEmail">Email</label>
-                  <input type="email" class="form-control" id="pwdResetEmail" name="pwdResetEmail" placeholder="Unesite email..." required> <!-- TODO: required validation -->
+                  <input type="email" class="form-control" id="pwdResetEmail" name="pwdResetEmail" placeholder="Unesite email..." required>
                   <div class="invalid-feedback">Unesite Email.</div>
                 </div>
                 <button type="submit" name="pwdResetSubmit" id="pwdResetSubmit" class="btn btn-primary"><i class="fas fa-passport"></i>&nbsp;Nova

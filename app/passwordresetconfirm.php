@@ -43,7 +43,7 @@ $title = "Evipod - Nova lozinka"
             <div class="card-body">
               <h4 class="card-title text-center">NOVA LOZINKA</h4>
               <hr>
-              <form class="needs-validation" method="POST" action="./includes/pwdresetconfirm.php" novalidate>
+              <form class="needs-validation" method="POST" action="./includes/membership/pwdresetconfirm.php" novalidate>
                 <div class="form-group">
                   <label for="pwdResetConfirm">Nova lozinka</label>
                   <input type="password" class="form-control" id="pwdResetConfirm" name="pwdResetConfirm" placeholder="Unesite novu lozinku..."
