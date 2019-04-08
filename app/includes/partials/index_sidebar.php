@@ -6,6 +6,6 @@
     <a href="./planting" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_planting"><i class="fas fa-seedling"></i><strong>&nbsp;&nbsp;Sadnja/sjetva</strong></a>
     <a href="./activities" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_activities"><i class="fas fa-tasks"></i><strong>&nbsp;&nbsp;Evidencija djelatnosti</strong></a>
     <a href="./harvest" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_harvest"><i class="fas fa-clipboard-check"></i><strong>&nbsp;&nbsp;Berba/žetva</strong></a>
-    <a href="./reports" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_reports"><i class="fas fa-print"></i><strong>&nbsp;&nbsp;izvještaji</strong></a>
+    <a href="./reports" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_reports"><i class="fas fa-print"></i><strong>&nbsp;&nbsp;Izvještaji</strong></a>
   </div>
 </aside>
