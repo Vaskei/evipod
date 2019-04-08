@@ -12,26 +12,99 @@
           <i class="fas fa-apple-alt"></i><strong>&nbsp;&nbsp;Gospodarstvo</strong>
         </h5>
         <div class="card-header p-0">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
+          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="businessTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link rounded-0 active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                aria-controls="home" aria-selected="true">Home</a>
+              <a class="nav-link rounded-0 active" id="businessListTab" data-toggle="tab" href="#businessList" role="tab">Lista gospodarstva</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rounded-0" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                aria-controls="profile" aria-selected="false">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link rounded-0" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                aria-controls="contact" aria-selected="false">Contact</a>
+              <a class="nav-link rounded-0" id="businessAddTab" data-toggle="tab" href="#businessAdd" role="tab">Dodaj
+                gospodarstvo</a>
             </li>
           </ul>
         </div>
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">1.</div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">2.</div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">3.</div>
+            <div class="tab-pane fade show active" id="businessList" role="tabpanel">
+              <h3>Lista gospodarstva</h3>
+            </div>
+            <div class="tab-pane fade" id="businessAdd" role="tabpanel">
+              <h3>Dodaj gospodarstvo</h3>
+              <hr>
+              <form action="">
+                <h5 class="text-muted">Osnovne informacije</h5>
+                <div class="form-group row pl-3">
+                  <label for="businessName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessName" placeholder="Naziv subjekta">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessOwner" class="col-sm-2 col-form-label col-form-label-sm">Vlasnik:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessOwner" placeholder="Vlasnik subjekta">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessOIB" class="col-sm-2 col-form-label col-form-label-sm">OIB:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessOIB" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessMIBPG" class="col-sm-2 col-form-label col-form-label-sm">MIBPG:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessMIBPG" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)">
+                  </div>
+                </div>
+                <h5 class="text-muted">Lokacija</h5>
+                <div class="form-group row pl-3">
+                  <label for="businessCounty" class="col-sm-2 col-form-label col-form-label-sm">Županija:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessCounty" placeholder="Naziv županije">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessLocation" class="col-sm-2 col-form-label col-form-label-sm">Mjesto:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessLocation" placeholder="Mjesto subjekta">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessPost" class="col-sm-2 col-form-label col-form-label-sm">Pošta:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessPost" placeholder="Pošta subjekta">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessAddress" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessAddress" placeholder="Adresa subjekta">
+                  </div>
+                </div>
+                <h5 class="text-muted">Kontakt informacije</h5>
+                <div class="form-group row pl-3">
+                  <label for="businessEmail" class="col-sm-2 col-form-label col-form-label-sm">E-mail:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessEmail" placeholder="E-mail adresa">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessTel" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessTel" placeholder="Broj telefona">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="businessMob" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="businessMob" placeholder="Broj mobitela">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <button type="submit" name="businessAdd" class="btn btn-success px-5"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
