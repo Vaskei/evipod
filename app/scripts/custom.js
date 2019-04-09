@@ -96,4 +96,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $('html, body').animate({ scrollTop: 0 });
     return false;
   });
+
+  // Collapse menija kod evidencije aktivnosti na malim (sm) ekranima
+  $('#activitiesHeader').on('click', function () {
+    $('.activitiesArrow').toggleClass('fa-flip-vertical');
+  })
 });
