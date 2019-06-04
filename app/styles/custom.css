@@ -21,14 +21,24 @@
   /* box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2); */
 }
 
-.content {
+.content{
   padding-top: 70px;
+}
+
+.toast {
+  z-index: 1100;
+  min-width: 250px;
 }
 
 @media (min-width: 992px) {
   .content {
     padding: 80px 10px 0 280px;
   }
+
+  /* .toast {
+    top: 80px;
+    right: 0px;
+  } */
 
   .sidebar {    
     transition: transform 300ms, opacity 300ms;

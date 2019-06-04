@@ -14,8 +14,7 @@ use PHPMailer\PHPMailer\Exception;
 userName = min 3 znakova, max 100 znakova
 userEmail = filter_var
 userPass = min 6 znakova, max 50 znakova, slova i brojke
-
- */
+*/
 
 if (isset($_POST['registrationSubmit'])) {
   //var_dump($_POST);

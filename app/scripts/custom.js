@@ -100,5 +100,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Collapse menija kod evidencije aktivnosti na malim (sm) ekranima
   $('#activitiesHeader').on('click', function () {
     $('.activitiesArrow').toggleClass('fa-flip-vertical');
-  })
+  });
+
+  // Inicijalizacija Bootstrap Toast elementa
+  $('.toast').toast('show');
 });

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) header("Location: ../");
+require_once "./includes/connection.php";
+$title = "Evipod - Index";
+?>
+
 <?php include ('./includes/partials/index_head.php'); ?>
 
 <body class="bg-light">
@@ -13,6 +20,8 @@
       <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional,
         and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the
         menu when clicked.</p>
+
+      <p><?php var_dump($_SESSION); ?></p>
 
     </div>
   </section>

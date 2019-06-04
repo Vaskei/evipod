@@ -27,8 +27,9 @@ if (isset($_POST['loginSubmit'])) {
         } else {
           // Provjera da li korisnik postoji i podudaranje unesene lozinke
           if ($user && password_verify($userPass, $user['user_password'])) {
-            //var_dump($user);
+            // var_dump($user);
             $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['last_business_id'] = $user['last_business_id'];
             header("Location: ../../");
             //var_dump($_SESSION);
           } else {

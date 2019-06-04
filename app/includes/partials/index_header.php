@@ -13,6 +13,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <?php if (isset($_SESSION['last_business_id'])) : ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
             <i class="fas fa-building fa-lg"></i>
@@ -25,6 +26,7 @@
             <a class="dropdown-item" href="#">OPG 5</a>
           </div>
         </li>
+        <?php endif; ?>
         <li class="nav-item dropdown ml-lg-3">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
             <i class="fas fa-id-card-alt fa-lg"></i>
