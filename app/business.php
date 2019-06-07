@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../");
 require_once "./includes/connection.php";
 $title = "Evipod - Gospodarstvo";
+$userID = $_SESSION['user_id'];
 ?>
 <?php include('./includes/partials/index_head.php'); ?>
 
@@ -13,12 +14,7 @@ $title = "Evipod - Gospodarstvo";
 
 
   <section class="content">
-
-
-
-
     <div class="container-fluid">
-
       <div class="position-relative d-flex justify-content-center">
         <!-- <div class="toast position-absolute" data-autohide="false">
           <div class="toast-header">
@@ -80,23 +76,26 @@ $title = "Evipod - Gospodarstvo";
                 </thead>
                 <tbody>
                   <?php
-                  $userID = $_SESSION['user_id'];
-                  $query = "SELECT * FROM business WHERE user_id = $userID";
-                  $result = $conn->query($query);
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>{$row['business_name']}</td>";
-                    echo "<td>{$row['business_owner']}</td>";
-                    echo "<td>{$row['business_oib']}</td>";
-                    echo "<td>{$row['business_mibpg']}</td>";
-                    echo "<td>{$row['business_county']}</td>";
-                    echo "<td>{$row['business_location']}</td>";
-                    echo "<td>{$row['business_post']}</td>";
-                    echo "<td>{$row['business_address']}</td>";
-                    echo "<td>{$row['business_email']}</td>";
-                    echo "<td>{$row['business_tel']}</td>";
-                    echo "<td>{$row['business_mob']}</td>";
-                    echo "</tr>";
+                  $query = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
+                  $query->bind_param("i", $userID);
+                  $query->execute();
+                  $result = $query->get_result();
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>";
+                      echo "<td>{$row['business_name']}</td>";
+                      echo "<td>{$row['business_owner']}</td>";
+                      echo "<td>{$row['business_oib']}</td>";
+                      echo "<td>{$row['business_mibpg']}</td>";
+                      echo "<td>{$row['business_county']}</td>";
+                      echo "<td>{$row['business_location']}</td>";
+                      echo "<td>{$row['business_post']}</td>";
+                      echo "<td>{$row['business_address']}</td>";
+                      echo "<td>{$row['business_email']}</td>";
+                      echo "<td>{$row['business_tel']}</td>";
+                      echo "<td>{$row['business_mob']}</td>";
+                      echo "</tr>";
+                    }
                   }
                   ?>
                 </tbody>
@@ -107,7 +106,7 @@ $title = "Evipod - Gospodarstvo";
             <div class="tab-pane fade" id="businessAdd" role="tabpanel">
               <h3>Dodaj gospodarstvo</h3>
               <hr>
-              <form method="POST" action="./includes/application/business_inc.php">
+              <form method="POST" action="./includes/application/business_add_inc.php">
                 <h5 class="text-muted">Osnovne informacije</h5>
                 <div class="form-group row pl-3">
                   <label for="businessName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
@@ -191,7 +190,7 @@ $title = "Evipod - Gospodarstvo";
   <?php include('./includes/partials/index_footer.php'); ?>
 
   <script>
-    document.querySelector('#app_business').classList.replace('bg-secondary', 'list-group-item-dark');
+  document.querySelector('#app_business').classList.replace('bg-secondary', 'list-group-item-dark');
   </script>
 
 </body>

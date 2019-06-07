@@ -1,26 +1,11 @@
 <?php
-/*
-business_id	
-business_name	
-user_id	
-business_owner	
-business_oib	
-business_mibpg	
-business_county	
-business_location	
-business_post	
-business_address	
-business_email	
-business_tel	
-business_mob
-*/
 session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../../../");
 require_once '../connection.php';
 require_once '../functions.php';
 
 if (isset($_POST['businessAdd'])) {
-  var_dump($_POST);
+  // var_dump($_POST);
   $userID = intval($_SESSION['user_id']);
   $businessName = trim(htmlentities($_POST['businessName']));
   $businessOwner = trim(htmlentities($_POST['businessOwner']));
@@ -35,8 +20,8 @@ if (isset($_POST['businessAdd'])) {
   $businessMob = trim(htmlentities($_POST['businessMob']));
   $businessAdd = trim(htmlentities($_POST['businessAdd']));
 
-  var_dump($businessOIB);
-  var_dump($businessMIBPG);
+  // var_dump($businessOIB);
+  // var_dump($businessMIBPG);
 
   // Provjera da li je ime gospodarstva prazno
   if ($businessName == "") {
@@ -54,11 +39,25 @@ if (isset($_POST['businessAdd'])) {
   }
 
   // Provjera poštanskog broja ukoliko je unesen
+  if ($businessPost != "" && !preg_match('/^[0-9]{5}$/', $businessPost)) {
+    redirectWithToastError("warning", "Neispravan format poštanskog broja!", "../../business");
+  }
 
-
+  // Upis gospodarstva u bazu podataka
   if ($query = $conn->prepare("INSERT INTO business(business_name, user_id, business_owner, business_oib, business_mibpg, business_county, business_location, business_post, business_address, business_email, business_tel, business_mob) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)")) {
     $query->bind_param("sissssssssss", $businessName, $userID, $businessOwner, $businessOIB, $businessMIBPG, $businessCounty, $businessLocation, $businessPost, $businessAddress, $businessEmail, $businessTel, $businessMob);
     if ($query->execute()) {
+      // Dohvacanje zadnje dodanog gospodarstva, te upisivanje ID gospodarstva u sessiju i kao zadnje koristeno gospodarstvo u users tabelu
+      if ($query = $conn->prepare("SELECT * FROM business WHERE user_id = ? ORDER BY business_id DESC LIMIT 1")) {
+        $query->bind_param("i", $userID);
+        $query->execute();
+        $row = $query->get_result()->fetch_assoc();
+        // var_dump($row);
+        $_SESSION['last_business_id'] = $row['business_id'];
+        $query = $conn->prepare("UPDATE users SET last_business_id = ? WHERE user_id = ?");
+        $query->bind_param("ii", $_SESSION['last_business_id'], $userID);
+        $query->execute();
+      }         
       redirectWithToastSuccess("success", "Uspjeh.", "Gospodarstvo dodano.", "../../business");
     } else {
       redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../business");

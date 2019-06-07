@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../");
 require_once "./includes/connection.php";
 $title = "Evipod - Index";
+$userID = $_SESSION['user_id'];
 ?>
 
 <?php include('./includes/partials/index_head.php'); ?>
@@ -24,7 +25,6 @@ $title = "Evipod - Index";
       <p><?php var_dump($_SESSION); ?></p>
       <p>
         <?php
-        $userID = $_SESSION['user_id'];
         $query = "SELECT * FROM business WHERE user_id = $userID";
         $result = $conn->query($query);
         while ($row = $result->fetch_assoc()) {

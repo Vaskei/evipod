@@ -1,3 +1,9 @@
+<?php
+$queryOPG = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
+$queryOPG->bind_param("i", $userID);
+$queryOPG->execute();
+$resultOPG = $queryOPG->get_result();
+?>
 <header class="header">
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-secondary border-bottom border-dark">
 
@@ -15,15 +21,20 @@
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <?php if (isset($_SESSION['last_business_id'])) : ?>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="opgSelectDropdownBtn" role="button" data-toggle="dropdown">
             <i class="fas fa-building fa-lg"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">OPG 1</a>
+          <div class="dropdown-menu dropdown-menu-right" id="opgSelect">
+            <?php
+            while ($rowOPG = $resultOPG->fetch_assoc()) {
+              echo "<a class='dropdown-item' href='#' data-opgid='{$rowOPG['business_id']}'>{$rowOPG['business_name']}</a>";
+            }
+            ?>
+            <!-- <a class="dropdown-item" href="#">OPG 1</a>
             <a class="dropdown-item" href="#">OPG 2</a>
             <a class="dropdown-item" href="#">OPG 3</a>
             <a class="dropdown-item" href="#">OPG 4</a>
-            <a class="dropdown-item" href="#">OPG 5</a>
+            <a class="dropdown-item" href="#">OPG 5</a> -->
           </div>
         </li>
         <?php endif; ?>
