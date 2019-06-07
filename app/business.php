@@ -1,12 +1,15 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) header("Location: ../");
+require_once "./includes/connection.php";
+$title = "Evipod - Gospodarstvo";
 ?>
-<?php include ('./includes/partials/index_head.php'); ?>
+<?php include('./includes/partials/index_head.php'); ?>
 
 <body class="bg-light">
-  <?php include ('./includes/partials/index_header.php'); ?>
+  <?php include('./includes/partials/index_header.php'); ?>
 
-  <?php include ('./includes/partials/index_sidebar.php'); ?>
+  <?php include('./includes/partials/index_sidebar.php'); ?>
 
 
   <section class="content">
@@ -59,6 +62,45 @@ session_start();
             <!-- Div/tab za listu gospodarstva -->
             <div class="tab-pane fade show active" id="businessList" role="tabpanel">
               <h3>Lista gospodarstva</h3>
+              <table class="table table-sm table-bordered table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Naziv</th>
+                    <th>Vlasnik</th>
+                    <th>OIB</th>
+                    <th>MIBPG</th>
+                    <th>Županija</th>
+                    <th>Mjesto</th>
+                    <th>Pošta</th>
+                    <th>Adresa</th>
+                    <th>E-mail</th>
+                    <th>Tel</th>
+                    <th>Mob</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $userID = $_SESSION['user_id'];
+                  $query = "SELECT * FROM business WHERE user_id = $userID";
+                  $result = $conn->query($query);
+                  while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>{$row['business_name']}</td>";
+                    echo "<td>{$row['business_owner']}</td>";
+                    echo "<td>{$row['business_oib']}</td>";
+                    echo "<td>{$row['business_mibpg']}</td>";
+                    echo "<td>{$row['business_county']}</td>";
+                    echo "<td>{$row['business_location']}</td>";
+                    echo "<td>{$row['business_post']}</td>";
+                    echo "<td>{$row['business_address']}</td>";
+                    echo "<td>{$row['business_email']}</td>";
+                    echo "<td>{$row['business_tel']}</td>";
+                    echo "<td>{$row['business_mob']}</td>";
+                    echo "</tr>";
+                  }
+                  ?>
+                </tbody>
+              </table>
             </div>
 
             <!-- Div/tab za dodavanje gospodarstva -->
@@ -146,10 +188,10 @@ session_start();
     </div>
   </section>
 
-  <?php include ('./includes/partials/index_footer.php'); ?>
+  <?php include('./includes/partials/index_footer.php'); ?>
 
   <script>
-  document.querySelector('#app_business').classList.replace('bg-secondary', 'list-group-item-dark');
+    document.querySelector('#app_business').classList.replace('bg-secondary', 'list-group-item-dark');
   </script>
 
 </body>

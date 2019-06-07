@@ -5,12 +5,12 @@ require_once "./includes/connection.php";
 $title = "Evipod - Index";
 ?>
 
-<?php include ('./includes/partials/index_head.php'); ?>
+<?php include('./includes/partials/index_head.php'); ?>
 
 <body class="bg-light">
-  <?php include ('./includes/partials/index_header.php'); ?>
-  
-  <?php include ('./includes/partials/index_sidebar.php'); ?>
+  <?php include('./includes/partials/index_header.php'); ?>
+
+  <?php include('./includes/partials/index_sidebar.php'); ?>
 
   <section class="content">
     <div class="container-fluid">
@@ -22,14 +22,24 @@ $title = "Evipod - Index";
         menu when clicked.</p>
 
       <p><?php var_dump($_SESSION); ?></p>
+      <p>
+        <?php
+        $userID = $_SESSION['user_id'];
+        $query = "SELECT * FROM business WHERE user_id = $userID";
+        $result = $conn->query($query);
+        while ($row = $result->fetch_assoc()) {
+          var_dump($row);
+        }
+        ?>
+      </p>
 
     </div>
   </section>
 
-  <?php include ('./includes/partials/index_footer.php'); ?>
+  <?php include('./includes/partials/index_footer.php'); ?>
 
   <script>
-    document.querySelector('#app_index').classList.replace('bg-secondary', 'list-group-item-dark');
+  document.querySelector('#app_index').classList.replace('bg-secondary', 'list-group-item-dark');
   </script>
 
 </body>

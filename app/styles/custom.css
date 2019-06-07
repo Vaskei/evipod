@@ -35,11 +35,6 @@
     padding: 80px 10px 0 280px;
   }
 
-  /* .toast {
-    top: 80px;
-    right: 0px;
-  } */
-
   .sidebar {    
     transition: transform 300ms, opacity 300ms;
   }
