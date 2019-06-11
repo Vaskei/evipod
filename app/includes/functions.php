@@ -70,4 +70,25 @@ function redirectWithToastSuccess(string $type, string $title, string $message, 
   header("Location: {$location}");
   exit();
 }
+
+/**
+ * Funkcija za definiranje toast poruke i njezinog tipa (success, info...).
+ */
+function toastNoRedirect(string $type, string $message)
+{
+  $_SESSION['msg'] = "
+  <div class='toast position-absolute' data-delay='3000'>
+    <div class='toast-header'>
+      <i class='fas fa-exclamation-circle fa-lg mr-2 text-{$type}'></i>
+      <strong class='mr-auto text-{$type}'>Upozorenje</strong>
+      <button type='button' class='close text-dark' data-dismiss='toast' aria-label='Close'>
+        <span aria-hidden='true'><i class='fas fa-times fa-sm'></i></span>
+      </button>
+    </div>
+    <div class='toast-body bg-white text-center'>
+      {$message}
+    </div>
+  </div>  
+  ";
+}
 ?>

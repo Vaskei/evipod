@@ -15,6 +15,29 @@ $userID = $_SESSION['user_id'];
 
   <section class="content">
     <div class="container-fluid">
+      <div class="position-relative d-flex justify-content-center">
+        <!-- <div class="toast position-absolute" data-autohide="false">
+          <div class="toast-header">
+            <i class="fas fa-exclamation-circle fa-lg mr-2 text-danger"></i>
+            <strong class="mr-auto text-danger">Bootstrap</strong>
+            <button type="button" class="close text-dark" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true"><i class="fas fa-times fa-sm"></i></span>
+            </button>
+          </div>
+          <div class="toast-body bg-white">
+            Hello, world! This is a toast message. Hello, world! This is a toast message. Hello, world! This is a toast message.
+          </div>
+        </div> -->
+
+        <!-- Ispisivanje toast-a preko sesije -->
+        <?php
+        if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
+          echo $_SESSION['msg'];
+          unset($_SESSION['msg']);
+        }
+        ?>
+      </div>
+
       <h1 class="mt-4">Start</h1>
       <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on
         larger screens. When toggled using the button below, the menu will change.</p>

@@ -1,4 +1,5 @@
 // Javascript
+let siteAddress = 'localhost';
 // Auto-start anonimna funkcija
 (function () {
   'use strict';
@@ -111,17 +112,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
       type: 'POST',
       url: './includes/application/switch_business_inc.php',
       data: 'opgID=' + opgID,
-      dataType: 'json',
-      success: function (data) {
-        if (data.status == 'error') {
-          console.log('BAD');
-        } else console.log('GOOD');
-        // } else if (data.status == 'success') {
-        //   console.log('GOOD');
-        // }
-        console.log(data);
-      }
+      dataType: 'json'
+      // success: function (data) {
+      //   if (data.status == 'error') {
+      //     console.log('BAD');
+      //   } else if (data.status == 'success') {
+      //     console.log('GOOD');
+      //   }
+      // }
     });
-    console.log(opgID);
   });
 });

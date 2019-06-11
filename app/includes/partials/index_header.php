@@ -27,7 +27,7 @@ $resultOPG = $queryOPG->get_result();
           <div class="dropdown-menu dropdown-menu-right" id="opgSelect">
             <?php
             while ($rowOPG = $resultOPG->fetch_assoc()) {
-              echo "<a class='dropdown-item' href='#' data-opgid='{$rowOPG['business_id']}'>{$rowOPG['business_name']}</a>";
+              echo "<a class='dropdown-item' href='' data-opgid='{$rowOPG['business_id']}'>{$rowOPG['business_name']}</a>";
             }
             ?>
             <!-- <a class="dropdown-item" href="#">OPG 1</a>
