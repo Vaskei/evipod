@@ -16,7 +16,7 @@ if (isset($_POST['opgID'])) {
   // Provjera da li je prosljedeni ID OPG-a krivog formata
   if (filter_var($opgID, FILTER_VALIDATE_INT) === false) {
     $response['status'] = 'error';
-    toastNoRedirect("danger", "Greška kod promjene gospodarstva.");
+    toastNoRedirect("danger", "Upozorenje", "Greška kod promjene gospodarstva.");
     echo json_encode($response);
     exit();
   } else {
@@ -29,7 +29,7 @@ if (isset($_POST['opgID'])) {
     // Zaustavljanje skripte ukoliko nema valjanog rezultata
     if ($result->num_rows < 1) {
       $response['status'] = 'error';
-      toastNoRedirect("danger", "Greška kod promjene gospodarstva.");
+      toastNoRedirect("danger", "Upozorenje", "Greška kod promjene gospodarstva.");
       echo json_encode($response);
       exit();
     } else {
@@ -39,11 +39,11 @@ if (isset($_POST['opgID'])) {
       if ($query->execute()) {
         $_SESSION['last_business_id'] = intval($opgID);
         $response['status'] = 'success';
-        toastNoRedirect("success", "Gospodarstvo promijenjeno.");
+        toastNoRedirect("success", "Uspjeh.", "Gospodarstvo promijenjeno.");
         echo json_encode($response);
       } else {
         $response['status'] = 'error';
-        toastNoRedirect("danger", "Greška kod promjene gospodarstva.");
+        toastNoRedirect("danger", "Upozorenje", "Greška kod promjene gospodarstva.");
         echo json_encode($response);
         exit();
       } 

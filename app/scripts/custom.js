@@ -116,8 +116,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
       // success: function (data) {
       //   if (data.status == 'error') {
       //     console.log('BAD');
+      //     window.location.reload();
       //   } else if (data.status == 'success') {
       //     console.log('GOOD');
+      //     window.location.reload();
       //   }
       // }
     });
