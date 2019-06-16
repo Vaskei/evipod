@@ -23,7 +23,7 @@ if (isset($_SESSION['last_business_id'])) {
     <a class="navbar-brand d-lg-none" href="" id="brandTopScroll">
       <?php
       if (isset($_SESSION['last_business_id'])) {
-        echo $resultCurrentOPG['business_name'];
+        echo strlen($resultCurrentOPG['business_name']) > 20 ? substr($resultCurrentOPG['business_name'], 0, 20)."..." : $resultCurrentOPG['business_name'];
       }
       ?>
     </a>
@@ -35,7 +35,7 @@ if (isset($_SESSION['last_business_id'])) {
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <?php if (isset($_SESSION['last_business_id'])) : ?>
         <span class="navbar-text mr-2 d-none d-lg-block">
-          <?php echo $resultCurrentOPG['business_name']; ?>
+          <?php echo strlen($resultCurrentOPG['business_name']) > 20 ? substr($resultCurrentOPG['business_name'], 0, 20)."..." : $resultCurrentOPG['business_name']; ?>
         </span>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="opgSelectDropdownBtn" role="button" data-toggle="dropdown">
@@ -47,11 +47,6 @@ if (isset($_SESSION['last_business_id'])) {
                 echo "<a class='dropdown-item' href='' data-opgid='{$rowOPG['business_id']}'>{$rowOPG['business_name']}</a>";
               }
               ?>
-            <!-- <a class="dropdown-item" href="#">OPG 1</a>
-                <a class="dropdown-item" href="#">OPG 2</a>
-                <a class="dropdown-item" href="#">OPG 3</a>
-                <a class="dropdown-item" href="#">OPG 4</a>
-                <a class="dropdown-item" href="#">OPG 5</a> -->
           </div>
         </li>
         <?php endif; ?>

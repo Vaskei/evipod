@@ -16,7 +16,7 @@ let siteAddress = 'localhost';
         }
         form.classList.add('was-validated');
 
-        // Provjera i romjena submit gumba ukoliko je forma tocna prilikom klika
+        // Provjera i promjena submit gumba ukoliko je forma tocna prilikom klika
         if (form.checkValidity()) {
           setTimeout(function () {
             if (document.getElementById("registrationSubmit")) {
