@@ -58,48 +58,57 @@ $userID = $_SESSION['user_id'];
             <!-- Div/tab za listu gospodarstva -->
             <div class="tab-pane fade show active" id="businessList" role="tabpanel">
               <h3>Lista gospodarstva</h3>
-              <table class="table table-sm table-bordered table-hover text-center">
-                <thead>
-                  <tr>
-                    <th>Naziv</th>
-                    <th>Vlasnik</th>
-                    <th>OIB</th>
-                    <th>MIBPG</th>
-                    <th>Županija</th>
-                    <th>Mjesto</th>
-                    <th>Pošta</th>
-                    <th>Adresa</th>
-                    <th>E-mail</th>
-                    <th>Tel</th>
-                    <th>Mob</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $query = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
-                  $query->bind_param("i", $userID);
-                  $query->execute();
-                  $result = $query->get_result();
-                  if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr>";
-                      echo "<td>{$row['business_name']}</td>";
-                      echo "<td>{$row['business_owner']}</td>";
-                      echo "<td>{$row['business_oib']}</td>";
-                      echo "<td>{$row['business_mibpg']}</td>";
-                      echo "<td>{$row['business_county']}</td>";
-                      echo "<td>{$row['business_location']}</td>";
-                      echo "<td>{$row['business_post']}</td>";
-                      echo "<td>{$row['business_address']}</td>";
-                      echo "<td>{$row['business_email']}</td>";
-                      echo "<td>{$row['business_tel']}</td>";
-                      echo "<td>{$row['business_mob']}</td>";
-                      echo "</tr>";
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered table-hover text-center datatable">
+                  <thead>
+                    <tr>
+                      <th>Naziv</th>
+                      <th>Vlasnik</th>
+                      <th>OIB</th>
+                      <th>MIBPG</th>
+                      <th>Županija</th>
+                      <th>Mjesto</th>
+                      <th>Pošta</th>
+                      <th>Adresa</th>
+                      <th>E-mail</th>
+                      <th>Tel</th>
+                      <th>Mob</th>
+                      <th>Opcije</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $query = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
+                    $query->bind_param("i", $userID);
+                    $query->execute();
+                    $result = $query->get_result();
+                    if ($result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>{$row['business_name']}</td>";
+                        echo "<td>{$row['business_owner']}</td>";
+                        echo "<td>{$row['business_oib']}</td>";
+                        echo "<td>{$row['business_mibpg']}</td>";
+                        echo "<td>{$row['business_county']}</td>";
+                        echo "<td>{$row['business_location']}</td>";
+                        echo "<td>{$row['business_post']}</td>";
+                        echo "<td>{$row['business_address']}</td>";
+                        echo "<td>{$row['business_email']}</td>";
+                        echo "<td>{$row['business_tel']}</td>";
+                        echo "<td>{$row['business_mob']}</td>";
+                        echo "<td>
+                                <div class='btn-group d-flex' role='group'>
+                                  <button type='button' class='btn btn-primary w-100' data-business-id-edit='{$row['business_id']}'>Uredi</button>
+                                  <button type='button' class='btn btn-danger w-100' data-business-id-delete='{$row['business_id']}'>Briši</button>
+                                </div>
+                              </td>";
+                        echo "</tr>";
+                      }
                     }
-                  }
-                  ?>
-                </tbody>
-              </table>
+                    ?>
+                  </tbody>
+                </table>
+              </div>              
             </div>
 
             <!-- Div/tab za dodavanje gospodarstva -->

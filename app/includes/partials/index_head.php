@@ -12,6 +12,9 @@
   <!-- FontAwesome CSS -->
   <link rel="stylesheet" href="./styles/fontawesome_all.css">
 
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="./styles/datatables.min.css">
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./styles/custom.css">
 

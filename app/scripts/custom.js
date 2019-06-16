@@ -78,6 +78,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
+  // Inicijalizacija DataTable tabele
+  $(".datatable").DataTable();
+
   // Skrivanje svih alert-ova nakon X sekundi
   $(".alertFadeout").delay(3000).fadeOut();
 
