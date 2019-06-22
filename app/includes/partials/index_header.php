@@ -20,7 +20,7 @@ if (isset($_SESSION['last_business_id'])) {
       <i class="far fa-caret-square-right fa-2x d-lg-none"></i>
     </span>
     <a class="navbar-brand d-none d-lg-block" href="" id="brandTopScroll">Evipod</a>
-    <a class="navbar-brand d-lg-none" href="" id="brandTopScroll">
+    <a class="navbar-brand text-light d-lg-none" href="" id="brandTopScroll">
       <?php
       if (isset($_SESSION['last_business_id'])) {
         echo strlen($resultCurrentOPG['business_name']) > 20 ? substr($resultCurrentOPG['business_name'], 0, 20)."..." : $resultCurrentOPG['business_name'];
@@ -34,7 +34,7 @@ if (isset($_SESSION['last_business_id'])) {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <?php if (isset($_SESSION['last_business_id'])) : ?>
-        <span class="navbar-text mr-2 d-none d-lg-block">
+        <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
           <?php echo strlen($resultCurrentOPG['business_name']) > 20 ? substr($resultCurrentOPG['business_name'], 0, 20)."..." : $resultCurrentOPG['business_name']; ?>
         </span>
         <li class="nav-item dropdown">
