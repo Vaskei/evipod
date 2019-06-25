@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   $(".datatable-enable").DataTable({
     // "dom": '<"d-flex justify-content-between"lf><"table-responsive"rt><"d-flex justify-content-between"ip><"clear">'
     "pageLength": 10,
+    "order": [],
     "pagingType": "simple",
     "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'table-responsive'<tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-center justify-content-md-end mt-2'p>>",
     language: {
@@ -137,22 +138,79 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Inicijalizacija Bootstrap Toast elementa
   $('.toast').toast('show');
 
-  $('#opgSelect a').click(function () {
-    let opgID = $(this).attr('data-opgid');
+  // Promjena trenutno aktivnog gospodarstva preko AJAX-a
+  // $('#opgSelect a').click(function () {
+  //   let opgID = $(this).attr('data-opgid');
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: './includes/application/switch_business_inc.php',
+  //     data: 'opgID=' + opgID,
+  //     dataType: 'json',
+  //     success: function (data) {
+  //       if (data.status == 'error') {
+  //         console.log('BAD');
+  //         window.location.reload();
+  //       } else if (data.status == 'success') {
+  //         console.log('GOOD');
+  //         window.location.reload();
+  //       }
+  //     }
+  //   });
+  // });
+
+  // Zatvaranje dropdown menija prilikom odabira gospodarstva
+  $('.opgSelectBtn').click(function (e) {
+    e.stopPropagation();
+    $('#opgSelect').dropdown('toggle');
+  });
+
+  // Dohvacanje podataka za uredenje gospodarstva
+  $('.businessEditBtn').click(function () {
+    let businessEditId = $(this).attr('data-business-id-edit');
     $.ajax({
       type: 'POST',
-      url: './includes/application/switch_business_inc.php',
-      data: 'opgID=' + opgID,
-      dataType: 'json'
-      // success: function (data) {
-      //   if (data.status == 'error') {
-      //     console.log('BAD');
-      //     window.location.reload();
-      //   } else if (data.status == 'success') {
-      //     console.log('GOOD');
-      //     window.location.reload();
-      //   }
-      // }
+      url: './includes/application/business_fetch_inc.php',
+      data: 'businessId=' + businessEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#businessNameEdit').val(data.row.business_name);
+          $('#businessOwnerEdit').val(data.row.business_owner);
+          $('#businessOIBEdit').val(data.row.business_oib);
+          $('#businessMIBPGEdit').val(data.row.business_mibpg);
+          $('#businessCountyEdit').val(data.row.business_county);
+          $('#businessLocationEdit').val(data.row.business_location);
+          $('#businessPostEdit').val(data.row.business_post);
+          $('#businessAddressEdit').val(data.row.business_address);
+          $('#businessEmailEdit').val(data.row.business_email);
+          $('#businessTelEdit').val(data.row.business_tel);
+          $('#businessMobEdit').val(data.row.business_mob);
+          $('#businessEditModal').modal('toggle');
+        }
+      }
     });
   });
+
+  // Dohvacanje podataka za brisanje gospodarstva
+  $('.businessDeleteBtn').click(function () {
+    let businessDeleteId = $(this).attr('data-business-id-delete');
+    console.log(businessDeleteId);
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/business_fetch_inc.php',
+      data: 'businessId=' + businessDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          console.log(data);
+          $('#businessDeleteName').html(data.row.business_name);
+          $('#businessDeleteModal').modal('toggle');
+        }
+      }
+    });
+  })
 });

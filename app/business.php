@@ -12,6 +12,125 @@ $userID = $_SESSION['user_id'];
 
   <?php include('./includes/partials/index_sidebar.php'); ?>
 
+  <!-- Modal za uredivanje gospodarstva -->
+  <div class="modal fade" id="businessEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-weight-bold" id="businessEditModalTitle">Uređivanje gospodarstva</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="">
+            <h5 class="text-muted">Osnovne informacije</h5>
+            <div class="form-group row pl-3">
+              <label for="businessNameEdit" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessNameEdit" name="businessNameEdit" placeholder="Naziv subjekta">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessOwnerEdit" class="col-sm-2 col-form-label col-form-label-sm">Vlasnik:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessOwnerEdit" name="businessOwnerEdit" placeholder="Vlasnik subjekta">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessOIBEdit" class="col-sm-2 col-form-label col-form-label-sm">OIB:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessOIBEdit" name="businessOIBEdit" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessMIBPGEdit" class="col-sm-2 col-form-label col-form-label-sm">MIBPG:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessMIBPGEdit" name="businessMIBPGEdit" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)">
+              </div>
+            </div>
+            <h5 class="text-muted">Lokacija</h5>
+            <div class="form-group row pl-3">
+              <label for="businessCountyEdit" class="col-sm-2 col-form-label col-form-label-sm">Županija:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessCountyEdit" name="businessCountyEdit" placeholder="Naziv županije">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessLocationEdit" class="col-sm-2 col-form-label col-form-label-sm">Mjesto:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessLocationEdit" name="businessLocationEdit" placeholder="Mjesto subjekta">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessPostEdit" class="col-sm-2 col-form-label col-form-label-sm">Pošta:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessPostEdit" name="businessPostEdit" placeholder="Pošta subjekta">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessAddressEdit" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessAddressEdit" name="businessAddressEdit" placeholder="Adresa subjekta">
+              </div>
+            </div>
+            <h5 class="text-muted">Kontakt informacije</h5>
+            <div class="form-group row pl-3">
+              <label for="businessEmailEdit" class="col-sm-2 col-form-label col-form-label-sm">E-mail:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessEmailEdit" name="businessEmailEdit" placeholder="E-mail adresa">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessTelEdit" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessTelEdit" name="businessTelEdit" placeholder="Broj telefona">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="businessMobEdit" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="businessMobEdit" name="businessMobEdit" placeholder="Broj mobitela">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+          <button type="button" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal za brisanje gospodarstva -->
+  <div class="modal fade" id="businessDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title font-weight-bold" id="businessDeleteModalTitle">Brisanje gospodarstva</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-3">
+              <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
+            </div>
+            <div class="col-9">
+              <p class="font-weight-bold">Obrisati odabrano gospodarstvo:</p>
+              <u><p id="businessDeleteName" class="font-weight-bold text-break"></p></u> 
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+          <button type="button" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="content">
     <div class="container-fluid">
@@ -60,12 +179,13 @@ $userID = $_SESSION['user_id'];
                     <th>E-mail</th>
                     <th>Tel</th>
                     <th>Mob</th>
+                    <th>Dodano</th>
                     <th>Opcije</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  $query = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
+                  $query = $conn->prepare("SELECT * FROM business WHERE user_id = ? ORDER BY created_at");
                   $query->bind_param("i", $userID);
                   $query->execute();
                   $result = $query->get_result();
@@ -83,10 +203,11 @@ $userID = $_SESSION['user_id'];
                       echo "<td>{$row['business_email']}</td>";
                       echo "<td>{$row['business_tel']}</td>";
                       echo "<td>{$row['business_mob']}</td>";
-                      echo "<td>
+                      echo "<td>{$row['created_at']}</td>";
+                      echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-primary w-100' data-business-id-edit='{$row['business_id']}'>Uredi</button>
-                                <button type='button' class='btn btn-danger w-100' data-business-id-delete='{$row['business_id']}'>Briši</button>
+                                <button type='button' class='btn btn-primary w-100 businessEditBtn' data-business-id-edit='{$row['business_id']}'>Uredi</button>
+                                <button type='button' class='btn btn-danger w-100 businessDeleteBtn' data-business-id-delete='{$row['business_id']}'>Briši</button>
                               </div>
                             </td>";
                       echo "</tr>";

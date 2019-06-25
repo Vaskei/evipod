@@ -18,5 +18,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./styles/custom.css">
 
-  <title>App Page</title>
+  <title>
+    <?php echo isset($title) ? $title : 'Evipod'; ?>
+  </title>
 </head>

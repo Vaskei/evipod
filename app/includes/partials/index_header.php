@@ -1,16 +1,16 @@
 <?php
 // Dohvacanje svih gospodarstva
-$queryOPG = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
-$queryOPG->bind_param("i", $userID);
-$queryOPG->execute();
-$resultOPG = $queryOPG->get_result();
+$queryBusiness = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
+$queryBusiness->bind_param("i", $userID);
+$queryBusiness->execute();
+$resultBusiness = $queryBusiness->get_result();
 
 // Dohvacanje trenutno selektiranog gospodarstva
 if (isset($_SESSION['last_business_id'])) {
-  $queryCurrentOPG = $conn->prepare("SELECT * FROM business WHERE business_id = ? LIMIT 1");
-  $queryCurrentOPG->bind_param("i", $_SESSION['last_business_id']);
-  $queryCurrentOPG->execute();
-  $resultCurrentOPG = $queryCurrentOPG->get_result()->fetch_assoc();
+  $queryCurrentBusiness = $conn->prepare("SELECT * FROM business WHERE business_id = ? LIMIT 1");
+  $queryCurrentBusiness->bind_param("i", $_SESSION['last_business_id']);
+  $queryCurrentBusiness->execute();
+  $resultCurrentBusiness = $queryCurrentBusiness->get_result()->fetch_assoc();
 }
 ?>
 <header class="header">
@@ -23,7 +23,7 @@ if (isset($_SESSION['last_business_id'])) {
     <a class="navbar-brand text-light d-lg-none" href="" id="brandTopScroll">
       <?php
       if (isset($_SESSION['last_business_id'])) {
-        echo strlen($resultCurrentOPG['business_name']) > 20 ? substr($resultCurrentOPG['business_name'], 0, 20)."..." : $resultCurrentOPG['business_name'];
+        echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name'];
       }
       ?>
     </a>
@@ -35,7 +35,7 @@ if (isset($_SESSION['last_business_id'])) {
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <?php if (isset($_SESSION['last_business_id'])) : ?>
         <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
-          <?php echo strlen($resultCurrentOPG['business_name']) > 20 ? substr($resultCurrentOPG['business_name'], 0, 20)."..." : $resultCurrentOPG['business_name']; ?>
+          <?php echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name']; ?>
         </span>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="opgSelectDropdownBtn" role="button" data-toggle="dropdown">
@@ -43,8 +43,14 @@ if (isset($_SESSION['last_business_id'])) {
           </a>
           <div class="dropdown-menu dropdown-menu-right" id="opgSelect">
             <?php
-              while ($rowOPG = $resultOPG->fetch_assoc()) {
-                echo "<a class='dropdown-item' href='' data-opgid='{$rowOPG['business_id']}'>{$rowOPG['business_name']}</a>";
+              while ($rowBusiness = $resultBusiness->fetch_assoc()) {
+                // echo "<a class='dropdown-item' href='' data-opgid='{$rowBusiness['business_id']}'>{$rowBusiness['business_name']}</a>";
+                echo "
+                <form action='./includes/application/switch_business_inc.php' method='POST'>
+                  <input type='hidden' name='businessId' value='" . $rowBusiness['business_id'] . "' />
+                  <input type='submit' value='". $rowBusiness['business_name'] ."' class='dropdown-item opgSelectBtn'></input>
+                </form>
+                ";
               }
               ?>
           </div>
