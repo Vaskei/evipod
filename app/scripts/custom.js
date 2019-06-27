@@ -187,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
           $('#businessEmailEdit').val(data.row.business_email);
           $('#businessTelEdit').val(data.row.business_tel);
           $('#businessMobEdit').val(data.row.business_mob);
+          $('#businessEdit').val(data.row.business_id);
           $('#businessEditModal').modal('toggle');
         }
       }
@@ -208,9 +209,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else if (data.status == 'success') {
           console.log(data);
           $('#businessDeleteName').html(data.row.business_name);
+          $('#businessDelete').val(data.row.business_id);
           $('#businessDeleteModal').modal('toggle');
         }
       }
     });
-  })
+  });
 });

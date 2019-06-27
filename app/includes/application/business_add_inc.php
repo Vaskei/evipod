@@ -7,21 +7,17 @@ require_once '../functions.php';
 if (isset($_POST['businessAdd'])) {
   // var_dump($_POST);
   $userID = intval($_SESSION['user_id']);
-  $businessName = trim(htmlentities($_POST['businessName']));
-  $businessOwner = trim(htmlentities($_POST['businessOwner']));
-  $businessOIB = trim(htmlentities($_POST['businessOIB']));
-  $businessMIBPG = trim(htmlentities($_POST['businessMIBPG']));
-  $businessCounty = trim(htmlentities($_POST['businessCounty']));
-  $businessLocation = trim(htmlentities($_POST['businessLocation']));
-  $businessPost = trim(htmlentities($_POST['businessPost']));
-  $businessAddress = trim(htmlentities($_POST['businessAddress']));
-  $businessEmail = trim(htmlentities($_POST['businessEmail']));
-  $businessTel = trim(htmlentities($_POST['businessTel']));
-  $businessMob = trim(htmlentities($_POST['businessMob']));
-  $businessAdd = trim(htmlentities($_POST['businessAdd']));
-
-  // var_dump($businessOIB);
-  // var_dump($businessMIBPG);
+  $businessName = htmlentities(trim($_POST['businessName']));
+  $businessOwner = htmlentities(trim($_POST['businessOwner']));
+  $businessOIB = htmlentities(trim($_POST['businessOIB']));
+  $businessMIBPG = htmlentities(trim($_POST['businessMIBPG']));
+  $businessCounty = htmlentities(trim($_POST['businessCounty']));
+  $businessLocation = htmlentities(trim($_POST['businessLocation']));
+  $businessPost = htmlentities(trim($_POST['businessPost']));
+  $businessAddress = htmlentities(trim($_POST['businessAddress']));
+  $businessEmail = htmlentities(trim($_POST['businessEmail']));
+  $businessTel = htmlentities(trim($_POST['businessTel']));
+  $businessMob = htmlentities(trim($_POST['businessMob']));
 
   // Provjera da li je ime gospodarstva prazno
   if ($businessName == "") {

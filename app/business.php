@@ -13,17 +13,17 @@ $userID = $_SESSION['user_id'];
   <?php include('./includes/partials/index_sidebar.php'); ?>
 
   <!-- Modal za uredivanje gospodarstva -->
-  <div class="modal fade" id="businessEditModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title font-weight-bold" id="businessEditModalTitle">Uređivanje gospodarstva</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" action="">
+  <form method="POST" action="./includes/application/business_edit_inc.php">
+    <div class="modal fade" id="businessEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="businessEditModalTitle">Uređivanje gospodarstva</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
             <h5 class="text-muted">Osnovne informacije</h5>
             <div class="form-group row pl-3">
               <label for="businessNameEdit" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
@@ -93,44 +93,49 @@ $userID = $_SESSION['user_id'];
                 <input type="text" class="form-control form-control-sm" id="businessMobEdit" name="businessMobEdit" placeholder="Broj mobitela">
               </div>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-          <button type="button" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal za brisanje gospodarstva -->
-  <div class="modal fade" id="businessDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title font-weight-bold" id="businessDeleteModalTitle">Brisanje gospodarstva</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-3">
-              <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
-            </div>
-            <div class="col-9">
-              <p class="font-weight-bold">Obrisati odabrano gospodarstvo:</p>
-              <u><p id="businessDeleteName" class="font-weight-bold text-break"></p></u> 
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="businessEdit" id="businessEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
           </div>
         </div>
-        <div class="modal-footer justify-content-center">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-          <button type="button" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal za brisanje gospodarstva -->
+  <form method="POST" action="./includes/application/business_delete_inc.php">
+    <div class="modal fade" id="businessDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title font-weight-bold" id="businessDeleteModalTitle">Brisanje gospodarstva</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
+              </div>
+              <div class="col-9">
+                <p class="font-weight-bold">Obrisati odabrano gospodarstvo:</p>
+                <u>
+                  <p id="businessDeleteName" class="font-weight-bold text-break mb-0"></p>
+                </u>
+                <small class="text-muted">Brisanjem gospodarstva obrisat će se i djelatnosti vezane uz to gospodarstvo.</small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="businessDelete" id="businessDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </form>
 
   <section class="content">
     <div class="container-fluid">
