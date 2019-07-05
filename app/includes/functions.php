@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Funkcija za definiranje poruke i njezinog Bootstrap tipa (success, danger, warning, info...), te preusmjeravanje korisnika.
  */
-function redirectWithMsg(string $type, string $message, string $location){
+function redirectWithMsg(string $type, string $message, string $location)
+{
   $_SESSION['msg'] = "<div class='alert alert-{$type} text-center alertFadeout'>
                         <strong>{$message}</strong>
                           <div class='progress' id='customAlertBar'>
@@ -91,4 +93,15 @@ function toastNoRedirect(string $type, string $title, string $message)
   </div>  
   ";
 }
-?>
+
+/** 
+ * Funkcija za skracivanje predugackog teksta.
+ */
+function truncate($string, $length = 30)
+{
+  if (strlen($string) > $length) {
+    $string = substr($string, 0, $length) . '...';
+  }
+
+  return $string;
+}

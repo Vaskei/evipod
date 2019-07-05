@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../");
 require_once "./includes/connection.php";
 $title = "Evipod - Index";
-$userID = $_SESSION['user_id'];
+$userId = $_SESSION['user_id'];
 ?>
 
 <?php include('./includes/partials/index_head.php'); ?>
@@ -16,18 +16,6 @@ $userID = $_SESSION['user_id'];
   <section class="content">
     <div class="container-fluid">
       <div class="position-relative d-flex justify-content-center">
-        <!-- <div class="toast position-absolute" data-autohide="false">
-          <div class="toast-header">
-            <i class="fas fa-exclamation-circle fa-lg mr-2 text-danger"></i>
-            <strong class="mr-auto text-danger">Bootstrap</strong>
-            <button type="button" class="close text-dark" data-dismiss="toast" aria-label="Close">
-              <span aria-hidden="true"><i class="fas fa-times fa-sm"></i></span>
-            </button>
-          </div>
-          <div class="toast-body bg-white">
-            Hello, world! This is a toast message. Hello, world! This is a toast message. Hello, world! This is a toast message.
-          </div>
-        </div> -->
 
         <!-- Ispisivanje toast-a preko sesije -->
         <?php
@@ -48,7 +36,7 @@ $userID = $_SESSION['user_id'];
       <p><?php var_dump($_SESSION); ?></p>
       <p>
         <?php
-        $query = "SELECT * FROM business WHERE user_id = $userID";
+        $query = "SELECT * FROM business WHERE user_id = $userId";
         $result = $conn->query($query);
         while ($row = $result->fetch_assoc()) {
           var_dump($row);

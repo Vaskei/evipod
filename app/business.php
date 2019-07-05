@@ -2,8 +2,9 @@
 session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../");
 require_once "./includes/connection.php";
+require_once './includes/functions.php';
 $title = "Evipod - Gospodarstvo";
-$userID = $_SESSION['user_id'];
+$userId = $_SESSION['user_id'];
 ?>
 <?php include('./includes/partials/index_head.php'); ?>
 
@@ -149,6 +150,8 @@ $userID = $_SESSION['user_id'];
         </div>
         <div class="modal-body">
           <dl class="row">
+            <dt class="col-sm-3">Naziv:</dt>
+            <dd class="col-sm-9" id="businessNameInfo"></dd>
             <dt class="col-sm-3">Vlasnik:</dt>
             <dd class="col-sm-9" id="businessOwnerInfo"></dd>
             <dt class="col-sm-3">OIB:</dt>
@@ -213,7 +216,7 @@ $userID = $_SESSION['user_id'];
             <!-- Div/tab za listu gospodarstva -->
             <div class="tab-pane fade show active" id="businessList" role="tabpanel">
               <h3>Lista gospodarstva</h3>
-              <table class="table table-sm table-bordered table-hover text-center datatable-enable">
+              <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="businessTable">
                 <thead>
                   <tr>
                     <th>Naziv</th>
@@ -234,14 +237,14 @@ $userID = $_SESSION['user_id'];
                 <tbody>
                   <?php
                   $query = $conn->prepare("SELECT * FROM business WHERE user_id = ? ORDER BY created_at");
-                  $query->bind_param("i", $userID);
+                  $query->bind_param("i", $userId);
                   $query->execute();
                   $result = $query->get_result();
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td><a href='' class='businessInfoLink' data-business-id-info='{$row['business_id']}'>{$row['business_name']}</a></td>";
-                      echo "<td>{$row['business_owner']}</td>";
+                      echo "<td><a href='' class='businessInfoLink' data-business-id-info='{$row['business_id']}'>" . truncate($row['business_name']) . "</a></td>";
+                      echo "<td>" . truncate($row['business_owner']) . "</td>";
                       echo "<td>{$row['business_oib']}</td>";
                       echo "<td>{$row['business_mibpg']}</td>";
                       // echo "<td>{$row['business_county']}</td>";
@@ -354,7 +357,7 @@ $userID = $_SESSION['user_id'];
   <?php include('./includes/partials/index_footer.php'); ?>
 
   <script>
-  document.querySelector('#app_business').classList.replace('bg-secondary', 'list-group-item-dark');
+    document.querySelector('#app_business').classList.replace('bg-secondary', 'list-group-item-dark');
   </script>
 
 </body>

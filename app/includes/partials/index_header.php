@@ -1,14 +1,20 @@
 <?php
+// Dohvacanje korisnika
+$queryUser = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
+$queryUser->bind_param("i", $userId);
+$queryUser->execute();
+$resultUser = $queryUser->get_result()->fetch_assoc();
+
 // Dohvacanje svih gospodarstva
 $queryBusiness = $conn->prepare("SELECT * FROM business WHERE user_id = ?");
-$queryBusiness->bind_param("i", $userID);
+$queryBusiness->bind_param("i", $userId);
 $queryBusiness->execute();
 $resultBusiness = $queryBusiness->get_result();
 
 // Dohvacanje trenutno selektiranog gospodarstva
-if (isset($_SESSION['last_business_id'])) {
+if ($resultUser['current_business_id'] != null) {
   $queryCurrentBusiness = $conn->prepare("SELECT * FROM business WHERE business_id = ? LIMIT 1");
-  $queryCurrentBusiness->bind_param("i", $_SESSION['last_business_id']);
+  $queryCurrentBusiness->bind_param("i", $resultUser['current_business_id']);
   $queryCurrentBusiness->execute();
   $resultCurrentBusiness = $queryCurrentBusiness->get_result()->fetch_assoc();
 }
@@ -22,7 +28,7 @@ if (isset($_SESSION['last_business_id'])) {
     <a class="navbar-brand d-none d-lg-block" href="" id="brandTopScroll">Evipod</a>
     <a class="navbar-brand text-light d-lg-none" href="" id="brandTopScroll">
       <?php
-      if (isset($_SESSION['last_business_id'])) {
+      if ($resultUser['current_business_id'] != null) {
         echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name'];
       }
       ?>
@@ -33,7 +39,7 @@ if (isset($_SESSION['last_business_id'])) {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-        <?php if (isset($_SESSION['last_business_id'])) : ?>
+        <?php if ($resultUser['current_business_id'] != null) : ?>
         <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
           <?php echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name']; ?>
         </span>

@@ -6,7 +6,7 @@ require_once '../functions.php';
 
 if (isset($_POST['businessEdit'])) {
   var_dump($_POST);
-  $userID = intval($_SESSION['user_id']);
+  $userId = intval($_SESSION['user_id']);
   $businessId = $_POST['businessEdit'];
   $businessName = htmlentities(trim($_POST['businessNameEdit']));
   $businessOwner = htmlentities(trim($_POST['businessOwnerEdit']));
@@ -48,7 +48,7 @@ if (isset($_POST['businessEdit'])) {
   // Azuriranje gospodarstva
   // $query = $conn->prepare("INSERT INTO business(business_name, user_id, business_owner, business_oib, business_mibpg, business_county, business_location, business_post, business_address, business_email, business_tel, business_mob) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
   $query = $conn->prepare("UPDATE business SET business_name=?, business_owner=?, business_oib=?, business_mibpg=?, business_county=?, business_location=?, business_post=?, business_address=?, business_email=?, business_tel=?, business_mob=? WHERE business_id=? AND user_id=?");
-  $query->bind_param("sssssssssssii", $businessName, $businessOwner, $businessOIB, $businessMIBPG, $businessCounty, $businessLocation, $businessPost, $businessAddress, $businessEmail, $businessTel, $businessMob, $businessId, $userID);
+  $query->bind_param("sssssssssssii", $businessName, $businessOwner, $businessOIB, $businessMIBPG, $businessCounty, $businessLocation, $businessPost, $businessAddress, $businessEmail, $businessTel, $businessMob, $businessId, $userId);
   if ($query->execute()) {
     redirectWithToastSuccess("success", "Uspjeh.", "Gospodarstvo ažurirano.", "../../business");
   } else {

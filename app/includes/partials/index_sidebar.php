@@ -2,7 +2,7 @@
   <div class="list-group list-group-flush">
     <a href="./" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_index"><i class="fas fa-home"></i><strong>&nbsp;&nbsp;Start</strong></a>
     <a href="./business" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_business"><i class="fas fa-apple-alt"></i><strong>&nbsp;&nbsp;Gospodarstvo</strong></a>
-    <?php if (isset($_SESSION['last_business_id'])): ?>
+    <?php if ($resultUser['has_business'] == 1): ?>
     <a href="./fields" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_fields"><i class="fas fa-map-marked-alt"></i><strong>&nbsp;&nbsp;Zemljišta</strong></a>
     <a href="./planting" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_planting"><i class="fas fa-seedling"></i><strong>&nbsp;&nbsp;Sadnja/sjetva</strong></a>
     <a href="./activities" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_activities"><i class="fas fa-tasks"></i><strong>&nbsp;&nbsp;Evidencija djelatnosti</strong></a>

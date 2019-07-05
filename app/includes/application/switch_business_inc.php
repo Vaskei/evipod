@@ -30,10 +30,9 @@ if (isset($_POST['businessId'])) {
       exit();
     } else {
       // Azuriranje users tabele i sesije
-      $query = $conn->prepare("UPDATE users SET last_business_id = ? WHERE user_id = ?");
+      $query = $conn->prepare("UPDATE users SET current_business_id = ? WHERE user_id = ?");
       $query->bind_param("ii", $businessId, $userId);
       if ($query->execute()) {
-        $_SESSION['last_business_id'] = intval($businessId);
         redirectWithToastSuccess("success", "Uspjeh.", "Gospodarstvo promijenjeno.", "../../");
       } else {
         redirectWithToastError("danger", "Greška kod promjene gospodarstva.", "../../");

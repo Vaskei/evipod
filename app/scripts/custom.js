@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   // Dohvacanje podataka za uredenje gospodarstva
-  $('.businessEditBtn').click(function () {
+  $('#businessTable tbody').on('click', '.businessEditBtn', function () {
     let businessEditId = $(this).attr('data-business-id-edit');
     $.ajax({
       type: 'POST',
@@ -195,9 +195,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   // Dohvacanje podataka za brisanje gospodarstva
-  $('.businessDeleteBtn').click(function () {
+  $('#businessTable tbody').on('click', '.businessDeleteBtn', function () {
     let businessDeleteId = $(this).attr('data-business-id-delete');
-    console.log(businessDeleteId);
     $.ajax({
       type: 'POST',
       url: './includes/application/business_fetch_inc.php',
@@ -215,11 +214,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
   });
 
-  $('.businessInfoLink').click(function (e) {
+  // Dohvacanje podataka za detalje gospodarstva
+  $('#businessTable tbody').on('click', '.businessInfoLink', function (e) {
     let businessInfoId = $(this).attr('data-business-id-info');
     e.stopPropagation();
     e.preventDefault();
-    console.log(businessInfoId);
     $.ajax({
       type: 'POST',
       url: './includes/application/business_fetch_inc.php',
@@ -230,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
           window.location.reload();
         } else if (data.status == 'success') {
           $('#businessInfoModalTitle').html(data.row.business_name);
+          $('#businessNameInfo').html(data.row.business_name);
           $('#businessOwnerInfo').html(data.row.business_owner  != "" ? data.row.business_owner : "-");
           $('#businessOIBInfo').html(data.row.business_oib != "" ? data.row.business_oib : "-");
           $('#businessMIBPGInfo').html(data.row.business_mibpg != "" ? data.row.business_mibpg : "-");
