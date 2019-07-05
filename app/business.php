@@ -137,6 +137,49 @@ $userID = $_SESSION['user_id'];
     </div>
   </form>
 
+  <!-- Modal za detalje gospodarstva -->
+  <div class="modal fade" id="businessInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-weight-bold text-truncate" id="businessInfoModalTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <dl class="row">
+            <dt class="col-sm-3">Vlasnik:</dt>
+            <dd class="col-sm-9" id="businessOwnerInfo"></dd>
+            <dt class="col-sm-3">OIB:</dt>
+            <dd class="col-sm-9" id="businessOIBInfo"></dd>
+            <dt class="col-sm-3">MIBPG:</dt>
+            <dd class="col-sm-9" id="businessMIBPGInfo"></dd>
+            <dt class="col-sm-3">Županija:</dt>
+            <dd class="col-sm-9" id="businessCountyInfo"></dd>
+            <dt class="col-sm-3">Mjesto:</dt>
+            <dd class="col-sm-9" id="businessLocationInfo"></dd>
+            <dt class="col-sm-3">Pošta:</dt>
+            <dd class="col-sm-9" id="businessPostInfo"></dd>
+            <dt class="col-sm-3">Adresa:</dt>
+            <dd class="col-sm-9" id="businessAddressInfo"></dd>
+            <dt class="col-sm-3">E-mail:</dt>
+            <dd class="col-sm-9" id="businessEmailInfo"></dd>
+            <dt class="col-sm-3">Tel:</dt>
+            <dd class="col-sm-9" id="businessTelInfo"></dd>
+            <dt class="col-sm-3">Mob:</dt>
+            <dd class="col-sm-9" id="businessMobInfo"></dd>
+            <dt class="col-sm-3">Dodano:</dt>
+            <dd class="col-sm-9" id="businessAddedInfo"></dd>
+          </dl>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section class="content">
     <div class="container-fluid">
       <div class="position-relative d-flex justify-content-center">
@@ -177,14 +220,14 @@ $userID = $_SESSION['user_id'];
                     <th>Vlasnik</th>
                     <th>OIB</th>
                     <th>MIBPG</th>
-                    <th>Županija</th>
+                    <!-- <th>Županija</th>
                     <th>Mjesto</th>
                     <th>Pošta</th>
                     <th>Adresa</th>
                     <th>E-mail</th>
                     <th>Tel</th>
                     <th>Mob</th>
-                    <th>Dodano</th>
+                    <th>Dodano</th> -->
                     <th>Opcije</th>
                   </tr>
                 </thead>
@@ -197,18 +240,18 @@ $userID = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td>{$row['business_name']}</td>";
+                      echo "<td><a href='' class='businessInfoLink' data-business-id-info='{$row['business_id']}'>{$row['business_name']}</a></td>";
                       echo "<td>{$row['business_owner']}</td>";
                       echo "<td>{$row['business_oib']}</td>";
                       echo "<td>{$row['business_mibpg']}</td>";
-                      echo "<td>{$row['business_county']}</td>";
-                      echo "<td>{$row['business_location']}</td>";
-                      echo "<td>{$row['business_post']}</td>";
-                      echo "<td>{$row['business_address']}</td>";
-                      echo "<td>{$row['business_email']}</td>";
-                      echo "<td>{$row['business_tel']}</td>";
-                      echo "<td>{$row['business_mob']}</td>";
-                      echo "<td>{$row['created_at']}</td>";
+                      // echo "<td>{$row['business_county']}</td>";
+                      // echo "<td>{$row['business_location']}</td>";
+                      // echo "<td>{$row['business_post']}</td>";
+                      // echo "<td>{$row['business_address']}</td>";
+                      // echo "<td>{$row['business_email']}</td>";
+                      // echo "<td>{$row['business_tel']}</td>";
+                      // echo "<td>{$row['business_mob']}</td>";
+                      // echo "<td>{$row['created_at']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
                                 <button type='button' class='btn btn-primary w-100 businessEditBtn' data-business-id-edit='{$row['business_id']}'>Uredi</button>

@@ -207,10 +207,41 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          console.log(data);
           $('#businessDeleteName').html(data.row.business_name);
           $('#businessDelete').val(data.row.business_id);
           $('#businessDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  $('.businessInfoLink').click(function (e) {
+    let businessInfoId = $(this).attr('data-business-id-info');
+    e.stopPropagation();
+    e.preventDefault();
+    console.log(businessInfoId);
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/business_fetch_inc.php',
+      data: 'businessId=' + businessInfoId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#businessInfoModalTitle').html(data.row.business_name);
+          $('#businessOwnerInfo').html(data.row.business_owner  != "" ? data.row.business_owner : "-");
+          $('#businessOIBInfo').html(data.row.business_oib != "" ? data.row.business_oib : "-");
+          $('#businessMIBPGInfo').html(data.row.business_mibpg != "" ? data.row.business_mibpg : "-");
+          $('#businessCountyInfo').html(data.row.business_county != "" ? data.row.business_county : "-");
+          $('#businessLocationInfo').html(data.row.business_location != "" ? data.row.business_location : "-");
+          $('#businessPostInfo').html(data.row.business_post != "" ? data.row.business_post : "-");
+          $('#businessAddressInfo').html(data.row.business_address != "" ? data.row.business_address : "-");
+          $('#businessEmailInfo').html(data.row.business_email != "" ? data.row.business_email : "-");
+          $('#businessTelInfo').html(data.row.business_tel != "" ? data.row.business_tel : "-");
+          $('#businessMobInfo').html(data.row.business_mob != "" ? data.row.business_mob : "-");
+          $('#businessAddedInfo').html(data.row.created_at);
+          $('#businessInfoModal').modal('toggle');
         }
       }
     });
