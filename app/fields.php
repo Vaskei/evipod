@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) header("Location: ../");
+require_once "./includes/connection.php";
+require_once './includes/functions.php';
+$title = "Evipod - Zemljišta";
+$userId = $_SESSION['user_id'];
+?>
 <?php include ('./includes/partials/index_head.php'); ?>
 
 <body class="bg-light">
@@ -38,15 +46,21 @@
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina:</label>
+                  <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina (ha):</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="fieldSize" placeholder="Površina zemljišta">
+                    <input type="text" class="form-control form-control-sm" id="fieldSize" placeholder="Površina zemljišta (ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldARKOD" class="col-sm-2 col-form-label col-form-label-sm">ARKOD ID:</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control form-control-sm" id="fieldARKOD" placeholder="ARKOD ID zemljišta">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="fieldNote" class="col-sm-2 col-form-label col-form-label-sm">Napomena:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="fieldNote" placeholder="Napomena">
                   </div>
                 </div>
                 <div class="row justify-content-center">

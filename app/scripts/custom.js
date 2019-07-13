@@ -240,7 +240,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
           $('#businessEmailInfo').html(data.row.business_email != "" ? data.row.business_email : "-");
           $('#businessTelInfo').html(data.row.business_tel != "" ? data.row.business_tel : "-");
           $('#businessMobInfo').html(data.row.business_mob != "" ? data.row.business_mob : "-");
-          $('#businessAddedInfo').html(data.row.created_at);
+          let dateSplit = data.row.created_at.split(/[- :]/);
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ". u " + dateSplit[3] + ":" + dateSplit[4] + ":" + dateSplit[5];
+          $('#businessAddedInfo').html(date);
           $('#businessInfoModal').modal('toggle');
         }
       }

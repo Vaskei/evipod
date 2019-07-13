@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../");
 require_once "./includes/connection.php";
-$title = "Evipod - Index";
+$title = "Evipod - Početna";
 $userId = $_SESSION['user_id'];
 ?>
 

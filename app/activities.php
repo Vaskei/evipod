@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) header("Location: ../");
+require_once "./includes/connection.php";
+require_once './includes/functions.php';
+$title = "Evipod - Evidencija djelatnosti";
+$userId = $_SESSION['user_id'];
+?>
 <?php include ('./includes/partials/index_head.php'); ?>
 
 <body class="bg-light">
