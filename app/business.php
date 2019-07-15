@@ -185,8 +185,8 @@ $userId = $_SESSION['user_id'];
 
   <section class="content">
     <div class="container-fluid">
-      <div class="position-relative d-flex justify-content-center">
 
+      <div class="position-relative d-flex justify-content-center">
         <!-- Ispisivanje toast-a preko sesije -->
         <?php
         if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {

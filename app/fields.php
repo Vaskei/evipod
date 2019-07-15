@@ -15,6 +15,17 @@ $userId = $_SESSION['user_id'];
 
   <section class="content">
     <div class="container-fluid">
+
+      <div class="position-relative d-flex justify-content-center">
+      <!-- Ispisivanje toast-a preko sesije -->
+      <?php
+      if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
+        echo $_SESSION['msg'];
+        unset($_SESSION['msg']);
+      }
+      ?>
+      </div>
+
       <div class="card">
         <h5 class="card-header text-center bg-secondary">
           <i class="fas fa-map-marked-alt"></i><strong>&nbsp;&nbsp;Zemljišta</strong>
@@ -38,29 +49,29 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="fieldsAdd" role="tabpanel">
               <h3>Dodaj zemljište</h3>
               <hr>
-              <form action="">
+              <form method="POST" action="./includes/application/fields_add_inc.php">
                 <div class="form-group row pl-3">
                   <label for="fieldName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="fieldName" placeholder="Naziv zemljišta">
+                    <input type="text" class="form-control form-control-sm" name="fieldName" id="fieldName" placeholder="Naziv zemljišta">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina (ha):</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="fieldSize" placeholder="Površina zemljišta (ha)">
+                    <input type="text" class="form-control form-control-sm" name="fieldSize" id="fieldSize" placeholder="Površina zemljišta (ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldARKOD" class="col-sm-2 col-form-label col-form-label-sm">ARKOD ID:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="fieldARKOD" placeholder="ARKOD ID zemljišta">
+                    <input type="text" class="form-control form-control-sm" name="fieldARKOD" id="fieldARKOD" placeholder="ARKOD ID zemljišta">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldNote" class="col-sm-2 col-form-label col-form-label-sm">Napomena:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="fieldNote" placeholder="Napomena">
+                    <input type="text" class="form-control form-control-sm" name="fieldNote" id="fieldNote" placeholder="Napomena">
                   </div>
                 </div>
                 <div class="row justify-content-center">
