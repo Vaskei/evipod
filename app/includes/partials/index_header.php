@@ -12,7 +12,7 @@ $queryBusiness->execute();
 $resultBusiness = $queryBusiness->get_result();
 
 // Dohvacanje trenutno selektiranog gospodarstva
-if ($resultUser['current_business_id'] != null) {
+if ($resultUser['current_business_id'] != NULL) {
   $queryCurrentBusiness = $conn->prepare("SELECT * FROM business WHERE business_id = ? LIMIT 1");
   $queryCurrentBusiness->bind_param("i", $resultUser['current_business_id']);
   $queryCurrentBusiness->execute();
@@ -28,7 +28,7 @@ if ($resultUser['current_business_id'] != null) {
     <a class="navbar-brand d-none d-lg-block" href="" id="brandTopScroll">Evipod</a>
     <a class="navbar-brand text-light d-lg-none" href="" id="brandTopScroll">
       <?php
-      if ($resultUser['current_business_id'] != null) {
+      if ($resultUser['current_business_id'] != NULL) {
         echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name'];
       }
       ?>
@@ -39,7 +39,7 @@ if ($resultUser['current_business_id'] != null) {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-        <?php if ($resultUser['current_business_id'] != null) : ?>
+        <?php if ($resultUser['current_business_id'] != NULL) : ?>
         <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
           <?php echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name']; ?>
         </span>

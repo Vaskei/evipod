@@ -66,13 +66,13 @@ $title = "Evipod - Članstvo"
                       <label for="loginEmail">Email</label>
                       <input type="email" class="form-control" id="loginEmail" name="loginEmail"
                         placeholder="Unesite email..." required>
-                      <div class="invalid-feedback">Unesite potrebne podatke.</div>
+                      <div class="invalid-feedback">Uneseni Email je krivog formata.</div>
                     </div>
                     <div class="form-group">
                       <label for="loginPass">Lozinka</label>
                       <input type="password" class="form-control" id="loginPass" name="loginPass"
                         placeholder="Unesite lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
-                      <div class="invalid-feedback">Unesite potrebne podatke.</div>
+                      <div class="invalid-feedback">Unesena lozinka je krivog formata.</div>
                     </div>
                     <button type="submit" name="loginSubmit" class="btn btn-primary"><i
                         class="fas fa-sign-in-alt"></i>&nbsp;Prijava</button>
@@ -144,11 +144,7 @@ $title = "Evipod - Članstvo"
     </div>
   </div>
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="./scripts/jquery-3.3.1.min.js"></script>
-  <script src="./scripts/bootstrap.bundle.min.js"></script>
-  <script src="./scripts/custom.js"></script>
+  <?php include('./includes/partials/index_footer.php'); ?>
 </body>
 
 </html>

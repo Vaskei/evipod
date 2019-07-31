@@ -51,8 +51,8 @@ if (isset($_POST['businessAdd'])) {
     // var_dump($row);
     $lastBusinessId = $row['business_id'];
     $hasBusiness = 1;
-    $query = $conn->prepare("UPDATE users SET current_business_id = ?, has_business = ? WHERE user_id = ?");
-    $query->bind_param("iii", $lastBusinessId, $hasBusiness, $userId);
+    $query = $conn->prepare("UPDATE users SET current_business_id = ? WHERE user_id = ?");
+    $query->bind_param("ii", $lastBusinessId, $userId);
     $query->execute();
     redirectWithToastSuccess("success", "Uspjeh.", "Gospodarstvo dodano.", "../../business");
   } else {

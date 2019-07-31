@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 13, 2019 at 05:36 PM
+-- Generation Time: Jul 31, 2019 at 09:10 PM
 -- Server version: 5.7.21
--- PHP Version: 7.2.10
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,16 +48,16 @@ CREATE TABLE IF NOT EXISTS `business` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `business`
 --
 
 INSERT INTO `business` (`business_id`, `business_name`, `user_id`, `business_owner`, `business_oib`, `business_mibpg`, `business_county`, `business_location`, `business_post`, `business_address`, `business_email`, `business_tel`, `business_mob`, `created_at`, `updated_at`) VALUES
-(48, 'Test 1', 17, 'Djed Mraz', '12345678901', '1234567', 'Medimurje', 'Domasinec', '40318', 'Selska 41', 'test@test.com', '911', '098911', '2019-07-05 18:52:47', '2019-07-05 18:52:47'),
-(49, 'Test 2', 17, 'Macho Orach', '10000000000', '6969696', 'Zagorje', 'Kamenjara', '10101', 'Sumska 99', 'seljak@test.com', '555-100', '099/199-000', '2019-07-05 18:54:48', '2019-07-05 18:54:48'),
-(50, 'Test 3', 17, 'Vrijeme', '', '', '', '', '', '', '', '', '', '2019-07-05 21:01:55', '2019-07-05 21:01:55');
+(51, 'Test 1', 17, 'Macho Orach', '12345678901', '1234567', 'Medimurje', 'Domasinec', '40318', 'Selska 41', 'orachina@gmail.com', '911', '099/199-000', '2019-07-31 20:44:24', '2019-07-31 20:44:24'),
+(52, 'Test 2', 17, '', '', '99123', 'Medimurje', '', '', '', '', '', '', '2019-07-31 20:44:51', '2019-07-31 20:48:34'),
+(53, 'Test 3', 17, 'Vrijeme', '00123456789', '', 'Tu', 'Tamo', '', '', '', '', '', '2019-07-31 20:45:13', '2019-07-31 20:45:22');
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_email_confirmed` tinyint(4) NOT NULL DEFAULT '0',
   `token_confirm` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `has_business` tinyint(1) NOT NULL DEFAULT '0',
   `current_business_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -118,10 +117,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `has_business`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 1, 49, '2018-12-29 00:33:40', '2019-07-06 07:38:05'),
-(23, 'Žbulj', 'evipodtest3@gmail.com', '$2y$10$iD2Y6KQckevvGPCxlPZiCuYieJK/1WF.7pbpqMgZEP2fRpSTLtYY2', 1, '', 0, NULL, '2019-03-02 23:28:47', '2019-03-02 23:29:23'),
-(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', 0, NULL, '2019-04-05 14:11:59', '2019-04-05 14:12:15');
+INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 53, '2018-12-29 00:33:40', '2019-07-31 20:45:13'),
+(23, 'Žbulj', 'evipodtest3@gmail.com', '$2y$10$iD2Y6KQckevvGPCxlPZiCuYieJK/1WF.7pbpqMgZEP2fRpSTLtYY2', 1, '', NULL, '2019-03-02 23:28:47', '2019-03-02 23:29:23'),
+(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', NULL, '2019-04-05 14:11:59', '2019-04-05 14:12:15');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

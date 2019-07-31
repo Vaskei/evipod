@@ -43,7 +43,7 @@ if (isset($_POST['businessDelete'])) {
         $query->execute();
         redirectWithToastSuccess("info", "Uspjeh.", "Gospodarstvo obrisano.", "../../business");
       } elseif ($result->num_rows == 0) { // Ukoliko je obrisano zadnje gospodarstvo u bazi, postavljamo potrebne podatke
-        $query = $conn->prepare("UPDATE users SET current_business_id = NULL, has_business = 0 WHERE user_id = ?");
+        $query = $conn->prepare("UPDATE users SET current_business_id = NULL WHERE user_id = ?");
         $query->bind_param("i", $userId);
         $query->execute();
         redirectWithToastSuccess("info", "Uspjeh.", "Gospodarstvo obrisano.", "../../business");
@@ -53,7 +53,7 @@ if (isset($_POST['businessDelete'])) {
       $query->execute();
       $result = $query->get_result();
       if ($result->num_rows == 0) { // Ukoliko je obrisano zadnje gospodarstvo u bazi, postavljamo potrebne podatke
-        $query = $conn->prepare("UPDATE users SET current_business_id = NULL, has_business = 0 WHERE user_id = ?");
+        $query = $conn->prepare("UPDATE users SET current_business_id = NULL WHERE user_id = ?");
         $query->bind_param("i", $userId);
         $query->execute();
         redirectWithToastSuccess("info", "Uspjeh.", "Gospodarstvo obrisano.", "../../business");
