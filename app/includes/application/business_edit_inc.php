@@ -5,7 +5,7 @@ require_once '../connection.php';
 require_once '../functions.php';
 
 if (isset($_POST['businessEdit'])) {
-  var_dump($_POST);
+  // var_dump($_POST);
   $userId = intval($_SESSION['user_id']);
   $businessId = $_POST['businessEdit'];
   $businessName = htmlentities(trim($_POST['businessNameEdit']));
@@ -30,6 +30,18 @@ if (isset($_POST['businessEdit'])) {
     redirectWithToastError("warning", "Naziv subjekta je obavezan!", "../../business");
   }
 
+  // Provjera maksimalne duzine pojedinih podataka
+  if (
+    strlen(trim($_POST['businessNameEdit'])) > 255 ||
+    strlen(trim($_POST['businessOwnerEdit'])) > 255 ||
+    strlen(trim($_POST['businessCountyEdit'])) > 255 ||
+    strlen(trim($_POST['businessLocationEdit'])) > 255 ||
+    strlen(trim($_POST['businessAddressEdit'])) > 255 ||
+    strlen(trim($_POST['businessEmailEdit'])) > 255
+  ) {
+    redirectWithToastError("warning", "Unesen neispravan format podatka!", "../../business");
+  }
+
   // Provjera OIB formata ukoliko je upisan
   if ($businessOIB != "" && !preg_match('/^[0-9]{11}$/', $businessOIB)) {
     redirectWithToastError("warning", "Neispravan format OIB-a!", "../../business");
@@ -43,6 +55,16 @@ if (isset($_POST['businessEdit'])) {
   // Provjera poštanskog broja ukoliko je unesen
   if ($businessPost != "" && !preg_match('/^[0-9]{5}$/', $businessPost)) {
     redirectWithToastError("warning", "Neispravan format poštanskog broja!", "../../business");
+  }
+
+  // Provjera broja telefona ukoliko je unesen
+  if ($businessTel != "" && !preg_match('/^[0-9]{1,100}$/', $businessTel)) {
+    redirectWithToastError("warning", "Neispravan format broja telefona!", "../../business");
+  }
+
+  // Provjera brojamobitela ukoliko je unesen
+  if ($businessMob != "" && !preg_match('/^[0-9]{1,100}$/', $businessMob)) {
+    redirectWithToastError("warning", "Neispravan format broja mobitela!", "../../business");
   }
 
   // Azuriranje gospodarstva
