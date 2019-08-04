@@ -6,7 +6,7 @@ require_once '../functions.php';
 
 if (isset($_POST['businessEdit'])) {
   // var_dump($_POST);
-  $userId = intval($_SESSION['user_id']);
+  $userId = $_SESSION['user_id'];
   $businessId = $_POST['businessEdit'];
   $businessName = htmlentities(trim($_POST['businessNameEdit']));
   $businessOwner = htmlentities(trim($_POST['businessOwnerEdit']));

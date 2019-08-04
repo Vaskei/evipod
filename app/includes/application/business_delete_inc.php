@@ -7,7 +7,7 @@ require_once '../functions.php';
 if (isset($_POST['businessDelete'])) {
   // var_dump($_POST);
   // var_dump($_SESSION);
-  $userId = intval($_SESSION['user_id']);
+  $userId = $_SESSION['user_id'];
   $businessId = $_POST['businessDelete'];
 
   // Dohvacanje trenutno aktivnog gospodarstva

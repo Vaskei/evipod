@@ -42,10 +42,48 @@ $userId = $_SESSION['user_id'];
           </ul>
         </div>
         <div class="card-body">
-          <div class="tab-content" id="myTabContent">
+          <div class="tab-content" id="fieldsTabContent">
+            <!-- Div/tab za listu zemljista -->
             <div class="tab-pane fade show active" id="fieldsList" role="tabpanel">
               <h3>Lista zemljišta</h3>
+              <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="fieldsTable">
+                <thead>
+                  <tr>
+                    <th>Naziv</th>
+                    <th>Površina (ha)</th>
+                    <th>ARKOD ID</th>
+                    <th>Napomena</th>
+                    <th>Opcije</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $query = $conn->prepare("SELECT * FROM fields WHERE business_id = ? ORDER BY created_at");
+                  $query->bind_param("i", $resultUser['current_business_id']);
+                  $query->execute();
+                  $result = $query->get_result();
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>";
+                      echo "<td>" . truncate($row['field_name'], 20) . "</td>";
+                      echo "<td>{$row['field_size']}</td>";
+                      echo $row['field_arkod'] != 0 ? "<td>{$row['field_arkod']}</td>" : "<td>-</td>";
+                      echo "<td>{$row['field_note']}</td>";
+                      echo "<td class='align-middle'>
+                              <div class='btn-group btn-group-sm d-flex' role='group'>
+                                <button type='button' class='btn btn-primary w-100 fieldEditBtn' data-field-id-edit='{$row['field_id']}'>Uredi</button>
+                                <button type='button' class='btn btn-danger w-100 fieldDeleteBtn' data-field-id-delete='{$row['field_id']}'>Briši</button>
+                              </div>
+                            </td>";
+                      echo "</tr>";
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
             </div>
+
+            <!-- Div/tab za dodavanje zemljista -->
             <div class="tab-pane fade" id="fieldsAdd" role="tabpanel">
               <h3>Dodaj zemljište</h3>
               <hr>
@@ -59,7 +97,7 @@ $userId = $_SESSION['user_id'];
                 <div class="form-group row pl-3">
                   <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina (ha):</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" name="fieldSize" id="fieldSize" placeholder="Površina zemljišta (ha)">
+                    <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01"  placeholder="Površina zemljišta (ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">

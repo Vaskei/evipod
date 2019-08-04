@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 31, 2019 at 09:10 PM
+-- Generation Time: Aug 04, 2019 at 11:47 PM
 -- Server version: 5.7.21
--- PHP Version: 7.2.11
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,16 +48,17 @@ CREATE TABLE IF NOT EXISTS `business` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `business`
 --
 
 INSERT INTO `business` (`business_id`, `business_name`, `user_id`, `business_owner`, `business_oib`, `business_mibpg`, `business_county`, `business_location`, `business_post`, `business_address`, `business_email`, `business_tel`, `business_mob`, `created_at`, `updated_at`) VALUES
-(51, 'Test 1', 17, 'Macho Orach', '12345678901', '1234567', 'Medimurje', 'Domasinec', '40318', 'Selska 41', 'orachina@gmail.com', '911', '099/199-000', '2019-07-31 20:44:24', '2019-07-31 20:44:24'),
-(52, 'Test 2', 17, '', '', '99123', 'Medimurje', '', '', '', '', '', '', '2019-07-31 20:44:51', '2019-07-31 20:48:34'),
-(53, 'Test 3', 17, 'Vrijeme', '00123456789', '', 'Tu', 'Tamo', '', '', '', '', '', '2019-07-31 20:45:13', '2019-07-31 20:45:22');
+(48, 'Test 1', 17, 'Djed Mraz', '12345678901', '1234567', 'Medimurje', 'Domasinec', '40318', 'Selska 41', 'test@test.com', '911', '098911', '2019-07-05 18:52:47', '2019-07-05 18:52:47'),
+(49, 'Test 2', 17, 'Macho Orach', '10000000000', '6969696', 'Zagorje', 'Kamenjara', '10101', 'Sumska 99', 'seljak@test.com', '555-100', '099/199-000', '2019-07-05 18:54:48', '2019-07-05 18:54:48'),
+(50, 'Test 3', 17, 'Vrijeme', '', '', '', '', '', '', '', '', '', '2019-07-05 21:01:55', '2019-07-05 21:01:55'),
+(55, 'sfsdfsdfadasda', 17, '', '', '', 'afjbfiawiabhifahsfauigsduipgasdigaisdauisgyduaigysduagvsduavsduagsduhavbsduhvausdagdouiawgyduagywduagwuodgyuaolgy', '', '', '', '', '0718128596203722704284674073240596279441761014487880794533553230907265813352151627929174204537135764', '0718128596203722704284674073240596279441761014487880794533553230907265813352151627929174204537135764', '2019-08-03 00:45:38', '2019-08-03 00:52:14');
 
 -- --------------------------------------------------------
 
@@ -69,12 +70,25 @@ DROP TABLE IF EXISTS `fields`;
 CREATE TABLE IF NOT EXISTS `fields` (
   `field_id` int(11) NOT NULL AUTO_INCREMENT,
   `business_id` int(11) NOT NULL,
-  `field_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `field_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `field_size` decimal(10,2) NOT NULL,
-  `field_arkod` int(11) NOT NULL,
-  `field_note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `field_arkod` int(7) NOT NULL,
+  `field_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`field_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fields`
+--
+
+INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `field_arkod`, `field_note`, `created_at`, `updated_at`) VALUES
+(11, 48, 'zemlja 1', '14.26', 1384453, 'To.', '2019-08-04 23:13:19', '2019-08-04 23:13:19'),
+(12, 48, 'zemlja 245694586y9346yng3693876g923874b93746b9374b693793', '0.00', 0, '', '2019-08-04 23:13:42', '2019-08-04 23:13:42'),
+(16, 48, 'zemlja 4', '0.00', 0, 'dfsdfsdfs', '2019-08-04 23:29:36', '2019-08-04 23:33:28'),
+(17, 48, 'zemlja 2', '0.00', 0, 'sdfsdfsdf\r\n', '2019-08-04 23:32:41', '2019-08-04 23:33:34'),
+(18, 49, 'zemlja 77', '0.00', 1234567, 'Drugo.', '2019-08-04 23:45:44', '2019-08-04 23:45:44');
 
 -- --------------------------------------------------------
 
@@ -118,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 53, '2018-12-29 00:33:40', '2019-07-31 20:45:13'),
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 48, '2018-12-29 00:33:40', '2019-08-04 23:46:18'),
 (23, 'Žbulj', 'evipodtest3@gmail.com', '$2y$10$iD2Y6KQckevvGPCxlPZiCuYieJK/1WF.7pbpqMgZEP2fRpSTLtYY2', 1, '', NULL, '2019-03-02 23:28:47', '2019-03-02 23:29:23'),
 (30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', NULL, '2019-04-05 14:11:59', '2019-04-05 14:12:15');
 COMMIT;
