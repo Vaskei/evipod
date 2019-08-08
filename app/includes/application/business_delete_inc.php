@@ -25,7 +25,8 @@ if (isset($_POST['businessDelete'])) {
   // Brisanje gospodarstva
   $query = $conn->prepare("DELETE FROM business WHERE business_id = ? AND user_id = ?");
   $query->bind_param("ii", $businessId, $userId);
-  if ($query->execute()) {
+  $query->execute();
+  if ($query->affected_rows >= 1) {
     // Provjera da li je gospodarstvo koje brisemo isto kao i trenutno aktivno gospodarstvo
     if ($businessId == $currentBusinessId) {
       $query = $conn->prepare("SELECT * FROM business");

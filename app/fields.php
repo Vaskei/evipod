@@ -6,24 +6,58 @@ require_once './includes/functions.php';
 $title = "Evipod - Zemljišta";
 $userId = $_SESSION['user_id'];
 ?>
-<?php include ('./includes/partials/index_head.php'); ?>
+<?php include('./includes/partials/index_head.php'); ?>
 
 <body class="bg-light">
-  <?php include ('./includes/partials/index_header.php'); ?>
+  <?php include('./includes/partials/index_header.php'); ?>
 
-  <?php include ('./includes/partials/index_sidebar.php'); ?>
+  <?php include('./includes/partials/index_sidebar.php'); ?>
+
+  <!-- Modal za brisanje zemljista -->
+  <form method="POST" action="./includes/application/fields_delete_inc.php">
+    <div class="modal fade" id="fieldsDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title font-weight-bold" id="fieldsDeleteModalTitle">Brisanje zemljišta</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
+              </div>
+              <div class="col-9">
+                <p class="font-weight-bold">Obrisati odabrano zemljište:</p>
+                <u>
+                  <p id="fieldsDeleteName" class="font-weight-bold text-break mb-0"></p>
+                </u>
+                <small class="text-muted">Brisanjem zemljišta obrisat će se i djelatnosti vezane uz to zemljište.</small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="fieldsDelete" id="fieldsDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <section class="content">
     <div class="container-fluid">
 
       <div class="position-relative d-flex justify-content-center">
-      <!-- Ispisivanje toast-a preko sesije -->
-      <?php
-      if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
-        echo $_SESSION['msg'];
-        unset($_SESSION['msg']);
-      }
-      ?>
+        <!-- Ispisivanje toast-a preko sesije -->
+        <?php
+        if (isset($_SESSION['msg']) && $_SESSION['msg'] != '') {
+          echo $_SESSION['msg'];
+          unset($_SESSION['msg']);
+        }
+        ?>
       </div>
 
       <div class="card">
@@ -71,8 +105,8 @@ $userId = $_SESSION['user_id'];
                       echo "<td>{$row['field_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-primary w-100 fieldEditBtn' data-field-id-edit='{$row['field_id']}'>Uredi</button>
-                                <button type='button' class='btn btn-danger w-100 fieldDeleteBtn' data-field-id-delete='{$row['field_id']}'>Briši</button>
+                                <button type='button' class='btn btn-primary w-100 fieldsEditBtn' data-fields-id-edit='{$row['field_id']}'>Uredi</button>
+                                <button type='button' class='btn btn-danger w-100 fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}'>Briši</button>
                               </div>
                             </td>";
                       echo "</tr>";
@@ -97,7 +131,7 @@ $userId = $_SESSION['user_id'];
                 <div class="form-group row pl-3">
                   <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina (ha):</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01"  placeholder="Površina zemljišta (ha)">
+                    <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
@@ -123,10 +157,10 @@ $userId = $_SESSION['user_id'];
     </div>
   </section>
 
-  <?php include ('./includes/partials/index_footer.php'); ?>
+  <?php include('./includes/partials/index_footer.php'); ?>
 
   <script>
-  document.querySelector('#app_fields').classList.replace('bg-secondary', 'list-group-item-dark');
+    document.querySelector('#app_fields').classList.replace('bg-secondary', 'list-group-item-dark');
   </script>
 
 </body>

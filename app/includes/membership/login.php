@@ -19,22 +19,19 @@ if (isset($_POST['loginSubmit'])) {
     // Dohvacanje korisnika
     $query = $conn->prepare("SELECT * FROM users WHERE user_email=? LIMIT 1");
     $query->bind_param("s", $userEmail);
-    if ($query->execute()) {
-      $user = $query->get_result()->fetch_assoc();
-      // Provjera da li je korisnicki racun aktiviran
-      if (!empty($user['user_email']) && $user['is_email_confirmed'] === 0 && $user['token_confirm'] != "") {
-        redirectWithMsg("light", "Korisnički račun nije aktiviran. Provjerite svoj Email.", "../../membership");
-      } else {
-        // Provjera da li korisnik postoji i podudaranje unesene lozinke
-        if ($user && password_verify($userPass, $user['user_password'])) {
-          $_SESSION['user_id'] = $user['user_id'];
-          header("Location: ../../");
-        } else {
-          redirectWithMsg("secondary", "Neispravno uneseni podaci. Pokušajte ponovno.", "../../membership");
-        }
-      }
+    $query->execute();
+    $user = $query->get_result()->fetch_assoc();
+    // Provjera da li je korisnicki racun aktiviran
+    if (!empty($user['user_email']) && $user['is_email_confirmed'] === 0 && $user['token_confirm'] != "") {
+      redirectWithMsg("light", "Korisnički račun nije aktiviran. Provjerite svoj Email.", "../../membership");
     } else {
-      redirectWithMsg("warning", "Greška!", "../../membership");
+      // Provjera da li korisnik postoji i podudaranje unesene lozinke
+      if ($user && password_verify($userPass, $user['user_password'])) {
+        $_SESSION['user_id'] = $user['user_id'];
+        header("Location: ../../");
+      } else {
+        redirectWithMsg("secondary", "Neispravno uneseni podaci. Pokušajte ponovno.", "../../membership");
+      }
     }
   }
 } else {

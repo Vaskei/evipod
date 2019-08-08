@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   // Scroll na vrh stranice
-  $('#brandTopScroll').on('click', function (e) {
+  $('.brandTopScroll').on('click', function (e) {
     e.preventDefault();
     $('html, body').animate({ scrollTop: 0 });
     return false;
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else if (data.status == 'success') {
           $('#businessInfoModalTitle').html(data.row.business_name);
           $('#businessNameInfo').html(data.row.business_name);
-          $('#businessOwnerInfo').html(data.row.business_owner  != "" ? data.row.business_owner : "-");
+          $('#businessOwnerInfo').html(data.row.business_owner != "" ? data.row.business_owner : "-");
           $('#businessOIBInfo').html(data.row.business_oib != "" ? data.row.business_oib : "-");
           $('#businessMIBPGInfo').html(data.row.business_mibpg != "" ? data.row.business_mibpg : "-");
           $('#businessCountyInfo').html(data.row.business_county != "" ? data.row.business_county : "-");
@@ -244,6 +244,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
           let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ". u " + dateSplit[3] + ":" + dateSplit[4] + ":" + dateSplit[5];
           $('#businessAddedInfo').html(date);
           $('#businessInfoModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje zemljista
+  $('#fieldsTable tbody').on('click', '.fieldsDeleteBtn', function () {
+    let fieldsDeleteId = $(this).attr('data-fields-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/fields_fetch_inc.php',
+      data: 'fieldsId=' + fieldsDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#fieldsDeleteName').html(data.row.field_name);
+          $('#fieldsDelete').val(data.row.field_id);
+          $('#fieldsDeleteModal').modal('toggle');
         }
       }
     });

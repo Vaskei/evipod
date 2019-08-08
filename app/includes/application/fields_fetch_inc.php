@@ -6,9 +6,9 @@ require_once '../functions.php';
 
 $userId = $_SESSION['user_id'];
 
-if (isset($_POST['businessId'])) {
+if (isset($_POST['fieldsId'])) {
 
-  $editId = $_POST['businessId'];
+  $editId = $_POST['fieldsId'];
 
   if (filter_var($editId, FILTER_VALIDATE_INT) == false) {
     $response['status'] = 'error';
@@ -17,7 +17,7 @@ if (isset($_POST['businessId'])) {
   }
 
   // Dohvacanje gospodarstva
-  $query = $conn->prepare("SELECT * FROM business WHERE business_id = ? AND user_id = ? LIMIT 1");
+  $query = $conn->prepare("SELECT field_id, field_name FROM fields INNER JOIN business ON fields.business_id = business.business_id WHERE fields.field_id = ? AND business.user_id = ? LIMIT 1");
   $query->bind_param("ii", $editId, $userId);
   $query->execute();
   $result = $query->get_result();

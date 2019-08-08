@@ -34,27 +34,25 @@ if (isset($_POST['fieldAdd'])) {
   // Dohvat korisnika da saznamo aktivno gospodarstvo
   $query = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
   $query->bind_param("i", $userId);
-  if ($query->execute()) {
-    $result = $query->get_result();
-    if ($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-      $businessId = $row['current_business_id'];
-      if ($businessId != NULL) {
-        $query = $conn->prepare("INSERT INTO fields(business_id, field_name, field_size, field_arkod, field_note) VALUES (?,?,?,?,?)");
-        $query->bind_param("isdis", $businessId, $fieldName, $fieldSize, $fieldARKOD, $fieldNote);
-        if ($query->execute()) {
-          redirectWithToastSuccess("success", "Uspjeh.", "Zemljište dodano.", "../../fields");
-        } else {
-          redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../fields");
-        }
+  $query->execute();
+  $result = $query->get_result();
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $businessId = $row['current_business_id'];
+    if ($businessId != NULL) {
+      $query = $conn->prepare("INSERT INTO fields(business_id, field_name, field_size, field_arkod, field_note) VALUES (?,?,?,?,?)");
+      $query->bind_param("isdis", $businessId, $fieldName, $fieldSize, $fieldARKOD, $fieldNote);
+      $query->execute();
+      if ($query->affected_rows >= 1) {
+        redirectWithToastSuccess("success", "Uspjeh.", "Zemljište dodano.", "../../fields");
       } else {
-        redirectWithToastError("warning", "Nema aktivnog gospodarstva.", "../../fields");
+        redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../fields");
       }
     } else {
-      redirectWithToastError("warning", "Greška kod dohvata korisnika. Pokušajte ponovno.", "../../fields");
+      redirectWithToastError("warning", "Nema aktivnog gospodarstva.", "../../fields");
     }
   } else {
-    redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../fields");
+    redirectWithToastError("warning", "Greška kod dohvata korisnika. Pokušajte ponovno.", "../../fields");
   }
 } else {
   header('Location: ../../');

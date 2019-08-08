@@ -65,7 +65,8 @@ if (isset($_POST['businessAdd'])) {
   // Upis gospodarstva u bazu podataka
   $query = $conn->prepare("INSERT INTO business(business_name, user_id, business_owner, business_oib, business_mibpg, business_county, business_location, business_post, business_address, business_email, business_tel, business_mob) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
   $query->bind_param("sissssssssss", $businessName, $userId, $businessOwner, $businessOIB, $businessMIBPG, $businessCounty, $businessLocation, $businessPost, $businessAddress, $businessEmail, $businessTel, $businessMob);
-  if ($query->execute()) {
+  $query->execute();
+  if ($query->affected_rows >= 1) {
     // Dohvacanje zadnje dodanog gospodarstva, te upisivanje zadnje koristeno gospodarstvo u users tabelu
     $query = $conn->prepare("SELECT * FROM business WHERE user_id = ? ORDER BY business_id DESC LIMIT 1");
     $query->bind_param("i", $userId);

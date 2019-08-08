@@ -19,21 +19,19 @@ if (!isset($_GET['email']) || !isset($_GET['token'])) {
     // Provjera da li se Email adresa i token poklapaju
     $query = $conn->prepare("SELECT * FROM users WHERE user_email=? AND token_confirm=? AND is_email_confirmed=?");
     $query->bind_param("ssi", $email, $token, $emailConfirmed = 0);
-    if ($query->execute()) {
-      $result = $query->get_result();
-      if ($result->num_rows > 0) {
-        $query = $conn->prepare("UPDATE users SET is_email_confirmed=?, token_confirm=? WHERE user_email=?");
-        $query->bind_param("iss", $emailConfirmed = 1, $token = '', $email);
-        if ($query->execute()) {
-          redirectWithMsg("success", "Korisnički račun aktiviran.", "../../membership");
-        } else {
-          redirectWithMsg("warning", "Greška prilikom aktivacije računa!", "../../membership");
-        }
+    $query->execute();
+    $result = $query->get_result();
+    if ($result->num_rows > 0) {
+      $query = $conn->prepare("UPDATE users SET is_email_confirmed=?, token_confirm=? WHERE user_email=?");
+      $query->bind_param("iss", $emailConfirmed = 1, $token = '', $email);
+      $query->execute();
+      if ($query->affected_rows >= 1) {
+        redirectWithMsg("success", "Korisnički račun aktiviran.", "../../membership");
       } else {
-        redirectWithMsg("warning", "Podaci za aktivaciju se ne poklapaju ili je račun aktiviran!", "../../membership");
+        redirectWithMsg("warning", "Greška prilikom aktivacije računa!", "../../membership");
       }
     } else {
-      redirectWithMsg("warning", "Greška prilikom čitanja baze!", "../../membership");
+      redirectWithMsg("warning", "Podaci za aktivaciju se ne poklapaju ili je račun aktiviran!", "../../membership");
     }
   }
 }

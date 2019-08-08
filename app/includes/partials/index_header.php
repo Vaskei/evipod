@@ -25,8 +25,8 @@ if ($resultUser['current_business_id'] != NULL) {
     <span id="sidebarToggle">
       <i class="far fa-caret-square-right fa-2x d-lg-none"></i>
     </span>
-    <a class="navbar-brand d-none d-lg-block" href="" id="brandTopScroll">Evipod</a>
-    <a class="navbar-brand text-light d-lg-none" href="" id="brandTopScroll">
+    <a class="navbar-brand d-none d-lg-block brandTopScroll" href="">Evipod</a>
+    <a class="navbar-brand text-light d-lg-none brandTopScroll" href="">
       <?php
       if ($resultUser['current_business_id'] != NULL) {
         echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name'];
