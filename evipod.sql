@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 08, 2019 at 12:48 AM
+-- Generation Time: Aug 13, 2019 at 01:23 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `business` (
 --
 
 INSERT INTO `business` (`business_id`, `business_name`, `user_id`, `business_owner`, `business_oib`, `business_mibpg`, `business_county`, `business_location`, `business_post`, `business_address`, `business_email`, `business_tel`, `business_mob`, `created_at`, `updated_at`) VALUES
-(48, 'Test 1', 17, 'Djed Mraz', '12345678901', '1234567', 'Medimurje', 'Domasinec', '40318', 'Selska 41', 'test@test.com', '911', '098911', '2019-07-05 18:52:47', '2019-07-05 18:52:47'),
+(48, 'Gospodarstvo 1', 17, 'Djed Mraz', '12345678901', '1234567', 'Međimurje', 'Doma&scaron;inec', '40318', 'Selska 41', 'test@test.com', '911', '098911', '2019-07-05 18:52:47', '2019-08-13 01:22:55'),
 (49, 'Test 2', 17, 'Macho Orach', '10000000000', '6969696', 'Zagorje', 'Kamenjara', '10101', 'Sumska 99', 'seljak@test.com', '555100', '099199000', '2019-07-05 18:54:48', '2019-08-07 23:29:13'),
 (50, 'Test 3', 17, 'Vrijeme', '', '', '', '', '', '', '', '', '', '2019-07-05 21:01:55', '2019-07-05 21:01:55'),
 (55, 'sfsdfsdfadasda1', 17, '', '', '', 'afjbfiawiabhifahsfauigsduipgasdigaisdauisgyduaigysduagvsduavsduagsduhavbsduhvausdagdouiawgyduagywduagwuodgyuaolgy', '', '', '', '', '0718128596203722704284674073240596279441761014487880794533553230907265813352151627929174204537135764', '0718128596203722704284674073240596279441761014487880794533553230907265813352151627929174204537135764', '2019-08-03 00:45:38', '2019-08-07 23:25:35'),
@@ -76,27 +76,39 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `business_id` int(11) NOT NULL,
   `field_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `field_size` decimal(10,2) NOT NULL,
-  `field_arkod` int(7) NOT NULL,
+  `field_arkod` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `field_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`field_id`),
   KEY `business_id` (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fields`
 --
 
 INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `field_arkod`, `field_note`, `created_at`, `updated_at`) VALUES
-(11, 48, 'zemlja 1', '14.26', 1384453, 'To.', '2019-08-04 23:13:19', '2019-08-04 23:13:19'),
-(12, 48, 'zemlja 245694586y9346yng3693876g923874b93746b9374b693793', '0.00', 0, '', '2019-08-04 23:13:42', '2019-08-04 23:13:42'),
-(16, 48, 'zemlja 4', '0.00', 0, 'dfsdfsdfs', '2019-08-04 23:29:36', '2019-08-04 23:33:28'),
-(17, 48, 'zemlja 2', '0.00', 0, 'sdfsdfsdf\r\n', '2019-08-04 23:32:41', '2019-08-04 23:33:34'),
-(18, 49, 'zemlja 77', '0.00', 1234567, 'Drugo.', '2019-08-04 23:45:44', '2019-08-04 23:45:44'),
-(19, 57, 'Polje 1', '0.50', 0, '', '2019-08-07 19:48:53', '2019-08-07 19:48:53'),
-(20, 57, 'Polje 2', '4.00', 0, '', '2019-08-07 19:49:02', '2019-08-07 19:49:02'),
-(29, 72, '111', '0.00', 0, '', '2019-08-08 00:28:14', '2019-08-08 00:28:14');
+(11, 48, 'rulek', '14.45', '1390367', 'To.', '2019-08-04 23:13:19', '2019-08-13 00:52:41'),
+(12, 48, 'vocnjak', '0.10', '1384453', 'update', '2019-08-04 23:13:42', '2019-08-13 01:15:12'),
+(16, 48, 'zemlja 4', '0.84', '', 'dfsdfsdfs', '2019-08-04 23:29:36', '2019-08-13 00:21:12'),
+(17, 48, 'zemlja 2', '0.00', '', 'sdfsdfsdf\r\n', '2019-08-04 23:32:41', '2019-08-13 00:21:14'),
+(18, 49, 'zemlja 77', '0.00', '1234567', 'Drugo.', '2019-08-04 23:45:44', '2019-08-04 23:45:44'),
+(19, 57, 'Polje 1', '0.50', '', '', '2019-08-07 19:48:53', '2019-08-13 00:21:16'),
+(20, 57, 'Polje 2', '4.00', '', '', '2019-08-07 19:49:02', '2019-08-13 00:21:17'),
+(29, 72, '111', '0.00', '', '', '2019-08-08 00:28:14', '2019-08-13 00:21:19'),
+(30, 48, 'aronija', '1.26', '3408664', 'nekaj null 2', '2019-08-13 00:19:05', '2019-08-13 01:15:37'),
+(31, 48, 'zemlja 10', '0.00', '', '', '2019-08-13 01:15:45', '2019-08-13 01:15:45'),
+(32, 48, 'zemlja 11', '0.00', '', '', '2019-08-13 01:15:56', '2019-08-13 01:15:56'),
+(33, 48, 'zemlja 12', '0.00', '', '', '2019-08-13 01:16:02', '2019-08-13 01:16:02'),
+(34, 48, 'zemlja 13', '0.00', '', '', '2019-08-13 01:16:07', '2019-08-13 01:16:07'),
+(35, 48, 'zemlja 14', '0.00', '', '', '2019-08-13 01:16:12', '2019-08-13 01:16:12'),
+(36, 48, 'zemlja 15', '0.00', '', '', '2019-08-13 01:16:17', '2019-08-13 01:16:17'),
+(37, 48, 'zemlja 16', '0.00', '', '', '2019-08-13 01:16:23', '2019-08-13 01:16:23'),
+(38, 48, 'zemlja 17', '0.00', '', '', '2019-08-13 01:16:27', '2019-08-13 01:16:27'),
+(39, 48, 'zemlja 18', '0.00', '3127704', '', '2019-08-13 01:16:31', '2019-08-13 01:17:09'),
+(40, 48, 'zemlja 19', '0.00', '', '', '2019-08-13 01:16:36', '2019-08-13 01:16:36'),
+(41, 48, 'zemlja 20', '0.00', '', '', '2019-08-13 01:16:41', '2019-08-13 01:16:41');
 
 -- --------------------------------------------------------
 

@@ -4,12 +4,21 @@ if (!isset($_SESSION['user_id'])) header("Location: ../../../");
 require_once '../connection.php';
 require_once '../functions.php';
 
-if (isset($_POST['fieldAdd'])) {
+if (isset($_POST['fieldEdit'])) {
+  // var_dump($_SESSION);
+  // var_dump($_POST);
+  // exit();
   $userId = $_SESSION['user_id'];
-  $fieldName = htmlentities(trim($_POST['fieldName']));
-  $fieldSize = htmlentities(trim($_POST['fieldSize']));
-  $fieldARKOD = htmlentities(trim($_POST['fieldARKOD']));
-  $fieldNote = htmlentities(trim($_POST['fieldNote']));
+  $fieldId = $_POST['fieldEdit'];
+  $fieldName = htmlentities(trim($_POST['fieldNameEdit']));
+  $fieldSize = htmlentities(trim($_POST['fieldSizeEdit']));
+  $fieldARKOD = htmlentities(trim($_POST['fieldARKODEdit']));
+  $fieldNote = htmlentities(trim($_POST['fieldNoteEdit']));
+
+  // Provjera ispravnosti ID zemljista
+  if (filter_var($fieldId, FILTER_VALIDATE_INT) == false) {
+    redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../fields");
+  }
 
   // Provjera da li je ime zemljista prazno
   if ($fieldName == "") {
@@ -17,7 +26,7 @@ if (isset($_POST['fieldAdd'])) {
   }
 
   // Provjera maksimalne duzine pojedinih podataka
-  if (strlen(trim($_POST['fieldName'])) > 100 || strlen(trim($_POST['fieldNote'])) > 100) {
+  if (strlen(trim($_POST['fieldNameEdit'])) > 100 || strlen(trim($_POST['fieldNoteEdit'])) > 100) {
     redirectWithToastError("warning", "Unesen neispravan format podatka!", "../../fields");
   }
 
@@ -31,6 +40,7 @@ if (isset($_POST['fieldAdd'])) {
     redirectWithToastError("warning", "Neispravan format ARKOD-a!", "../../fields");
   }
 
+  // Azuriranje zamljista
   // Dohvat korisnika da saznamo aktivno gospodarstvo
   $query = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
   $query->bind_param("i", $userId);
@@ -40,13 +50,15 @@ if (isset($_POST['fieldAdd'])) {
     $row = $result->fetch_assoc();
     $businessId = $row['current_business_id'];
     if ($businessId != NULL) {
-      $query = $conn->prepare("INSERT INTO fields(business_id, field_name, field_size, field_arkod, field_note) VALUES (?,?,?,?,?)");
-      $query->bind_param("isdss", $businessId, $fieldName, $fieldSize, $fieldARKOD, $fieldNote);
+      $query = $conn->prepare("UPDATE fields SET field_name=?, field_size=?, field_arkod=?, field_note=? WHERE business_id=? AND field_id=?");
+      $query->bind_param("sdssii", $fieldName, $fieldSize, $fieldARKOD, $fieldNote, $businessId, $fieldId);
       $query->execute();
       if ($query->affected_rows >= 1) {
-        redirectWithToastSuccess("success", "Uspjeh.", "Zemljište dodano.", "../../fields");
+        redirectWithToastSuccess("success", "Uspjeh.", "Zemljište ažurirano.", "../../fields");
+      } elseif ($query->affected_rows == 0) {
+        redirectWithToastError("warning", "Zemljište nije ažurirano.", "../../fields");
       } else {
-        redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../fields");
+        redirectWithToastError("danger", "Greška. Pokušajte ponovno.", "../../fields");
       }
     } else {
       redirectWithToastError("warning", "Nema aktivnog gospodarstva.", "../../fields");

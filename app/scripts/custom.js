@@ -84,6 +84,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     "pageLength": 10,
     "order": [],
     "pagingType": "simple",
+    "search": {
+      "smart": false
+    },
     "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'table-responsive'<tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-center justify-content-md-end mt-2'p>>",
     language: {
       "sEmptyTable": "Nema podataka u tablici",
@@ -268,4 +271,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
     });
   });
+
+  // Dohvacanje podataka za uredenje zemljista
+  $('#fieldsTable tbody').on('click', '.fieldsEditBtn', function () {
+    let fieldsEditId = $(this).attr('data-fields-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/fields_fetch_inc.php',
+      data: 'fieldsId=' + fieldsEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#fieldNameEdit').val(data.row.field_name);
+          $('#fieldSizeEdit').val(data.row.field_size);
+          $('#fieldARKODEdit').val(data.row.field_arkod);
+          $('#fieldNoteEdit').val(data.row.field_note);
+          $('#fieldEdit').val(data.row.field_id);
+          $('#fieldsEditModal').modal('toggle');
+        }
+      }
+    });
+  });
+
 });

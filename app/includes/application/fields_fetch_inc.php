@@ -16,8 +16,8 @@ if (isset($_POST['fieldsId'])) {
     exit();
   }
 
-  // Dohvacanje gospodarstva
-  $query = $conn->prepare("SELECT field_id, field_name FROM fields INNER JOIN business ON fields.business_id = business.business_id WHERE fields.field_id = ? AND business.user_id = ? LIMIT 1");
+  // Dohvacanje zemljista
+  $query = $conn->prepare("SELECT field_id, field_name, field_size, field_arkod, field_note FROM fields INNER JOIN business ON fields.business_id = business.business_id WHERE fields.field_id = ? AND business.user_id = ? LIMIT 1");
   $query->bind_param("ii", $editId, $userId);
   $query->execute();
   $result = $query->get_result();

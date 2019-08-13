@@ -13,6 +13,52 @@ $userId = $_SESSION['user_id'];
 
   <?php include('./includes/partials/index_sidebar.php'); ?>
 
+  <!-- Modal za uredivanje zemljista -->
+  <form method="POST" action="./includes/application/fields_edit_inc.php">
+    <div class="modal fade" id="fieldsEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="fieldsEditModalTitle">Uređivanje zemljišta</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row pl-3">
+              <label for="fieldNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" id="fieldNameEdit" name="fieldNameEdit" placeholder="Naziv zemljišta">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="fieldSizeEdit" class="col-sm-3 col-form-label col-form-label-sm">Površina (ha):</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control form-control-sm" name="fieldSizeEdit" id="fieldSizeEdit" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="fieldARKODEdit" class="col-sm-3 col-form-label col-form-label-sm">ARKOD ID:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" name="fieldARKODEdit" id="fieldARKODEdit" placeholder="ARKOD ID zemljišta">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="fieldNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" name="fieldNoteEdit" id="fieldNoteEdit" placeholder="Napomena">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="fieldEdit" id="fieldEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
   <!-- Modal za brisanje zemljista -->
   <form method="POST" action="./includes/application/fields_delete_inc.php">
     <div class="modal fade" id="fieldsDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -101,7 +147,7 @@ $userId = $_SESSION['user_id'];
                       echo "<tr>";
                       echo "<td>" . truncate($row['field_name'], 20) . "</td>";
                       echo "<td>{$row['field_size']}</td>";
-                      echo $row['field_arkod'] != 0 ? "<td>{$row['field_arkod']}</td>" : "<td>-</td>";
+                      echo $row['field_arkod'] != '' ? "<td><a href='http://preglednik.arkod.hr/ARKOD-Web/#layers=OSNOVNI%20PROSTORNI%20PODACI,DOF-client,ZU-client&map_sc=7142&query=LPIS:ID:{$row['field_arkod']}&feature=LPIS:{$row['field_arkod']}' target='_blank' rel='noopener noreferrer'><i class='fas fa-map-marker-alt px-2'></i></a>{$row['field_arkod']}</td>" : "<td>-</td>";
                       echo "<td>{$row['field_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
