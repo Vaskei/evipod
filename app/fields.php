@@ -126,6 +126,7 @@ $userId = $_SESSION['user_id'];
             <!-- Div/tab za listu zemljista -->
             <div class="tab-pane fade show active" id="fieldsList" role="tabpanel">
               <h3>Lista zemljišta</h3>
+              <hr>
               <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="fieldsTable">
                 <thead>
                   <tr>
@@ -133,7 +134,7 @@ $userId = $_SESSION['user_id'];
                     <th>Površina (ha)</th>
                     <th>ARKOD ID</th>
                     <th>Napomena</th>
-                    <th>Opcije</th>
+                    <th style="width: 10%">Opcije</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -151,8 +152,8 @@ $userId = $_SESSION['user_id'];
                       echo "<td>{$row['field_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-primary w-100 fieldsEditBtn' data-fields-id-edit='{$row['field_id']}'>Uredi</button>
-                                <button type='button' class='btn btn-danger w-100 fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}'>Briši</button>
+                                <button type='button' class='btn btn-link text-info fieldsEditBtn' data-fields-id-edit='{$row['field_id']}' data-toggle='tooltip' data-placement='top' title='Uređivanje'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}' data-toggle='tooltip' data-placement='top' title='Brisanje'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";

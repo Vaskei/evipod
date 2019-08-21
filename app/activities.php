@@ -51,16 +51,32 @@ $userId = $_SESSION['user_id'];
         <div class="card-body">
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="protectionList" role="tabpanel">
-              <h3>Zaštita</h3>
+              <h3>
+                Zaštita
+                <button class="btn btn-success float-right"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+              </h3>
+              <hr>
             </div>
             <div class="tab-pane fade" id="fertilizationList" role="tabpanel">
-              <h3>Gnojidba</h3>
+              <h3>
+                Gnojidba
+                <button class="btn btn-success float-right"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+              </h3>
+              <hr>
             </div>
             <div class="tab-pane fade" id="soilPreparationList" role="tabpanel">
-              <h3>Obrada tla</h3>
+              <h3>
+                Obrada tla
+                <button class="btn btn-success float-right"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+              </h3>
+              <hr>
             </div>
             <div class="tab-pane fade" id="cropCareList" role="tabpanel">
-              <h3>Njega usjeva/nasada</h3>
+              <h3>
+                Njega usjeva/nasada
+                <button class="btn btn-success float-right"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+              </h3>
+              <hr>
             </div>
           </div>
         </div>

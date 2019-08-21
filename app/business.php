@@ -216,6 +216,7 @@ $userId = $_SESSION['user_id'];
             <!-- Div/tab za listu gospodarstva -->
             <div class="tab-pane fade show active" id="businessList" role="tabpanel">
               <h3>Lista gospodarstva</h3>
+              <hr>
               <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="businessTable">
                 <thead>
                   <tr>
@@ -231,7 +232,7 @@ $userId = $_SESSION['user_id'];
                     <th>Tel</th>
                     <th>Mob</th>
                     <th>Dodano</th> -->
-                    <th>Opcije</th>
+                    <th style="width: 10%">Opcije</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -255,10 +256,16 @@ $userId = $_SESSION['user_id'];
                       // echo "<td>{$row['business_tel']}</td>";
                       // echo "<td>{$row['business_mob']}</td>";
                       // echo "<td>{$row['created_at']}</td>";
+                      // echo "<td class='align-middle'>
+                      //         <div class='btn-group btn-group-sm d-flex' role='group'>
+                      //           <button type='button' class='btn btn-primary w-100 businessEditBtn' data-business-id-edit='{$row['business_id']}'>Uredi</button>
+                      //           <button type='button' class='btn btn-danger w-100 businessDeleteBtn' data-business-id-delete='{$row['business_id']}'>Briši</button>
+                      //         </div>
+                      //       </td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-primary w-100 businessEditBtn' data-business-id-edit='{$row['business_id']}'>Uredi</button>
-                                <button type='button' class='btn btn-danger w-100 businessDeleteBtn' data-business-id-delete='{$row['business_id']}'>Briši</button>
+                                <button type='button' class='btn btn-link text-info businessEditBtn' data-business-id-edit='{$row['business_id']}' data-toggle='tooltip' data-placement='top' title='Uređivanje'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger businessDeleteBtn' data-business-id-delete='{$row['business_id']}' data-toggle='tooltip' data-placement='top' title='Brisanje'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";

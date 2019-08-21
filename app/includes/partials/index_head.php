@@ -15,6 +15,9 @@
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="./styles/datatables.min.css">
 
+  <!-- Date Range Picker CSS -->
+  <link rel="stylesheet" href="./styles/daterangepicker.css">
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./styles/custom.css">
 

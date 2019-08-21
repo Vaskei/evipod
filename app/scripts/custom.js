@@ -141,6 +141,52 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Inicijalizacija Bootstrap Toast elementa
   $('.toast').toast('show');
 
+  // Inicijalizacija Bootstrap Tooltip elementa
+  $('[data-toggle="tooltip"]').tooltip();
+
+  //
+  $('#plantingDate').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1970,
+    maxYear: parseInt(moment().add(5, 'y').format('YYYY'), 10),
+    locale: {
+      format: "DD. MM. YYYY.",
+      applyLabel: "Potvrdi",
+      cancelLabel: "Odustani",
+      fromLabel: "Od",
+      toLabel: "Do",
+      customRangeLabel: "Custom",
+      weekLabel: "Tj",
+      daysOfWeek: [
+        "Ned",
+        "Pon",
+        "Uto",
+        "Sri",
+        "Čet",
+        "Pet",
+        "Sub"
+      ],
+      monthNames: [
+        "Siječanj",
+        "Veljača",
+        "Ožujak",
+        "Travanj",
+        "Svibanj",
+        "Lipanj",
+        "Srpanj",
+        "Kolovoz",
+        "Rujan",
+        "Listopad",
+        "Studeni",
+        "Prosinac"
+      ],
+      firstDay: 1,
+    },
+  }, function (d) {
+    console.log('New date selected: ' + d.format('DD. MM. YYYY.') + ' MySQL date format: ' + d.format('YYYY-MM-DD'));
+  });
+
   // Promjena trenutno aktivnog gospodarstva preko AJAX-a
   // $('#opgSelect a').click(function () {
   //   let opgID = $(this).attr('data-opgid');

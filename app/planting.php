@@ -31,22 +31,23 @@ $userId = $_SESSION['user_id'];
           <i class="fas fa-seedling"></i><strong>&nbsp;&nbsp;Sadnja/sjetva</strong>
         </h5>
         <div class="card-header p-0">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="fieldsTab" role="tablist">
+          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="plantingTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link rounded-0 active" id="fieldsListTab" data-toggle="tab" href="#fieldsList" role="tab">Lista zemljišta</a>
+              <a class="nav-link rounded-0 active" id="plantingListTab" data-toggle="tab" href="#plantingList" role="tab">Lista sadnje/sjetve</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rounded-0" id="fieldsAddTab" data-toggle="tab" href="#fieldsAdd" role="tab">Dodaj
-                zemljište</a>
+              <a class="nav-link rounded-0" id="plantingAddTab" data-toggle="tab" href="#plantingAdd" role="tab">Dodaj
+                sadnju/sjetvu</a>
             </li>
           </ul>
         </div>
         <div class="card-body">
-          <div class="tab-content" id="fieldsTabContent">
+          <div class="tab-content" id="plantingListContent">
             <!-- Div/tab za listu zemljista -->
-            <div class="tab-pane fade show active" id="fieldsList" role="tabpanel">
-              <h3>Lista zemljišta</h3>
-              <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="fieldsTable">
+            <div class="tab-pane fade show active" id="plantingList" role="tabpanel">
+              <h3>Lista sadnje/sjetve</h3>
+              <hr>
+              <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="plantingTable">
                 <thead>
                   <tr>
                     <th>Naziv</th>
@@ -84,36 +85,71 @@ $userId = $_SESSION['user_id'];
             </div>
 
             <!-- Div/tab za dodavanje zemljista -->
-            <div class="tab-pane fade" id="fieldsAdd" role="tabpanel">
-              <h3>Dodaj zemljište</h3>
+            <div class="tab-pane fade" id="plantingAdd" role="tabpanel">
+              <h3>Dodaj sadnju/sjetvu</h3>
               <hr>
-              <form method="POST" action="./includes/application/TODO.php">
+              <form method="POST" action="./includes/application/planting_add_inc.php">
                 <div class="form-group row pl-3">
-                  <label for="fieldName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
+                  <label for="plantingField" class="col-sm-2 col-form-label col-form-label-sm">Naziv zemljišta:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" name="fieldName" id="fieldName" placeholder="Naziv zemljišta">
+                    <?php if ($resultUser['current_business_id'] != NULL) : ?>
+                    <?php
+                      $query = $conn->prepare("SELECT * FROM fields WHERE business_id = ? ORDER BY created_at");
+                      $query->bind_param("i", $resultUser['current_business_id']);
+                      $query->execute();
+                      $result = $query->get_result();
+                      if ($result->num_rows > 0) {
+                        echo "<select class='form-control form-control-sm' name='plantingField' id='plantingField'>";
+                        while ($row = $result->fetch_assoc()) {
+                          echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                        }
+                        echo "</select>";
+                      } else {
+                        echo "
+                        <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
+                          <option value=''>Nema evidentiranih zemljišta.</option>
+                        </select>";
+                      }
+                      ?>
+                    <?php else : ?>
+                    <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                      <option value="">Nema aktivnog gospodarstva.</option>
+                    </select>
+                    <?php endif; ?>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina (ha):</label>
+                  <label for="plantingName" class="col-sm-2 col-form-label col-form-label-sm">Kultivar:</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
+                    <input type="text" class="form-control form-control-sm" name="plantingName" id="plantingName" placeholder="Kultivar / sadni materijal">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldARKOD" class="col-sm-2 col-form-label col-form-label-sm">ARKOD ID:</label>
+                  <label for="plantingCount" class="col-sm-2 col-form-label col-form-label-sm">Sjeme (kg/ha):</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" name="fieldARKOD" id="fieldARKOD" placeholder="ARKOD ID zemljišta">
+                    <input type="number" class="form-control form-control-sm" name="plantingCount" id="plantingCount" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldNote" class="col-sm-2 col-form-label col-form-label-sm">Napomena:</label>
+                  <label for="plantingDate" class="col-sm-2 col-form-label col-form-label-sm">Datum:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" name="fieldNote" id="fieldNote" placeholder="Napomena">
+                    <input type="text" class="form-control form-control-sm bg-white" name="plantingDate" id="plantingDate" placeholder="Datum sjetve / sadnje" readonly>
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="plantingSource" class="col-sm-2 col-form-label col-form-label-sm">Porijeklo:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" name="plantingSource" id="plantingSource" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)">
+                  </div>
+                </div>
+                <div class="form-group row pl-3">
+                  <label for="plantingNote" class="col-sm-2 col-form-label col-form-label-sm">Napomena:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" name="plantingNote" id="plantingNote" placeholder="Napomena">
                   </div>
                 </div>
                 <div class="row justify-content-center">
-                  <button type="submit" name="fieldAdd" class="btn btn-success px-5"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+                  <button type="submit" name="plantingAdd" class="btn btn-success px-5"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
                 </div>
               </form>
             </div>
