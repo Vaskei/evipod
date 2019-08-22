@@ -50,35 +50,39 @@ $userId = $_SESSION['user_id'];
               <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="plantingTable">
                 <thead>
                   <tr>
-                    <th>Naziv</th>
-                    <th>Površina (ha)</th>
-                    <th>ARKOD ID</th>
+                    <th>Zemljište (ARKOD)</th>
+                    <th>Kultivar</th>
+                    <th>Sjeme (kg/ha)</th>
+                    <th>Datum</th>
+                    <th>Porijeklo</th>
                     <th>Napomena</th>
                     <th>Opcije</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  // $query = $conn->prepare("SELECT * FROM fields WHERE business_id = ? ORDER BY created_at");
-                  // $query->bind_param("i", $resultUser['current_business_id']);
-                  // $query->execute();
-                  // $result = $query->get_result();
-                  // if ($result->num_rows > 0) {
-                  //   while ($row = $result->fetch_assoc()) {
-                  //     echo "<tr>";
-                  //     echo "<td>" . truncate($row['field_name'], 20) . "</td>";
-                  //     echo "<td>{$row['field_size']}</td>";
-                  //     echo $row['field_arkod'] != '' ? "<td><a href='http://preglednik.arkod.hr/ARKOD-Web/#layers=OSNOVNI%20PROSTORNI%20PODACI,DOF-client,ZU-client&map_sc=7142&query=LPIS:ID:{$row['field_arkod']}&feature=LPIS:{$row['field_arkod']}' target='_blank' rel='noopener noreferrer'><i class='fas fa-map-marker-alt px-2'></i></a>{$row['field_arkod']}</td>" : "<td>-</td>";
-                  //     echo "<td>{$row['field_note']}</td>";
-                  //     echo "<td class='align-middle'>
-                  //             <div class='btn-group btn-group-sm d-flex' role='group'>
-                  //               <button type='button' class='btn btn-primary w-100 fieldsEditBtn' data-fields-id-edit='{$row['field_id']}'>Uredi</button>
-                  //               <button type='button' class='btn btn-danger w-100 fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}'>Briši</button>
-                  //             </div>
-                  //           </td>";
-                  //     echo "</tr>";
-                  //   }
-                  // }
+                  $query = $conn->prepare("SELECT fields.field_name, fields.field_arkod, planting.* FROM planting INNER JOIN fields ON planting.field_id = fields.field_id WHERE fields.business_id = ? ORDER BY fields.field_id");
+                  $query->bind_param("i", $resultUser['current_business_id']);
+                  $query->execute();
+                  $result = $query->get_result();
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>";
+                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['planting_name']}</td>";
+                      echo "<td class='align-middle'>{$row['planting_count']}</td>";
+                      echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['planting_date'])) . "</td>";
+                      echo "<td class='align-middle'>{$row['planting_source']}</td>";
+                      echo "<td class='align-middle'>{$row['planting_note']}</td>";
+                      echo "<td class='align-middle'>
+                              <div class='btn-group btn-group-sm d-flex' role='group'>
+                                <button type='button' class='btn btn-link text-info plantingEditBtn' data-planting-id-edit='{$row['planting_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger plantingDeleteBtn' data-planting-id-delete='{$row['planting_id']}'><i class='fas fa-trash-alt'></i></button>
+                              </div>
+                            </td>";
+                      echo "</tr>";
+                    }
+                  }
                   ?>
                 </tbody>
               </table>

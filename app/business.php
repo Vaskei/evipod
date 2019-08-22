@@ -264,8 +264,8 @@ $userId = $_SESSION['user_id'];
                       //       </td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-link text-info businessEditBtn' data-business-id-edit='{$row['business_id']}' data-toggle='tooltip' data-placement='top' title='Uređivanje'><i class='fas fa-pencil-alt'></i></button>
-                                <button type='button' class='btn btn-link text-danger businessDeleteBtn' data-business-id-delete='{$row['business_id']}' data-toggle='tooltip' data-placement='top' title='Brisanje'><i class='fas fa-trash-alt'></i></button>
+                                <button type='button' class='btn btn-link text-info businessEditBtn' data-business-id-edit='{$row['business_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger businessDeleteBtn' data-business-id-delete='{$row['business_id']}'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";

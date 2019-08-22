@@ -152,8 +152,8 @@ $userId = $_SESSION['user_id'];
                       echo "<td>{$row['field_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-link text-info fieldsEditBtn' data-fields-id-edit='{$row['field_id']}' data-toggle='tooltip' data-placement='top' title='Uređivanje'><i class='fas fa-pencil-alt'></i></button>
-                                <button type='button' class='btn btn-link text-danger fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}' data-toggle='tooltip' data-placement='top' title='Brisanje'><i class='fas fa-trash-alt'></i></button>
+                                <button type='button' class='btn btn-link text-info fieldsEditBtn' data-fields-id-edit='{$row['field_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";

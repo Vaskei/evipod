@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   $('.toast').toast('show');
 
   // Inicijalizacija Bootstrap Tooltip elementa
-  $('[data-toggle="tooltip"]').tooltip();
+  // $('[data-toggle="tooltip"]').tooltip();
 
   //
   $('#plantingDate').daterangepicker({
