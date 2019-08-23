@@ -50,24 +50,37 @@ if (isset($_POST['plantingAdd'])) {
   // $date = date('Y-m-d', $timestamp);
   // var_dump($date);
 
-  //SELECT f.* FROM fields AS f INNER JOIN users AS u ON f.business_id = u.current_business_id WHERE u.user_id = 17 AND f.field_id = 11
   // Provjera da li postoji korisnik sa odabranim zemljistem
   $query = $conn->prepare("SELECT * FROM fields INNER JOIN users ON fields.business_id = users.current_business_id WHERE users.user_id = ? AND fields.field_id = ?");
   $query->bind_param("ii", $userId, $plantingFieldId);
   $query->execute();
   $result = $query->get_result();
   if ($result->num_rows > 0) {
-    // Korisnik s odabranim zeljistem postoji, upis  sadnje/sjetve u bazu
-    $query = $conn->prepare("INSERT INTO planting(field_id, planting_name, planting_count, planting_date, planting_source, planting_note) VALUES (?,?,?,?,?,?)");
-    $query->bind_param("isisss", $plantingFieldId, $plantingName, $plantingCount, $mysqlDate, $plantingSource, $plantingNote);
+    // Korisnik s odabranim zemljistem postoji, dohvacanje aktivnog gospodarstva
+    $query = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
+    $query->bind_param("i", $userId);
     $query->execute();
-    if ($query->affected_rows >= 1) {
-      redirectWithToastSuccess("success", "Uspjeh.", "Sadnja/sjetva dodana.", "../../planting");
+    $result = $query->get_result();
+    if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $businessId = $row['current_business_id'];
+      if ($businessId != NULL) {
+        $query = $conn->prepare("INSERT INTO planting(field_id, business_id, planting_name, planting_count, planting_date, planting_source, planting_note) VALUES (?,?,?,?,?,?,?)");
+        $query->bind_param("iisisss", $plantingFieldId, $businessId, $plantingName, $plantingCount, $mysqlDate, $plantingSource, $plantingNote);
+        $query->execute();
+        if ($query->affected_rows >= 1) {
+          redirectWithToastSuccess("success", "Uspjeh.", "Sadnja/sjetva dodana.", "../../planting");
+        } else {
+          redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../planting");
+        }
+      } else {
+        redirectWithToastError("warning", "Nema aktivnog gospodarstva.", "../../planting");
+      }      
     } else {
-      redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../planting");
+      redirectWithToastError("warning", "Greška kod dohvata korisnika. Pokušajte ponovno.", "../../planting");
     }
   } else {
-    // Korisnik i zeljiste se ne podudaraju, vracamo korisnika s greskom
+    // Korisnik i zemljiste se ne podudaraju, vracamo korisnika s greskom
     redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../planting");
   }  
 } else {

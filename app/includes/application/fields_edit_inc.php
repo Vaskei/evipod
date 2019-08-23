@@ -40,7 +40,7 @@ if (isset($_POST['fieldEdit'])) {
     redirectWithToastError("warning", "Neispravan format ARKOD-a!", "../../fields");
   }
 
-  // Azuriranje zamljista
+  // Azuriranje zemljista
   // Dohvat korisnika da saznamo aktivno gospodarstvo
   $query = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
   $query->bind_param("i", $userId);

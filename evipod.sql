@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 13, 2019 at 01:23 AM
+-- Generation Time: Aug 23, 2019 at 03:42 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`field_id`),
   KEY `business_id` (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fields`
@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `fields` (
 
 INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `field_arkod`, `field_note`, `created_at`, `updated_at`) VALUES
 (11, 48, 'rulek', '14.45', '1390367', 'To.', '2019-08-04 23:13:19', '2019-08-13 00:52:41'),
-(12, 48, 'vocnjak', '0.10', '1384453', 'update', '2019-08-04 23:13:42', '2019-08-13 01:15:12'),
-(16, 48, 'zemlja 4', '0.84', '', 'dfsdfsdfs', '2019-08-04 23:29:36', '2019-08-13 00:21:12'),
+(12, 48, 'Voćnjak', '1.54', '1384453', 'update', '2019-08-04 23:13:42', '2019-08-23 15:42:06'),
+(16, 48, 'Mur&scaron;ćak', '0.64', '', 'dfsdfsdfs', '2019-08-04 23:29:36', '2019-08-23 15:41:55'),
 (17, 48, 'zemlja 2', '0.00', '', 'sdfsdfsdf\r\n', '2019-08-04 23:32:41', '2019-08-13 00:21:14'),
 (18, 49, 'zemlja 77', '0.00', '1234567', 'Drugo.', '2019-08-04 23:45:44', '2019-08-04 23:45:44'),
 (19, 57, 'Polje 1', '0.50', '', '', '2019-08-07 19:48:53', '2019-08-13 00:21:16'),
@@ -108,7 +108,42 @@ INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `fi
 (38, 48, 'zemlja 17', '0.00', '', '', '2019-08-13 01:16:27', '2019-08-13 01:16:27'),
 (39, 48, 'zemlja 18', '0.00', '3127704', '', '2019-08-13 01:16:31', '2019-08-13 01:17:09'),
 (40, 48, 'zemlja 19', '0.00', '', '', '2019-08-13 01:16:36', '2019-08-13 01:16:36'),
-(41, 48, 'zemlja 20', '0.00', '', '', '2019-08-13 01:16:41', '2019-08-13 01:16:41');
+(41, 48, 'zemlja 20', '0.00', '', '', '2019-08-13 01:16:41', '2019-08-13 01:16:41'),
+(42, 48, 'test zemlja', '3.20', '', '', '2019-08-21 23:24:33', '2019-08-21 23:24:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `planting`
+--
+
+DROP TABLE IF EXISTS `planting`;
+CREATE TABLE IF NOT EXISTS `planting` (
+  `planting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `planting_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `planting_count` int(11) NOT NULL,
+  `planting_date` date NOT NULL,
+  `planting_source` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `planting_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`planting_id`),
+  KEY `field_id` (`field_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `planting`
+--
+
+INSERT INTO `planting` (`planting_id`, `field_id`, `business_id`, `planting_name`, `planting_count`, `planting_date`, `planting_source`, `planting_note`, `created_at`, `updated_at`) VALUES
+(1, 12, 48, 'Tre&scaron;nja', 100, '2019-08-01', 'Neretvanske doline', 'Količina je broj sadnica.', '2019-08-22 14:36:06', '2019-08-23 17:08:26'),
+(2, 16, 48, 'Kukuruz', 500, '2017-10-09', '', '', '2019-08-22 16:21:44', '2019-08-23 17:30:00'),
+(3, 12, 48, 'Jabuka', 2300, '2010-04-01', '', '', '2019-08-23 12:34:13', '2019-08-23 17:08:37'),
+(4, 18, 49, 'Repa na 77', 420, '2019-08-08', '', 'Test', '2019-08-23 13:06:27', '2019-08-23 17:08:54'),
+(8, 16, 48, 'P&scaron;enica', 1001, '2018-10-10', 'Skladiste 12', 'Plodored', '2019-08-23 16:48:22', '2019-08-23 17:30:36'),
+(10, 18, 49, 'kult 77', 4, '2014-08-07', 'Tam', 'asdadwa', '2019-08-23 17:11:12', '2019-08-23 17:11:12');
 
 -- --------------------------------------------------------
 
@@ -152,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 48, '2018-12-29 00:33:40', '2019-08-08 00:39:35'),
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 48, '2018-12-29 00:33:40', '2019-08-23 15:11:26'),
 (30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', 57, '2019-04-05 14:11:59', '2019-08-07 19:48:36'),
 (31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$DkZaLOoFAcyC0nXEx5XkNuCxlvgYFi4dIjn3RYG6FgdnW0LByjmQa', 1, '', NULL, '2019-08-07 19:50:30', '2019-08-08 00:06:18');
 
@@ -165,6 +200,12 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_
 --
 ALTER TABLE `fields`
   ADD CONSTRAINT `fields_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `business` (`business_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `planting`
+--
+ALTER TABLE `planting`
+  ADD CONSTRAINT `planting_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `fields` (`field_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

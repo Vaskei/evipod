@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../");
 require_once "./includes/connection.php";
 require_once './includes/functions.php';
-$title = "Evipod - Zemljišta";
+$title = "Evipod - Sadnja/sjetva";
 $userId = $_SESSION['user_id'];
 ?>
 <?php include('./includes/partials/index_head.php'); ?>
@@ -12,6 +12,126 @@ $userId = $_SESSION['user_id'];
   <?php include('./includes/partials/index_header.php'); ?>
 
   <?php include('./includes/partials/index_sidebar.php'); ?>
+
+  <?php
+  // Dohvat zemljista
+  $query = $conn->prepare("SELECT * FROM fields WHERE business_id = ? ORDER BY created_at");
+  $query->bind_param("i", $resultUser['current_business_id']);
+  $query->execute();
+  $resultFields = $query->get_result();
+  ?>
+
+  <!-- Modal za uredivanje sjetve/sadnje -->
+  <form method="POST" action="./includes/application/planting_edit_inc.php">
+    <div class="modal fade" id="plantingEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="plantingEditModalTitle">Uređivanje sjetve/sadnje</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row pl-3">
+              <label for="plantingFieldEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
+              <div class="col-sm-9">
+                <?php if ($resultUser['current_business_id'] != NULL) : ?>
+                <?php
+                  if ($resultFields->num_rows > 0) {
+                    echo "<select class='form-control form-control-sm' name='plantingFieldEdit' id='plantingFieldEdit'>";
+                    while ($row = $resultFields->fetch_assoc()) {
+                      echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                    }
+                    echo "</select>";
+                  } else {
+                    echo "
+                        <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
+                          <option value=''>Nema evidentiranih zemljišta.</option>
+                        </select>";
+                  }
+                  ?>
+                <?php else : ?>
+                <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                  <option value="">Nema aktivnog gospodarstva.</option>
+                </select>
+                <?php endif; ?>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="plantingNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultivar:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" name="plantingNameEdit" id="plantingNameEdit" placeholder="Kultivar / sadni materijal">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="plantingCountEdit" class="col-sm-3 col-form-label col-form-label-sm">Sjeme (kg/ha):</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control form-control-sm" name="plantingCountEdit" id="plantingCountEdit" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="plantingDateEdit" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm bg-white" name="plantingDateEdit" id="plantingDateEdit" placeholder="Datum sjetve / sadnje" readonly>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="plantingSourceEdit" class="col-sm-3 col-form-label col-form-label-sm">Porijeklo:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" name="plantingSourceEdit" id="plantingSourceEdit" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="plantingNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" name="plantingNoteEdit" id="plantingNoteEdit" placeholder="Napomena">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="plantingEdit" id="plantingEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal za brisanje sjetve/sadnje -->
+  <form method="POST" action="./includes/application/planting_delete_inc.php">
+    <div class="modal fade" id="plantingDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title font-weight-bold" id="plantingDeleteModalTitle">Brisanje sadnje/sjetve</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
+              </div>
+              <div class="col-9">
+                <p class="font-weight-bold">Obrisati odabrano sadnju/sjetvu:</p>
+                <u>
+                  <p id="plantingDeleteField" class="font-weight-bold text-break mb-0"></p>
+                  <p id="plantingDeleteName" class="font-weight-bold text-break mb-0"></p>
+                </u>
+                <!-- <small class="text-muted">Brisanjem zemljišta obrisat će se i djelatnosti vezane uz to zemljište.</small> -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="plantingDelete" id="plantingDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <section class="content">
     <div class="container-fluid">
@@ -43,7 +163,7 @@ $userId = $_SESSION['user_id'];
         </div>
         <div class="card-body">
           <div class="tab-content" id="plantingListContent">
-            <!-- Div/tab za listu zemljista -->
+            <!-- Div/tab za listu sjetve/sadnje -->
             <div class="tab-pane fade show active" id="plantingList" role="tabpanel">
               <h3>Lista sadnje/sjetve</h3>
               <hr>
@@ -61,7 +181,7 @@ $userId = $_SESSION['user_id'];
                 </thead>
                 <tbody>
                   <?php
-                  $query = $conn->prepare("SELECT fields.field_name, fields.field_arkod, planting.* FROM planting INNER JOIN fields ON planting.field_id = fields.field_id WHERE fields.business_id = ? ORDER BY fields.field_id");
+                  $query = $conn->prepare("SELECT fields.field_name, fields.field_arkod, planting.* FROM planting INNER JOIN fields ON planting.field_id = fields.field_id WHERE fields.business_id = ? ORDER BY fields.field_id, planting.planting_date");
                   $query->bind_param("i", $resultUser['current_business_id']);
                   $query->execute();
                   $result = $query->get_result();
@@ -88,7 +208,7 @@ $userId = $_SESSION['user_id'];
               </table>
             </div>
 
-            <!-- Div/tab za dodavanje zemljista -->
+            <!-- Div/tab za dodavanje sjetve/sadnje -->
             <div class="tab-pane fade" id="plantingAdd" role="tabpanel">
               <h3>Dodaj sadnju/sjetvu</h3>
               <hr>
@@ -98,23 +218,21 @@ $userId = $_SESSION['user_id'];
                   <div class="col-sm-10">
                     <?php if ($resultUser['current_business_id'] != NULL) : ?>
                     <?php
-                      $query = $conn->prepare("SELECT * FROM fields WHERE business_id = ? ORDER BY created_at");
-                      $query->bind_param("i", $resultUser['current_business_id']);
-                      $query->execute();
-                      $result = $query->get_result();
-                      if ($result->num_rows > 0) {
-                        echo "<select class='form-control form-control-sm' name='plantingField' id='plantingField'>";
-                        while ($row = $result->fetch_assoc()) {
-                          echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
-                        }
-                        echo "</select>";
-                      } else {
-                        echo "
-                        <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
-                          <option value=''>Nema evidentiranih zemljišta.</option>
-                        </select>";
+                    // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
+                    $resultFields->data_seek(0);
+                    if ($resultFields->num_rows > 0) {
+                      echo "<select class='form-control form-control-sm' name='plantingField' id='plantingField'>";
+                      while ($row = $resultFields->fetch_assoc()) {
+                        echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
-                      ?>
+                      echo "</select>";
+                    } else {
+                      echo "
+                      <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
+                        <option value=''>Nema evidentiranih zemljišta.</option>
+                      </select>";
+                    }
+                    ?>
                     <?php else : ?>
                     <select class="form-control form-control-sm" name="" id="" disabled="disabled">
                       <option value="">Nema aktivnog gospodarstva.</option>

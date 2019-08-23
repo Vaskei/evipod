@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // $('[data-toggle="tooltip"]').tooltip();
 
   //
-  $('#plantingDate').daterangepicker({
+  $('#plantingDate, #plantingDateEdit').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
     minYear: 1970,
@@ -340,5 +340,56 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
     });
   });
+
+  // Dohvacanje podataka za brisanje sjetve/sadnje
+  $('#plantingTable tbody').on('click', '.plantingDeleteBtn', function () {
+    let plantingDeleteId = $(this).attr('data-planting-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/planting_fetch_inc.php',
+      data: 'plantingId=' + plantingDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#plantingDeleteField').html(data.row.field_name);
+          $('#plantingDeleteName').html(data.row.planting_name);
+          $('#plantingDelete').val(data.row.planting_id);
+          $('#plantingDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+  
+  // Dohvacanje podataka za uredenje sjetve/sadnje
+  $('#plantingTable tbody').on('click', '.plantingEditBtn', function () {
+    let plantingEditId = $(this).attr('data-planting-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/planting_fetch_inc.php',
+      data: 'plantingId=' + plantingEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          console.log(data);
+          $('#plantingFieldEdit').val(data.row.field_id);
+          $('#plantingNameEdit').val(data.row.planting_name);
+          $('#plantingCountEdit').val(data.row.planting_count);
+          let dateSplit = data.row.planting_date.split('-');
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
+          $('#plantingDateEdit').data('daterangepicker').setStartDate(date);
+          $('#plantingDateEdit').data('daterangepicker').setEndDate(date);
+          $('#plantingSourceEdit').val(data.row.planting_source);
+          $('#plantingNoteEdit').val(data.row.planting_note);
+          $('#plantingEdit').val(data.row.planting_id);
+          $('#plantingEditModal').modal('toggle');
+        }
+      }
+    });
+  });
+
 
 });

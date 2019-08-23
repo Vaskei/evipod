@@ -16,7 +16,7 @@ if (isset($_POST['fieldsDelete'])) {
     redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../fields");
   }
 
-  $query = $conn->prepare("DELETE f.* FROM fields AS f INNER JOIN business AS b ON f.business_id = b.business_id WHERE f.field_id = ? AND b.user_id = ?");
+  $query = $conn->prepare("DELETE fields FROM fields INNER JOIN business ON fields.business_id = business.business_id WHERE fields.field_id = ? AND business.user_id = ?");
   $query->bind_param("ii", $fieldsId, $userId);
   $query->execute();
   if ($query->affected_rows >= 1) {
