@@ -24,7 +24,7 @@ $userId = $_SESSION['user_id'];
   <!-- Modal za uredivanje sjetve/sadnje -->
   <form method="POST" action="./includes/application/planting_edit_inc.php">
     <div class="modal fade" id="plantingEditModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-bold" id="plantingEditModalTitle">Uređivanje sjetve/sadnje</h5>
@@ -196,8 +196,8 @@ $userId = $_SESSION['user_id'];
                       echo "<td class='align-middle'>{$row['planting_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-link text-info plantingEditBtn' data-planting-id-edit='{$row['planting_id']}'><i class='fas fa-pencil-alt'></i></button>
-                                <button type='button' class='btn btn-link text-danger plantingDeleteBtn' data-planting-id-delete='{$row['planting_id']}'><i class='fas fa-trash-alt'></i></button>
+                                <button type='button' class='btn btn-link text-info plantingEditBtn' title='Uredi' data-planting-id-edit='{$row['planting_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger plantingDeleteBtn' title='Izbriši' data-planting-id-delete='{$row['planting_id']}'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";

@@ -16,7 +16,7 @@ $userId = $_SESSION['user_id'];
   <!-- Modal za uredivanje gospodarstva -->
   <form method="POST" action="./includes/application/business_edit_inc.php">
     <div class="modal fade" id="businessEditModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-bold" id="businessEditModalTitle">Uređivanje gospodarstva</h5>
@@ -264,8 +264,8 @@ $userId = $_SESSION['user_id'];
                       //       </td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-link text-info businessEditBtn' data-business-id-edit='{$row['business_id']}'><i class='fas fa-pencil-alt'></i></button>
-                                <button type='button' class='btn btn-link text-danger businessDeleteBtn' data-business-id-delete='{$row['business_id']}'><i class='fas fa-trash-alt'></i></button>
+                                <button type='button' class='btn btn-link text-info businessEditBtn' title='Uredi' data-business-id-edit='{$row['business_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger businessDeleteBtn' title='Izbriši' data-business-id-delete='{$row['business_id']}'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";

@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
     });
   });
-  
+
   // Dohvacanje podataka za uredenje sjetve/sadnje
   $('#plantingTable tbody').on('click', '.plantingEditBtn', function () {
     let plantingEditId = $(this).attr('data-planting-id-edit');
@@ -391,5 +391,48 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
   });
 
+  $('#tillageAddModalBtn').on('click', function () {
+    $('#tillageAddModal').modal('toggle');
+  });
+
+  $('#careAddModalBtn').on('click', function () {
+    $('#careAddModal').modal('toggle');
+  });
+
+  $('#fertilizationAddModalBtn').on('click', function () {
+    $('#fertilizationAddModal').modal('toggle');
+
+    let dataList = document.getElementById('fertilizationTypeList');
+    let input = document.getElementById('fertilizationType');
+
+    // Dohvat liste gnojiva iz json datoteke
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        if (request.status === 200) {
+          let jsonData = JSON.parse(request.responseText);
+
+          jsonData.forEach(function (item) {
+            let option = document.createElement('option');
+            option.value = item;
+            dataList.appendChild(option);
+          });
+
+          input.placeholder = "Naziv gnojiva";
+        } else {
+          input.placeholder = "Greška kod dohvata liste gnojiva";
+        }
+      }
+    }
+
+    input.placeholder = "Učitavanje liste...";
+
+    request.open('GET', './includes/json/fertilizers.json', true);
+    request.send();
+  });
+
+  $('#protectionAddModalBtn').on('click', function () {
+    $('#protectionAddModal').modal('toggle');
+  });
 
 });

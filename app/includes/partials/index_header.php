@@ -43,7 +43,7 @@ if ($resultUser['current_business_id'] != NULL) {
         <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
           <?php echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name']; ?>
         </span>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" title="Odabir gospodarstva">
           <a class="nav-link dropdown-toggle" href="#" id="opgSelectDropdownBtn" role="button" data-toggle="dropdown">
             <i class="fas fa-building fa-lg"></i>
           </a>
@@ -62,7 +62,7 @@ if ($resultUser['current_business_id'] != NULL) {
           </div>
         </li>
         <?php endif; ?>
-        <li class="nav-item dropdown ml-lg-3">
+        <li class="nav-item dropdown ml-lg-3" title="Meni">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
             <i class="fas fa-id-card-alt fa-lg"></i>
           </a>

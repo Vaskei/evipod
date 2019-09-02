@@ -16,7 +16,7 @@ $userId = $_SESSION['user_id'];
   <!-- Modal za uredivanje zemljista -->
   <form method="POST" action="./includes/application/fields_edit_inc.php">
     <div class="modal fade" id="fieldsEditModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title font-weight-bold" id="fieldsEditModalTitle">Uređivanje zemljišta</h5>
@@ -148,12 +148,12 @@ $userId = $_SESSION['user_id'];
                       echo "<tr>";
                       echo "<td>" . truncate($row['field_name'], 20) . "</td>";
                       echo "<td>{$row['field_size']}</td>";
-                      echo $row['field_arkod'] != '' ? "<td><a href='http://preglednik.arkod.hr/ARKOD-Web/#layers=OSNOVNI%20PROSTORNI%20PODACI,DOF-client,ZU-client&map_sc=7142&query=LPIS:ID:{$row['field_arkod']}&feature=LPIS:{$row['field_arkod']}' target='_blank' rel='noopener noreferrer'><i class='fas fa-map-marker-alt px-2'></i></a>{$row['field_arkod']}</td>" : "<td>-</td>";
+                      echo $row['field_arkod'] != '' ? "<td>{$row['field_arkod']}<a href='http://preglednik.arkod.hr/ARKOD-Web/#layers=OSNOVNI%20PROSTORNI%20PODACI,DOF-client,ZU-client&map_sc=7142&query=LPIS:ID:{$row['field_arkod']}&feature=LPIS:{$row['field_arkod']}' target='_blank' rel='noopener noreferrer' title='Lokacija'><i class='fas fa-map-marker-alt px-2'></i></a></td>" : "<td>-</td>";
                       echo "<td>{$row['field_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
-                                <button type='button' class='btn btn-link text-info fieldsEditBtn' data-fields-id-edit='{$row['field_id']}'><i class='fas fa-pencil-alt'></i></button>
-                                <button type='button' class='btn btn-link text-danger fieldsDeleteBtn' data-fields-id-delete='{$row['field_id']}'><i class='fas fa-trash-alt'></i></button>
+                                <button type='button' class='btn btn-link text-info fieldsEditBtn' title='Uredi' data-fields-id-edit='{$row['field_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger fieldsDeleteBtn' title='Izbriši' data-fields-id-delete='{$row['field_id']}'><i class='fas fa-trash-alt'></i></button>
                               </div>
                             </td>";
                       echo "</tr>";
