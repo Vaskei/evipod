@@ -5213,7 +5213,8 @@ input[type="button"].btn-block {
   color: #ecf0f1;
   pointer-events: none;
   cursor: auto;
-  background-color: #3be6c4;
+  /* background-color: #3be6c4; */
+  background-color: var(--secondary);
   border-color: transparent;
 }
 

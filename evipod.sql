@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 23, 2019 at 03:42 PM
+-- Generation Time: Sep 03, 2019 at 04:14 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -67,6 +67,36 @@ INSERT INTO `business` (`business_id`, `business_name`, `user_id`, `business_own
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fertilization`
+--
+
+DROP TABLE IF EXISTS `fertilization`;
+CREATE TABLE IF NOT EXISTS `fertilization` (
+  `fertilization_id` int(11) NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `fertilization_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fertilization_date` date NOT NULL,
+  `fertilization_amount` decimal(10,2) NOT NULL,
+  `fertilization_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`fertilization_id`),
+  KEY `field_id` (`field_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fertilization`
+--
+
+INSERT INTO `fertilization` (`fertilization_id`, `field_id`, `business_id`, `fertilization_name`, `fertilization_date`, `fertilization_amount`, `fertilization_note`, `created_at`, `updated_at`) VALUES
+(1, 12, 48, 'Petrokemija d.d. - NPK 15-15-15', '2019-04-01', '800.00', '200 kg nestalo na putu.', '2019-09-03 17:20:30', '2019-09-03 17:20:30'),
+(2, 12, 48, 'Petrokemija d.d. - NPK 15-15-15', '2019-05-02', '200.20', '', '2019-09-03 17:28:48', '2019-09-03 17:28:48'),
+(3, 16, 48, 'Elixir Zorka - NPK 16-16-16 Special', '2019-05-31', '50.00', 'Ostatak', '2019-09-03 17:29:50', '2019-09-03 17:29:50');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fields`
 --
 
@@ -82,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`field_id`),
   KEY `business_id` (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fields`
@@ -108,7 +138,6 @@ INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `fi
 (38, 48, 'zemlja 17', '0.00', '', '', '2019-08-13 01:16:27', '2019-08-13 01:16:27'),
 (39, 48, 'zemlja 18', '0.00', '3127704', '', '2019-08-13 01:16:31', '2019-08-13 01:17:09'),
 (40, 48, 'zemlja 19', '0.00', '', '', '2019-08-13 01:16:36', '2019-08-13 01:16:36'),
-(41, 48, 'zemlja 20', '0.00', '', '', '2019-08-13 01:16:41', '2019-08-13 01:16:41'),
 (42, 48, 'test zemlja', '3.20', '', '', '2019-08-21 23:24:33', '2019-08-21 23:24:33');
 
 -- --------------------------------------------------------
@@ -144,6 +173,38 @@ INSERT INTO `planting` (`planting_id`, `field_id`, `business_id`, `planting_name
 (4, 18, 49, 'Repa na 77', 420, '2019-08-08', '', 'Test', '2019-08-23 13:06:27', '2019-08-23 17:08:54'),
 (8, 16, 48, 'P&scaron;enica', 1001, '2018-10-10', 'Skladiste 12', 'Plodored', '2019-08-23 16:48:22', '2019-08-23 17:30:36'),
 (10, 18, 49, 'kult 77', 4, '2014-08-07', 'Tam', 'asdadwa', '2019-08-23 17:11:12', '2019-08-23 17:11:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `protection`
+--
+
+DROP TABLE IF EXISTS `protection`;
+CREATE TABLE IF NOT EXISTS `protection` (
+  `protection_id` int(11) NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `protection_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `protection_organism` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `protection_date` datetime NOT NULL,
+  `protection_amount` decimal(10,2) NOT NULL,
+  `protection_amount_unit` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `protection_plant` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `protection_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`protection_id`),
+  KEY `field_id` (`field_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `protection`
+--
+
+INSERT INTO `protection` (`protection_id`, `field_id`, `business_id`, `protection_name`, `protection_organism`, `protection_date`, `protection_amount`, `protection_amount_unit`, `protection_plant`, `protection_note`, `created_at`, `updated_at`) VALUES
+(1, 11, 48, 'BORDO&Scaron;KA JUHA 20 WP - MANICA', 'Muha', '2019-04-01 12:00:00', '2.04', 'kg/ha', 'Jabuka 11', 'To 11', '2019-09-03 01:55:16', '2019-09-03 15:18:40'),
+(2, 12, 48, 'ASEF-gnojivo i herbicid za travnjak 3 u 1', 'Trava', '2019-05-01 05:30:00', '4.13', 'kg/ha', 'Jabuka 2', 'To 2', '2019-09-03 01:56:50', '2019-09-03 12:31:20');
 
 -- --------------------------------------------------------
 
@@ -187,13 +248,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 48, '2018-12-29 00:33:40', '2019-08-23 15:11:26'),
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 48, '2018-12-29 00:33:40', '2019-09-03 00:05:55'),
 (30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', 57, '2019-04-05 14:11:59', '2019-08-07 19:48:36'),
 (31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$DkZaLOoFAcyC0nXEx5XkNuCxlvgYFi4dIjn3RYG6FgdnW0LByjmQa', 1, '', NULL, '2019-08-07 19:50:30', '2019-08-08 00:06:18');
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `fertilization`
+--
+ALTER TABLE `fertilization`
+  ADD CONSTRAINT `fertilization_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `fields` (`field_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `fields`
@@ -206,6 +273,12 @@ ALTER TABLE `fields`
 --
 ALTER TABLE `planting`
   ADD CONSTRAINT `planting_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `fields` (`field_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `protection`
+--
+ALTER TABLE `protection`
+  ADD CONSTRAINT `protection_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `fields` (`field_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

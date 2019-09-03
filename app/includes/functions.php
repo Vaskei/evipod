@@ -114,3 +114,12 @@ function validateDate($date, $format = 'd. m. Y.')
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
 }
+
+/**
+ * Funkcija za provjeru ispravnosti datuma i vremena
+ */
+function validateDateTime($date, $format = 'd. m. Y. H:i')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}

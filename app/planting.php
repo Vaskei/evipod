@@ -73,7 +73,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="plantingDateEdit" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm bg-white" name="plantingDateEdit" id="plantingDateEdit" placeholder="Datum sjetve / sadnje" readonly>
+                <input type="text" class="form-control form-control-sm bg-white date-picker" name="plantingDateEdit" id="plantingDateEdit" placeholder="Datum sjetve / sadnje" readonly>
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -255,7 +255,7 @@ $userId = $_SESSION['user_id'];
                 <div class="form-group row pl-3">
                   <label for="plantingDate" class="col-sm-2 col-form-label col-form-label-sm">Datum:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm bg-white" name="plantingDate" id="plantingDate" placeholder="Datum sjetve / sadnje" readonly>
+                    <input type="text" class="form-control form-control-sm bg-white date-picker" name="plantingDate" id="plantingDate" placeholder="Datum sjetve / sadnje" readonly>
                   </div>
                 </div>
                 <div class="form-group row pl-3">

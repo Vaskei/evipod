@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
       bar.style.width = barWidth + '%';
       if (barWidth <= 0) {
         clearInterval(downloadTimer);
-        console.log("Done");
       }
     }, 750);
   }
@@ -144,8 +143,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Inicijalizacija Bootstrap Tooltip elementa
   // $('[data-toggle="tooltip"]').tooltip();
 
-  //
-  $('#plantingDate, #plantingDateEdit').daterangepicker({
+  // Picker za datume
+  $('.date-picker').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
     minYear: 1970,
@@ -182,9 +181,51 @@ document.addEventListener("DOMContentLoaded", function (event) {
         "Prosinac"
       ],
       firstDay: 1,
-    },
-  }, function (d) {
-    console.log('New date selected: ' + d.format('DD. MM. YYYY.') + ' MySQL date format: ' + d.format('YYYY-MM-DD'));
+    }
+  });
+
+  // Picker za datume i vrijeme
+  $('.date-time-picker').daterangepicker({
+    singleDatePicker: true,
+    timePicker: true,
+    timePicker24Hour: true,
+    timePickerIncrement: 15,
+    showDropdowns: true,
+    minYear: 1970,
+    maxYear: parseInt(moment().add(5, 'y').format('YYYY'), 10),
+    locale: {
+      format: "DD. MM. YYYY. HH:mm",
+      applyLabel: "Potvrdi",
+      cancelLabel: "Odustani",
+      fromLabel: "Od",
+      toLabel: "Do",
+      customRangeLabel: "Custom",
+      weekLabel: "Tj",
+      daysOfWeek: [
+        "Ned",
+        "Pon",
+        "Uto",
+        "Sri",
+        "Čet",
+        "Pet",
+        "Sub"
+      ],
+      monthNames: [
+        "Siječanj",
+        "Veljača",
+        "Ožujak",
+        "Travanj",
+        "Svibanj",
+        "Lipanj",
+        "Srpanj",
+        "Kolovoz",
+        "Rujan",
+        "Listopad",
+        "Studeni",
+        "Prosinac"
+      ],
+      firstDay: 1,
+    }
   });
 
   // Promjena trenutno aktivnog gospodarstva preko AJAX-a
@@ -197,10 +238,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //     dataType: 'json',
   //     success: function (data) {
   //       if (data.status == 'error') {
-  //         console.log('BAD');
   //         window.location.reload();
   //       } else if (data.status == 'success') {
-  //         console.log('GOOD');
   //         window.location.reload();
   //       }
   //     }
@@ -374,7 +413,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          console.log(data);
           $('#plantingFieldEdit').val(data.row.field_id);
           $('#plantingNameEdit').val(data.row.planting_name);
           $('#plantingCountEdit').val(data.row.planting_count);
@@ -399,11 +437,117 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $('#careAddModal').modal('toggle');
   });
 
+  // Modal za dodavanje zastite (SZB)
+  $('#protectionAddModalBtn').on('click', function () {
+    $('#protectionAddModal').modal('toggle');
+
+    let dataList = document.getElementById('protectionNameList');
+    let input = document.getElementById('protectionName');
+
+    // Dohvat liste sredstava iz json datoteke
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (request.readyState === 4) {
+        if (request.status === 200) {
+          let jsonData = JSON.parse(request.responseText);
+
+          jsonData.forEach(function (item) {
+            let option = document.createElement('option');
+            option.value = item;
+            dataList.appendChild(option);
+          });
+
+          input.placeholder = "Naziv sredstva za zaštitu bilja";
+        } else {
+          input.placeholder = "Greška kod dohvata liste sredstava";
+        }
+      }
+    }
+
+    input.placeholder = "Učitavanje liste...";
+
+    request.open('GET', './includes/json/protection_products.json', true);
+    request.send();
+  });
+
+  // Dohvacanje podataka za uredenje zastite
+  $('#protectionTable tbody').on('click', '.protectionEditBtn', function () {
+    let protectionEditId = $(this).attr('data-protection-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/protection_fetch_inc.php',
+      data: 'protectionId=' + protectionEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#protectionFieldEdit').val(data.row.field_id);
+          $('#protectionNameEdit').val(data.row.protection_name);
+          $('#protectionOrganismEdit').val(data.row.protection_organism);
+          let dateSplit = data.row.protection_date.split(/[- :]/);
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ". " + dateSplit[3] + ":" + dateSplit[4];
+          $('#protectionDateEdit').data('daterangepicker').setStartDate(date);
+          $('#protectionDateEdit').data('daterangepicker').setEndDate(date);
+          $('#protectionAmountEdit').val(data.row.protection_amount);
+          $('#protectionAmountUnitEdit').val(data.row.protection_amount_unit);
+          $('#protectionPlantEdit').val(data.row.protection_plant);
+          $('#protectionNoteEdit').val(data.row.protection_note);
+          $('#protectionEdit').val(data.row.protection_id);
+          $('#protectionEditModal').modal('toggle');
+
+          let dataList = document.getElementById('protectionNameListEdit');
+          let input = document.getElementById('protectionNameEdit');
+
+          // Dohvat liste sredstava iz json datoteke
+          let request = new XMLHttpRequest();
+          request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+              if (request.status === 200) {
+                let jsonData = JSON.parse(request.responseText);
+
+                jsonData.forEach(function (item) {
+                  let option = document.createElement('option');
+                  option.value = item;
+                  dataList.appendChild(option);
+                });
+              }
+            }
+          }
+
+          request.open('GET', './includes/json/protection_products.json', true);
+          request.send();
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje zastite
+  $('#protectionTable tbody').on('click', '.protectionDeleteBtn', function () {
+    let protectionDeleteId = $(this).attr('data-protection-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/protection_fetch_inc.php',
+      data: 'protectionId=' + protectionDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#protectionDeleteName').html(data.row.protection_name);
+          $('#protectionDelete').val(data.row.protection_id);
+          $('#protectionDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Modal za dodavanje gnojidbe
   $('#fertilizationAddModalBtn').on('click', function () {
     $('#fertilizationAddModal').modal('toggle');
 
-    let dataList = document.getElementById('fertilizationTypeList');
-    let input = document.getElementById('fertilizationType');
+    let dataList = document.getElementById('fertilizationNameList');
+    let input = document.getElementById('fertilizationName');
 
     // Dohvat liste gnojiva iz json datoteke
     let request = new XMLHttpRequest();
@@ -431,8 +575,74 @@ document.addEventListener("DOMContentLoaded", function (event) {
     request.send();
   });
 
-  $('#protectionAddModalBtn').on('click', function () {
-    $('#protectionAddModal').modal('toggle');
+  // Dohvacanje podataka za uredenje gnojidbe
+  $('#fertilizationTable tbody').on('click', '.fertilizationEditBtn', function () {
+    let fertilizationEditId = $(this).attr('data-fertilization-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/fertilization_fetch_inc.php',
+      data: 'fertilizationId=' + fertilizationEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          console.log(data);
+          $('#fertilizationFieldEdit').val(data.row.field_id);
+          $('#fertilizationNameEdit').val(data.row.fertilization_name);
+          let dateSplit = data.row.fertilization_date.split('-');
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
+          $('#fertilizationDateEdit').data('daterangepicker').setStartDate(date);
+          $('#fertilizationDateEdit').data('daterangepicker').setEndDate(date);
+          $('#fertilizationAmountEdit').val(data.row.fertilization_amount);
+          $('#fertilizationNoteEdit').val(data.row.fertilization_note);
+          $('#fertilizationEdit').val(data.row.fertilization_id);
+          $('#fertilizationEditModal').modal('toggle');
+
+          let dataList = document.getElementById('fertilizationNameListEdit');
+          let input = document.getElementById('fertilizationNameEdit');
+
+          // Dohvat liste gnojiva iz json datoteke
+          let request = new XMLHttpRequest();
+          request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+              if (request.status === 200) {
+                let jsonData = JSON.parse(request.responseText);
+
+                jsonData.forEach(function (item) {
+                  let option = document.createElement('option');
+                  option.value = item;
+                  dataList.appendChild(option);
+                });
+              }
+            }
+          }
+
+          request.open('GET', './includes/json/fertilizers.json', true);
+          request.send();
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje gnojidbe
+  $('#fertilizationTable tbody').on('click', '.fertilizationDeleteBtn', function () {
+    let fertilizationDeleteId = $(this).attr('data-fertilization-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/fertilization_fetch_inc.php',
+      data: 'fertilizationId=' + fertilizationDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#fertilizationDeleteName').html(data.row.fertilization_name);
+          $('#fertilizationDelete').val(data.row.fertilization_id);
+          $('#fertilizationDeleteModal').modal('toggle');
+        }
+      }
+    });
   });
 
 });
