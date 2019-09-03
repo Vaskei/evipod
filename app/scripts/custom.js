@@ -429,14 +429,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
   });
 
-  $('#tillageAddModalBtn').on('click', function () {
-    $('#tillageAddModal').modal('toggle');
-  });
-
-  $('#careAddModalBtn').on('click', function () {
-    $('#careAddModal').modal('toggle');
-  });
-
   // Modal za dodavanje zastite (SZB)
   $('#protectionAddModalBtn').on('click', function () {
     $('#protectionAddModal').modal('toggle');
@@ -640,6 +632,110 @@ document.addEventListener("DOMContentLoaded", function (event) {
           $('#fertilizationDeleteName').html(data.row.fertilization_name);
           $('#fertilizationDelete').val(data.row.fertilization_id);
           $('#fertilizationDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Modal za dodavanje obrade tla
+  $('#tillageAddModalBtn').on('click', function () {
+    $('#tillageAddModal').modal('toggle');
+  });
+
+  // Dohvacanje podataka za uredenje zastite
+  $('#tillageTable tbody').on('click', '.tillageEditBtn', function () {
+    let tillageEditId = $(this).attr('data-tillage-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/tillage_fetch_inc.php',
+      data: 'tillageId=' + tillageEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#tillageFieldEdit').val(data.row.field_id);
+          $('#tillageNameEdit').val(data.row.tillage_name);
+          let dateSplit = data.row.tillage_date.split('-');
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
+          $('#tillageDateEdit').data('daterangepicker').setStartDate(date);
+          $('#tillageDateEdit').data('daterangepicker').setEndDate(date);
+          $('#tillageNoteEdit').val(data.row.tillage_note);
+          $('#tillageEdit').val(data.row.tillage_id);
+          $('#tillageEditModal').modal('toggle');
+
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje obrade tla
+  $('#tillageTable tbody').on('click', '.tillageDeleteBtn', function () {
+    let tillageDeleteId = $(this).attr('data-tillage-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/tillage_fetch_inc.php',
+      data: 'tillageId=' + tillageDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#tillageDeleteName').html(data.row.tillage_name);
+          $('#tillageDelete').val(data.row.tillage_id);
+          $('#tillageDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Modal za dodavanje njege
+  $('#careAddModalBtn').on('click', function () {
+    $('#careAddModal').modal('toggle');
+  });
+
+  // Dohvacanje podataka za uredenje njege
+  $('#careTable tbody').on('click', '.careEditBtn', function () {
+    let careEditId = $(this).attr('data-care-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/care_fetch_inc.php',
+      data: 'careId=' + careEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#careFieldEdit').val(data.row.field_id);
+          $('#careNameEdit').val(data.row.care_name);
+          $('#careCultureEdit').val(data.row.care_culture);
+          let dateSplit = data.row.care_date.split('-');
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
+          $('#careDateEdit').data('daterangepicker').setStartDate(date);
+          $('#careDateEdit').data('daterangepicker').setEndDate(date);
+          $('#careNoteEdit').val(data.row.care_note);
+          $('#careEdit').val(data.row.care_id);
+          $('#careEditModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje njege
+  $('#careTable tbody').on('click', '.careDeleteBtn', function () {
+    let careDeleteId = $(this).attr('data-care-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/care_fetch_inc.php',
+      data: 'careId=' + careDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#careDeleteName').html(data.row.care_name);
+          $('#careDelete').val(data.row.care_id);
+          $('#careDeleteModal').modal('toggle');
         }
       }
     });

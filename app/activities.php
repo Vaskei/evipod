@@ -200,7 +200,7 @@ $userId = $_SESSION['user_id'];
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-            <button type="submit" name="protectionEdit" id="protectionEdit" class="btn btn-success"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+            <button type="submit" name="protectionEdit" id="protectionEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
           </div>
         </div>
       </div>
@@ -384,7 +384,7 @@ $userId = $_SESSION['user_id'];
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-            <button type="submit" name="fertilizationEdit" id="fertilizationEdit" class="btn btn-success"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+            <button type="submit" name="fertilizationEdit" id="fertilizationEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
           </div>
         </div>
       </div>
@@ -426,7 +426,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za dodavanje obrade tla -->
-  <form method="POST" action="">
+  <form method="POST" action="./includes/application/tillage_add_inc.php">
     <div class="modal fade" id="tillageAddModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -464,16 +464,10 @@ $userId = $_SESSION['user_id'];
               </div>
             </div>
             <div class="form-group row pl-3">
-              <label for="tillageDate" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <label for="tillageName" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm bg-white date-picker" id="tillageDate" name="tillageDate" placeholder="Datum obrade tla" readonly>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="tillageType" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
-              <div class="col-sm-9">
-                <input list="tillageTypeList" type="text" class="form-control form-control-sm" id="tillageType" name="tillageType" placeholder="Naziv obrade">
-                <datalist id="tillageTypeList">
+                <input list="tillageNameList" type="text" class="form-control form-control-sm" id="tillageName" name="tillageName" placeholder="Naziv obrade">
+                <datalist id="tillageNameList">
                   <option value="Oranje"></option>
                   <option value="Podrivanje"></option>
                   <option value="Gruberiranje"></option>
@@ -488,6 +482,12 @@ $userId = $_SESSION['user_id'];
                   <option value="Valjanje"></option>
                   <option value="Ostalo"></option>
                 </datalist>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="tillageDate" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm bg-white date-picker" id="tillageDate" name="tillageDate" placeholder="Datum obrade tla" readonly>
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -506,8 +506,123 @@ $userId = $_SESSION['user_id'];
     </div>
   </form>
 
+  <!-- Modal za uredivanje obrade tla -->
+  <form method="POST" action="./includes/application/tillage_edit_inc.php">
+    <div class="modal fade" id="tillageEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="tillageEditModalTitle">Uređivanje obrade tla</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row pl-3">
+              <label for="tillageFieldEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
+              <div class="col-sm-9">
+                <?php if ($resultUser['current_business_id'] != NULL) : ?>
+                  <?php
+                    $resultFields->data_seek(0);
+                    if ($resultFields->num_rows > 0) {
+                      echo "<select class='form-control form-control-sm' name='tillageFieldEdit' id='tillageFieldEdit'>";
+                      while ($row = $resultFields->fetch_assoc()) {
+                        echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                      }
+                      echo "</select>";
+                    } else {
+                      echo "
+                  <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
+                    <option value=''>Nema evidentiranih zemljišta.</option>
+                  </select>";
+                    }
+                    ?>
+                <?php else : ?>
+                  <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                    <option value="">Nema aktivnog gospodarstva.</option>
+                  </select>
+                <?php endif; ?>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="tillageNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
+              <div class="col-sm-9">
+                <input list="tillageNameListEdit" type="text" class="form-control form-control-sm" id="tillageNameEdit" name="tillageNameEdit" placeholder="Naziv obrade">
+                <datalist id="tillageNameListEdit">
+                  <option value="Oranje"></option>
+                  <option value="Podrivanje"></option>
+                  <option value="Gruberiranje"></option>
+                  <option value="Drljanje"></option>
+                  <option value="Tanjuranje"></option>
+                  <option value="Frezanje"></option>
+                  <option value="Malčiranje"></option>
+                  <option value="Košnja"></option>
+                  <option value="Kultiviranje"></option>
+                  <option value="Zatvaranje brazde"></option>
+                  <option value="Fina predsjetvena priprema"></option>
+                  <option value="Valjanje"></option>
+                  <option value="Ostalo"></option>
+                </datalist>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="tillageDateEdit" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm bg-white date-picker" id="tillageDateEdit" name="tillageDateEdit" placeholder="Datum obrade tla" readonly>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="tillageNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" id="tillageNoteEdit" name="tillageNoteEdit" placeholder="Napomena">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="tillageEdit" id="tillageEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal za brisanje obrade tla -->
+  <form method="POST" action="./includes/application/tillage_delete_inc.php">
+    <div class="modal fade" id="tillageDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title font-weight-bold" id="tillageDeleteModalTitle">Brisanje obrade tla</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
+              </div>
+              <div class="col-9">
+                <p class="font-weight-bold">Obrisati odabranu obradu tla:</p>
+                <u>
+                  <p id="tillageDeleteName" class="font-weight-bold text-break mb-0"></p>
+                </u>
+                <!-- <small class="text-muted">Brisanjem zemljišta obrisat će se i djelatnosti vezane uz to zemljište.</small> -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="tillageDelete" id="tillageDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
   <!-- Modal za dodavanje njege usjeva/nasada -->
-  <form method="POST" action="">
+  <form method="POST" action="./includes/application/care_add_inc.php">
     <div class="modal fade" id="careAddModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -545,22 +660,10 @@ $userId = $_SESSION['user_id'];
               </div>
             </div>
             <div class="form-group row pl-3">
-              <label for="careDate" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <label for="careName" class="col-sm-3 col-form-label col-form-label-sm">Mjera/zahvat:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm bg-white date-picker" id="careDate" name="careDate" placeholder="Datum njege" readonly>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="careCulture" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="careCulture" name="careCulture" placeholder="Naziv kulture">
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="careType" class="col-sm-3 col-form-label col-form-label-sm">Mjera/zahvat:</label>
-              <div class="col-sm-9">
-                <input list="careTypeList" type="text" class="form-control form-control-sm" id="careType" name="careType" placeholder="Naziv mjere ili zahvata">
-                <datalist id="careTypeList">
+                <input list="careNameList" type="text" class="form-control form-control-sm" id="careName" name="careName" placeholder="Naziv mjere ili zahvata">
+                <datalist id="careNameList">
                   <option value="Rezidba"></option>
                   <option value="Uzorkovanje"></option>
                   <option value="Nadzor"></option>
@@ -575,6 +678,18 @@ $userId = $_SESSION['user_id'];
               </div>
             </div>
             <div class="form-group row pl-3">
+              <label for="careCulture" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" id="careCulture" name="careCulture" placeholder="Naziv kulture">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="careDate" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm bg-white date-picker" id="careDate" name="careDate" placeholder="Datum njege" readonly>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
               <label for="careNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control form-control-sm" id="careNote" name="careNote" placeholder="Napomena">
@@ -584,6 +699,124 @@ $userId = $_SESSION['user_id'];
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
             <button type="submit" name="careAdd" id="careAdd" class="btn btn-success"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal za uredivanje njege usjeva/nasada -->
+  <form method="POST" action="./includes/application/care_edit_inc.php">
+    <div class="modal fade" id="careEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="careEditModalTitle">Uređivanje njege usjeva/nasada</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row pl-3">
+              <label for="careFieldEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
+              <div class="col-sm-9">
+                <?php if ($resultUser['current_business_id'] != NULL) : ?>
+                  <?php
+                    $resultFields->data_seek(0);
+                    if ($resultFields->num_rows > 0) {
+                      echo "<select class='form-control form-control-sm' name='careFieldEdit' id='careFieldEdit'>";
+                      while ($row = $resultFields->fetch_assoc()) {
+                        echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                      }
+                      echo "</select>";
+                    } else {
+                      echo "
+                  <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
+                    <option value=''>Nema evidentiranih zemljišta.</option>
+                  </select>";
+                    }
+                    ?>
+                <?php else : ?>
+                  <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                    <option value="">Nema aktivnog gospodarstva.</option>
+                  </select>
+                <?php endif; ?>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="careNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Mjera/zahvat:</label>
+              <div class="col-sm-9">
+                <input list="careNameListEdit" type="text" class="form-control form-control-sm" id="careNameEdit" name="careNameEdit" placeholder="Naziv mjere ili zahvata">
+                <datalist id="careNameListEdit">
+                  <option value="Rezidba"></option>
+                  <option value="Uzorkovanje"></option>
+                  <option value="Nadzor"></option>
+                  <option value="Prorjeđivanje"></option>
+                  <option value="Dorjeđivanje"></option>
+                  <option value="Baliranje"></option>
+                  <option value="Ispaša"></option>
+                  <option value="Napasivanje travnjaka"></option>
+                  <option value="Ručno odstranjivanje biljaka"></option>
+                  <option value="Ostalo"></option>
+                </datalist>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="careCultureEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" id="careCultureEdit" name="careCultureEdit" placeholder="Naziv kulture">
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="careDateEdit" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm bg-white date-picker" id="careDateEdit" name="careDateEdit" placeholder="Datum njege" readonly>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="careNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" id="careNoteEdit" name="careNoteEdit" placeholder="Napomena">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="careEdit" id="careEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal za brisanje njege usjeva/nasada -->
+  <form method="POST" action="./includes/application/care_delete_inc.php">
+    <div class="modal fade" id="careDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title font-weight-bold" id="careDeleteModalTitle">Brisanje njege usjeva/nasada</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-3">
+                <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
+              </div>
+              <div class="col-9">
+                <p class="font-weight-bold">Obrisati odabranu njegu usjeva/nasada:</p>
+                <u>
+                  <p id="careDeleteName" class="font-weight-bold text-break mb-0"></p>
+                </u>
+                <!-- <small class="text-muted">Brisanjem zemljišta obrisat će se i djelatnosti vezane uz to zemljište.</small> -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
+            <button type="submit" name="careDelete" id="careDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
           </div>
         </div>
       </div>
@@ -742,6 +975,41 @@ $userId = $_SESSION['user_id'];
                 <button class="btn btn-success float-right" id="tillageAddModalBtn"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
               </h3>
               <hr>
+              <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="tillageTable">
+                <thead>
+                  <tr>
+                    <th>Zemljište (ARKOD)</th>
+                    <th>Naziv</th>
+                    <th>Datum</th>
+                    <th>Napomena</th>
+                    <th>Opcije</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $query = $conn->prepare("SELECT fields.field_name, fields.field_arkod, tillage.* FROM tillage INNER JOIN fields ON tillage.field_id = fields.field_id WHERE fields.business_id = ? ORDER BY fields.field_id, tillage.tillage_date");
+                  $query->bind_param("i", $resultUser['current_business_id']);
+                  $query->execute();
+                  $result = $query->get_result();
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>";
+                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['tillage_name']}</td>";
+                      echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['tillage_date'])) . "</td>";
+                      echo "<td class='align-middle'>{$row['tillage_note']}</td>";
+                      echo "<td class='align-middle'>
+                              <div class='btn-group btn-group-sm d-flex' role='group'>
+                                <button type='button' class='btn btn-link text-info tillageEditBtn' title='Uredi' data-tillage-id-edit='{$row['tillage_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger tillageDeleteBtn' title='Izbriši' data-tillage-id-delete='{$row['tillage_id']}'><i class='fas fa-trash-alt'></i></button>
+                              </div>
+                            </td>";
+                      echo "</tr>";
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
             </div>
 
             <!-- Odjeljak njege -->
@@ -751,6 +1019,43 @@ $userId = $_SESSION['user_id'];
                 <button class="btn btn-success float-right" id="careAddModalBtn"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
               </h3>
               <hr>
+              <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="careTable">
+                <thead>
+                  <tr>
+                    <th>Zemljište (ARKOD)</th>
+                    <th>Mjera/zahvat</th>
+                    <th>Kultura</th>
+                    <th>Datum</th>
+                    <th>Napomena</th>
+                    <th>Opcije</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $query = $conn->prepare("SELECT fields.field_name, fields.field_arkod, care.* FROM care INNER JOIN fields ON care.field_id = fields.field_id WHERE fields.business_id = ? ORDER BY fields.field_id, care.care_date");
+                  $query->bind_param("i", $resultUser['current_business_id']);
+                  $query->execute();
+                  $result = $query->get_result();
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>";
+                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['care_name']}</td>";
+                      echo "<td class='align-middle'>{$row['care_culture']}</td>";
+                      echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['care_date'])) . "</td>";
+                      echo "<td class='align-middle'>{$row['care_note']}</td>";
+                      echo "<td class='align-middle'>
+                              <div class='btn-group btn-group-sm d-flex' role='group'>
+                                <button type='button' class='btn btn-link text-info careEditBtn' title='Uredi' data-care-id-edit='{$row['care_id']}'><i class='fas fa-pencil-alt'></i></button>
+                                <button type='button' class='btn btn-link text-danger careDeleteBtn' title='Izbriši' data-care-id-delete='{$row['care_id']}'><i class='fas fa-trash-alt'></i></button>
+                              </div>
+                            </td>";
+                      echo "</tr>";
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
