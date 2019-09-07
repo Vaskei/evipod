@@ -901,7 +901,7 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['field_name']}<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
                       echo "<td class='align-middle'>{$row['protection_name']}</td>";
                       echo "<td class='align-middle'>{$row['protection_organism']}</td>";
                       echo "<td class='align-middle'>" . date('d. m. Y. H:i', strtotime($row['protection_date'])) . "</td>";
@@ -949,7 +949,7 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['field_name']}<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
                       echo "<td class='align-middle'>{$row['fertilization_name']}</td>";
                       echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['fertilization_date'])) . "</td>";
                       echo "<td class='align-middle'>{$row['fertilization_amount']}</td>";
@@ -994,7 +994,7 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['field_name']}<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
                       echo "<td class='align-middle'>{$row['tillage_name']}</td>";
                       echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['tillage_date'])) . "</td>";
                       echo "<td class='align-middle'>{$row['tillage_note']}</td>";
@@ -1039,7 +1039,7 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['field_name']}<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
                       echo "<td class='align-middle'>{$row['care_name']}</td>";
                       echo "<td class='align-middle'>{$row['care_culture']}</td>";
                       echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['care_date'])) . "</td>";

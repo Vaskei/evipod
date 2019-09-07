@@ -1,5 +1,5 @@
 // Javascript
-let siteAddress = 'localhost';
+// let siteAddress = 'localhost';
 // Auto-start anonimna funkcija
 (function () {
   'use strict';
@@ -246,6 +246,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //   });
   // });
 
+  // Dekodiranje HTML karakteri prilikom AJAX dohvata
+  function decodeHtml(html) {
+    let txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  }
+
   // Zatvaranje dropdown menija prilikom odabira gospodarstva
   $('.opgSelectBtn').click(function (e) {
     e.stopPropagation();
@@ -264,17 +271,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          $('#businessNameEdit').val(data.row.business_name);
-          $('#businessOwnerEdit').val(data.row.business_owner);
-          $('#businessOIBEdit').val(data.row.business_oib);
-          $('#businessMIBPGEdit').val(data.row.business_mibpg);
-          $('#businessCountyEdit').val(data.row.business_county);
-          $('#businessLocationEdit').val(data.row.business_location);
-          $('#businessPostEdit').val(data.row.business_post);
-          $('#businessAddressEdit').val(data.row.business_address);
-          $('#businessEmailEdit').val(data.row.business_email);
-          $('#businessTelEdit').val(data.row.business_tel);
-          $('#businessMobEdit').val(data.row.business_mob);
+          $('#businessNameEdit').val(decodeHtml(data.row.business_name));
+          $('#businessOwnerEdit').val(decodeHtml(data.row.business_owner));
+          $('#businessOIBEdit').val(decodeHtml(data.row.business_oib));
+          $('#businessMIBPGEdit').val(decodeHtml(data.row.business_mibpg));
+          $('#businessCountyEdit').val(decodeHtml(data.row.business_county));
+          $('#businessLocationEdit').val(decodeHtml(data.row.business_location));
+          $('#businessPostEdit').val(decodeHtml(data.row.business_post));
+          $('#businessAddressEdit').val(decodeHtml(data.row.business_address));
+          $('#businessEmailEdit').val(decodeHtml(data.row.business_email));
+          $('#businessTelEdit').val(decodeHtml(data.row.business_tel));
+          $('#businessMobEdit').val(decodeHtml(data.row.business_mob));
           $('#businessEdit').val(data.row.business_id);
           $('#businessEditModal').modal('toggle');
         }
@@ -369,10 +376,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          $('#fieldNameEdit').val(data.row.field_name);
-          $('#fieldSizeEdit').val(data.row.field_size);
-          $('#fieldARKODEdit').val(data.row.field_arkod);
-          $('#fieldNoteEdit').val(data.row.field_note);
+          $('#fieldNameEdit').val(decodeHtml(data.row.field_name));
+          $('#fieldSizeEdit').val(decodeHtml(data.row.field_size));
+          $('#fieldARKODEdit').val(decodeHtml(data.row.field_arkod));
+          $('#fieldNoteEdit').val(decodeHtml(data.row.field_note));
           $('#fieldEdit').val(data.row.field_id);
           $('#fieldsEditModal').modal('toggle');
         }
@@ -413,15 +420,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          $('#plantingFieldEdit').val(data.row.field_id);
-          $('#plantingNameEdit').val(data.row.planting_name);
-          $('#plantingCountEdit').val(data.row.planting_count);
+          $('#plantingFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#plantingNameEdit').val(decodeHtml(data.row.planting_name));
+          $('#plantingCountEdit').val(decodeHtml(data.row.planting_count));
           let dateSplit = data.row.planting_date.split('-');
           let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
           $('#plantingDateEdit').data('daterangepicker').setStartDate(date);
           $('#plantingDateEdit').data('daterangepicker').setEndDate(date);
-          $('#plantingSourceEdit').val(data.row.planting_source);
-          $('#plantingNoteEdit').val(data.row.planting_note);
+          $('#plantingSourceEdit').val(decodeHtml(data.row.planting_source));
+          $('#plantingNoteEdit').val(decodeHtml(data.row.planting_note));
           $('#plantingEdit').val(data.row.planting_id);
           $('#plantingEditModal').modal('toggle');
         }
@@ -474,17 +481,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          $('#protectionFieldEdit').val(data.row.field_id);
-          $('#protectionNameEdit').val(data.row.protection_name);
-          $('#protectionOrganismEdit').val(data.row.protection_organism);
+          $('#protectionFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#protectionNameEdit').val(decodeHtml(data.row.protection_name));
+          $('#protectionOrganismEdit').val(decodeHtml(data.row.protection_organism));
           let dateSplit = data.row.protection_date.split(/[- :]/);
           let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ". " + dateSplit[3] + ":" + dateSplit[4];
           $('#protectionDateEdit').data('daterangepicker').setStartDate(date);
           $('#protectionDateEdit').data('daterangepicker').setEndDate(date);
-          $('#protectionAmountEdit').val(data.row.protection_amount);
-          $('#protectionAmountUnitEdit').val(data.row.protection_amount_unit);
-          $('#protectionPlantEdit').val(data.row.protection_plant);
-          $('#protectionNoteEdit').val(data.row.protection_note);
+          $('#protectionAmountEdit').val(decodeHtml(data.row.protection_amount));
+          $('#protectionAmountUnitEdit').val(decodeHtml(data.row.protection_amount_unit));
+          $('#protectionPlantEdit').val(decodeHtml(data.row.protection_plant));
+          $('#protectionNoteEdit').val(decodeHtml(data.row.protection_note));
           $('#protectionEdit').val(data.row.protection_id);
           $('#protectionEditModal').modal('toggle');
 
@@ -580,14 +587,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
           window.location.reload();
         } else if (data.status == 'success') {
           console.log(data);
-          $('#fertilizationFieldEdit').val(data.row.field_id);
-          $('#fertilizationNameEdit').val(data.row.fertilization_name);
+          $('#fertilizationFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#fertilizationNameEdit').val(decodeHtml(data.row.fertilization_name));
           let dateSplit = data.row.fertilization_date.split('-');
           let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
           $('#fertilizationDateEdit').data('daterangepicker').setStartDate(date);
           $('#fertilizationDateEdit').data('daterangepicker').setEndDate(date);
-          $('#fertilizationAmountEdit').val(data.row.fertilization_amount);
-          $('#fertilizationNoteEdit').val(data.row.fertilization_note);
+          $('#fertilizationAmountEdit').val(decodeHtml(data.row.fertilization_amount));
+          $('#fertilizationNoteEdit').val(decodeHtml(data.row.fertilization_note));
           $('#fertilizationEdit').val(data.row.fertilization_id);
           $('#fertilizationEditModal').modal('toggle');
 
@@ -654,13 +661,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          $('#tillageFieldEdit').val(data.row.field_id);
-          $('#tillageNameEdit').val(data.row.tillage_name);
+          $('#tillageFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#tillageNameEdit').val(decodeHtml(data.row.tillage_name));
           let dateSplit = data.row.tillage_date.split('-');
           let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
           $('#tillageDateEdit').data('daterangepicker').setStartDate(date);
           $('#tillageDateEdit').data('daterangepicker').setEndDate(date);
-          $('#tillageNoteEdit').val(data.row.tillage_note);
+          $('#tillageNoteEdit').val(decodeHtml(data.row.tillage_note));
           $('#tillageEdit').val(data.row.tillage_id);
           $('#tillageEditModal').modal('toggle');
 
@@ -706,14 +713,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (data.status == 'error') {
           window.location.reload();
         } else if (data.status == 'success') {
-          $('#careFieldEdit').val(data.row.field_id);
-          $('#careNameEdit').val(data.row.care_name);
-          $('#careCultureEdit').val(data.row.care_culture);
+          $('#careFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#careNameEdit').val(decodeHtml(data.row.care_name));
+          $('#careCultureEdit').val(decodeHtml(data.row.care_culture));
           let dateSplit = data.row.care_date.split('-');
           let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
           $('#careDateEdit').data('daterangepicker').setStartDate(date);
           $('#careDateEdit').data('daterangepicker').setEndDate(date);
-          $('#careNoteEdit').val(data.row.care_note);
+          $('#careNoteEdit').val(decodeHtml(data.row.care_note));
           $('#careEdit').val(data.row.care_id);
           $('#careEditModal').modal('toggle');
         }

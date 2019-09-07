@@ -188,7 +188,7 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td class='align-middle'>" . truncate($row['field_name'], 20) . "<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
+                      echo "<td class='align-middle'>{$row['field_name']}<p class='mb-0 text-muted'><small>" . $row['field_arkod'] . "</small></p></td>";
                       echo "<td class='align-middle'>{$row['planting_name']}</td>";
                       echo "<td class='align-middle'>{$row['planting_count']}</td>";
                       echo "<td class='align-middle'>" . date('d. m. Y.', strtotime($row['planting_date'])) . "</td>";
@@ -214,8 +214,8 @@ $userId = $_SESSION['user_id'];
               <hr>
               <form method="POST" action="./includes/application/planting_add_inc.php">
                 <div class="form-group row pl-3">
-                  <label for="plantingField" class="col-sm-2 col-form-label col-form-label-sm">Naziv zemljišta:</label>
-                  <div class="col-sm-10">
+                  <label for="plantingField" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
+                  <div class="col-sm-9">
                     <?php if ($resultUser['current_business_id'] != NULL) : ?>
                     <?php
                     // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
@@ -241,32 +241,32 @@ $userId = $_SESSION['user_id'];
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="plantingName" class="col-sm-2 col-form-label col-form-label-sm">Kultivar:</label>
-                  <div class="col-sm-10">
+                  <label for="plantingName" class="col-sm-3 col-form-label col-form-label-sm">Kultivar:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" name="plantingName" id="plantingName" placeholder="Kultivar / sadni materijal">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="plantingCount" class="col-sm-2 col-form-label col-form-label-sm">Sjeme (kg/ha):</label>
-                  <div class="col-sm-10">
+                  <label for="plantingCount" class="col-sm-3 col-form-label col-form-label-sm">Sjeme (kg/ha):</label>
+                  <div class="col-sm-9">
                     <input type="number" class="form-control form-control-sm" name="plantingCount" id="plantingCount" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="plantingDate" class="col-sm-2 col-form-label col-form-label-sm">Datum:</label>
-                  <div class="col-sm-10">
+                  <label for="plantingDate" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm bg-white date-picker" name="plantingDate" id="plantingDate" placeholder="Datum sjetve / sadnje" readonly>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="plantingSource" class="col-sm-2 col-form-label col-form-label-sm">Porijeklo:</label>
-                  <div class="col-sm-10">
+                  <label for="plantingSource" class="col-sm-3 col-form-label col-form-label-sm">Porijeklo:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" name="plantingSource" id="plantingSource" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="plantingNote" class="col-sm-2 col-form-label col-form-label-sm">Napomena:</label>
-                  <div class="col-sm-10">
+                  <label for="plantingNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" name="plantingNote" id="plantingNote" placeholder="Napomena">
                   </div>
                 </div>

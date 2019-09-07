@@ -33,7 +33,7 @@ if (isset($_POST['plantingId'])) {
       exit();
     } else {
       $row = $result->fetch_assoc();
-      $row = array_map('html_entity_decode', $row);
+      // $row = array_map('html_entity_decode', $row);
       $response['status'] = 'success';
       $response['row'] = $row;
       echo json_encode($response);

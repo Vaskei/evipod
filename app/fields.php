@@ -146,10 +146,10 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td>" . truncate($row['field_name'], 20) . "</td>";
-                      echo "<td>{$row['field_size']}</td>";
+                      echo "<td class='align-middle'>{$row['field_name']}</td>";
+                      echo "<td class='align-middle'>{$row['field_size']}</td>";
                       echo $row['field_arkod'] != '' ? "<td>{$row['field_arkod']}<a href='http://preglednik.arkod.hr/ARKOD-Web/#layers=OSNOVNI%20PROSTORNI%20PODACI,DOF-client,ZU-client&map_sc=7142&query=LPIS:ID:{$row['field_arkod']}&feature=LPIS:{$row['field_arkod']}' target='_blank' rel='noopener noreferrer' title='Lokacija'><i class='fas fa-map-marker-alt px-2'></i></a></td>" : "<td>-</td>";
-                      echo "<td>{$row['field_note']}</td>";
+                      echo "<td class='align-middle'>{$row['field_note']}</td>";
                       echo "<td class='align-middle'>
                               <div class='btn-group btn-group-sm d-flex' role='group'>
                                 <button type='button' class='btn btn-link text-info fieldsEditBtn' title='Uredi' data-fields-id-edit='{$row['field_id']}'><i class='fas fa-pencil-alt'></i></button>
@@ -170,26 +170,26 @@ $userId = $_SESSION['user_id'];
               <hr>
               <form method="POST" action="./includes/application/fields_add_inc.php">
                 <div class="form-group row pl-3">
-                  <label for="fieldName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
-                  <div class="col-sm-10">
+                  <label for="fieldName" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" name="fieldName" id="fieldName" placeholder="Naziv zemljišta">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldSize" class="col-sm-2 col-form-label col-form-label-sm">Površina (ha):</label>
-                  <div class="col-sm-10">
+                  <label for="fieldSize" class="col-sm-3 col-form-label col-form-label-sm">Površina (ha):</label>
+                  <div class="col-sm-9">
                     <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldARKOD" class="col-sm-2 col-form-label col-form-label-sm">ARKOD ID:</label>
-                  <div class="col-sm-10">
+                  <label for="fieldARKOD" class="col-sm-3 col-form-label col-form-label-sm">ARKOD ID:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" name="fieldARKOD" id="fieldARKOD" placeholder="ARKOD ID zemljišta">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
-                  <label for="fieldNote" class="col-sm-2 col-form-label col-form-label-sm">Napomena:</label>
-                  <div class="col-sm-10">
+                  <label for="fieldNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+                  <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" name="fieldNote" id="fieldNote" placeholder="Napomena">
                   </div>
                 </div>

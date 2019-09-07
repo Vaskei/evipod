@@ -244,10 +244,10 @@ $userId = $_SESSION['user_id'];
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "<tr>";
-                      echo "<td><a href='' class='businessInfoLink' data-business-id-info='{$row['business_id']}'>" . truncate($row['business_name']) . "</a></td>";
-                      echo "<td>" . truncate($row['business_owner']) . "</td>";
-                      echo "<td>{$row['business_oib']}</td>";
-                      echo "<td>{$row['business_mibpg']}</td>";
+                      echo "<td class='align-middle'><a href='' class='businessInfoLink' data-business-id-info='{$row['business_id']}'>{$row['business_name']}</a></td>";
+                      echo "<td class='align-middle'>{$row['business_owner']}</td>";
+                      echo "<td class='align-middle'>{$row['business_oib']}</td>";
+                      echo "<td class='align-middle'>{$row['business_mibpg']}</td>";
                       // echo "<td>{$row['business_county']}</td>";
                       // echo "<td>{$row['business_location']}</td>";
                       // echo "<td>{$row['business_post']}</td>";

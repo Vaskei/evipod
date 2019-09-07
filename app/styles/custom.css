@@ -30,6 +30,35 @@
   min-width: 250px;
 }
 
+.latest-activity {
+  padding: 15px;
+  background-color: #fafafa;
+  border-left: 6px solid #7f7f84;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+          box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+
+.latest-1 {
+  border-color: #CFD8DC;
+}
+.latest-2 {
+  border-color: #B0BEC5;
+}
+.latest-3 {
+  border-color: #90A4AE;
+}
+.latest-4 {
+  border-color: #78909C;
+}
+.latest-5 {
+  border-color: #607D8B;
+}
+.latest-6 {
+  border-color: #546E7A;
+}
+
 @media (min-width: 992px) {
   .content {
     padding: 80px 10px 0 280px;

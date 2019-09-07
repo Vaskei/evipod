@@ -100,7 +100,7 @@ function toastNoRedirect(string $type, string $title, string $message)
 function truncate($string, $length = 30)
 {
   if (strlen($string) > $length) {
-    $string = substr($string, 0, $length) . '...';
+    $string = mb_substr($string, 0, $length) . '...';
   }
 
   return $string;
