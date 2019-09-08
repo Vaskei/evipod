@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $('#mainNav a').click(function () {
     var divId = $(this).attr('href');
     $('html, body').animate({
-      scrollTop: $(divId).offset().top - 56
+      scrollTop: $(divId).offset().top - 55
     }, 800);
     $('.navbar-collapse').collapse('hide');
   });
