@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // Inicijalizacija DataTable tabele
   $(".datatable-enable").DataTable({
-    // "dom": '<"d-flex justify-content-between"lf><"table-responsive"rt><"d-flex justify-content-between"ip><"clear">'
     "pageLength": 10,
     "order": [],
     "pagingType": "simple",
@@ -743,6 +742,54 @@ document.addEventListener("DOMContentLoaded", function (event) {
           $('#careDeleteName').html(data.row.care_name);
           $('#careDelete').val(data.row.care_id);
           $('#careDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje berbe/zetve
+  $('#harvestTable tbody').on('click', '.harvestDeleteBtn', function () {
+    let harvestDeleteId = $(this).attr('data-harvest-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/harvest_fetch_inc.php',
+      data: 'harvestId=' + harvestDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#harvestDeleteName').html(data.row.field_name + ' - ' + data.row.harvest_name + ' - ' + data.row.harvest_amount + data.row.harvest_amount_unit);
+          $('#harvestDelete').val(data.row.harvest_id);
+          $('#harvestDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za uredenje berbe/zetve
+  $('#harvestTable tbody').on('click', '.harvestEditBtn', function () {
+    let harvestEditId = $(this).attr('data-harvest-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/harvest_fetch_inc.php',
+      data: 'harvestId=' + harvestEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#harvestFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#harvestNameEdit').val(decodeHtml(data.row.harvest_name));
+          $('#harvestAmountEdit').val(decodeHtml(data.row.harvest_amount));
+          $('#harvestAmountUnitEdit').val(decodeHtml(data.row.harvest_amount_unit));
+          let dateSplit = data.row.harvest_date.split('-');
+          let date = dateSplit[2] + ". " + dateSplit[1] + ". " + dateSplit[0] + ".";
+          $('#harvestDateEdit').data('daterangepicker').setStartDate(date);
+          $('#harvestDateEdit').data('daterangepicker').setEndDate(date);
+          $('#harvestNoteEdit').val(decodeHtml(data.row.harvest_note));
+          $('#harvestEdit').val(data.row.harvest_id);
+          $('#harvestEditModal').modal('toggle');
         }
       }
     });

@@ -21,46 +21,79 @@ $userId = $_SESSION['user_id'];
   $resultFields = $query->get_result();
   ?>
 
-  <!-- Modal za uredivanje zemljista -->
-  <form method="POST" action="./includes/application/fields_edit_inc.php">
-    <div class="modal fade" id="fieldsEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Modal za uredivanje berbe/zetve -->
+  <form method="POST" action="./includes/application/harvest_edit_inc.php">
+    <div class="modal fade" id="harvestEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title font-weight-bold" id="fieldsEditModalTitle">Uređivanje zemljišta</h5>
+            <h5 class="modal-title font-weight-bold" id="harvestEditModalTitle">Uređivanje zemljišta</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="form-group row pl-3">
-              <label for="fieldNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
+              <label for="harvestFieldEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="fieldNameEdit" name="fieldNameEdit" placeholder="Naziv zemljišta">
+                <?php if ($resultUser['current_business_id'] != NULL) : ?>
+                  <?php
+                    // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
+                    $resultFields->data_seek(0);
+                    if ($resultFields->num_rows > 0) {
+                      echo "<select class='form-control form-control-sm' name='harvestFieldEdit' id='harvestFieldEdit'>";
+                      while ($row = $resultFields->fetch_assoc()) {
+                        echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                      }
+                      echo "</select>";
+                    } else {
+                      echo "
+                      <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
+                        <option value=''>Nema evidentiranih zemljišta.</option>
+                      </select>";
+                    }
+                    ?>
+                <?php else : ?>
+                  <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                    <option value="">Nema aktivnog gospodarstva.</option>
+                  </select>
+                <?php endif; ?>
               </div>
             </div>
             <div class="form-group row pl-3">
-              <label for="fieldSizeEdit" class="col-sm-3 col-form-label col-form-label-sm">Površina (ha):</label>
+              <label for="harvestNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control form-control-sm" name="fieldSizeEdit" id="fieldSizeEdit" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
+                <input type="text" class="form-control form-control-sm" name="harvestNameEdit" id="harvestNameEdit" placeholder="Kultura">
               </div>
             </div>
             <div class="form-group row pl-3">
-              <label for="fieldARKODEdit" class="col-sm-3 col-form-label col-form-label-sm">ARKOD ID:</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="fieldARKODEdit" id="fieldARKODEdit" placeholder="ARKOD ID zemljišta">
+              <label for="harvestAmountEdit" class="col-sm-3 col-form-label col-form-label-sm">Količina (kg/t):</label>
+              <div class="col-sm-7">
+                <input type="number" class="form-control form-control-sm" name="harvestAmountEdit" id="harvestAmountEdit" min="0" max="99999999" step="1" placeholder="Količina (kg/t)">
+              </div>
+              <div class="col-sm-2">
+                <select class="form-control form-control-sm" name="harvestAmountUnitEdit" id="harvestAmountUnitEdit">
+                  <option value="kg">kg</option>
+                  <option value="t">t</option>
+                </select>
               </div>
             </div>
             <div class="form-group row pl-3">
-              <label for="fieldNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+              <label for="harvestDateEdit" class="col-sm-3 col-form-label col-form-label-sm">Datum:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="fieldNoteEdit" id="fieldNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm bg-white date-picker" id="harvestDateEdit" name="harvestDateEdit" placeholder="Datum berbe/žetve" readonly>
+              </div>
+            </div>
+            <div class="form-group row pl-3">
+              <label for="harvestNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" name="harvestNoteEdit" id="harvestNoteEdit" placeholder="Napomena">
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-            <button type="submit" name="fieldEdit" id="fieldEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
+            <button type="submit" name="harvestEdit" id="harvestEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
           </div>
         </div>
       </div>
@@ -68,7 +101,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za brisanje berbe/zetve -->
-  <form method="POST" action="">
+  <form method="POST" action="./includes/application/harvest_delete_inc.php">
     <div class="modal fade" id="harvestDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -84,7 +117,7 @@ $userId = $_SESSION['user_id'];
                 <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
               </div>
               <div class="col-9">
-                <p class="font-weight-bold">Obrisati odabrano berbu/žetvu:</p>
+                <p class="font-weight-bold">Obrisati odabranu berbu/žetvu:</p>
                 <u>
                   <p id="harvestDeleteName" class="font-weight-bold text-break mb-0"></p>
                 </u>
