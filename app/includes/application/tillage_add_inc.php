@@ -18,7 +18,7 @@ if (isset($_POST['tillageAdd'])) {
     redirectWithToastError("warning", "Greška. Pokušajte ponovno.", "../../activities");
   }
 
-  // Provjera da li je ime sredstva prazno
+  // Provjera da li je ime obrada tla prazna
   if ($tillageName == "") {
     redirectWithToastError("warning", "Naziv djelatnosti je obavezan!", "../../activities");
   }

@@ -468,7 +468,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='tillageField' id='tillageField'>";
+                      echo "<select class='form-control form-control-sm' name='tillageField' id='tillageField'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -490,7 +490,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="tillageName" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
               <div class="col-sm-9">
-                <input list="tillageNameList" type="text" class="form-control form-control-sm" id="tillageName" name="tillageName" placeholder="Naziv obrade">
+                <input list="tillageNameList" type="text" class="form-control form-control-sm" id="tillageName" name="tillageName" placeholder="Naziv obrade" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv djelatnosti je obavezan (max 100 znakova).
+                </div>
                 <datalist id="tillageNameList">
                   <option value="Oranje"></option>
                   <option value="Podrivanje"></option>
@@ -517,7 +520,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="tillageNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="tillageNote" name="tillageNote" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="tillageNote" name="tillageNote" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -549,7 +552,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='tillageFieldEdit' id='tillageFieldEdit'>";
+                      echo "<select class='form-control form-control-sm' name='tillageFieldEdit' id='tillageFieldEdit'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -571,7 +574,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="tillageNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
               <div class="col-sm-9">
-                <input list="tillageNameListEdit" type="text" class="form-control form-control-sm" id="tillageNameEdit" name="tillageNameEdit" placeholder="Naziv obrade">
+                <input list="tillageNameListEdit" type="text" class="form-control form-control-sm" id="tillageNameEdit" name="tillageNameEdit" placeholder="Naziv obrade" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv djelatnosti je obavezan (max 100 znakova).
+                </div>
                 <datalist id="tillageNameListEdit">
                   <option value="Oranje"></option>
                   <option value="Podrivanje"></option>
@@ -598,7 +604,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="tillageNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="tillageNoteEdit" name="tillageNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="tillageNoteEdit" name="tillageNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -664,7 +670,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='careField' id='careField'>";
+                      echo "<select class='form-control form-control-sm' name='careField' id='careField'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -686,7 +692,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="careName" class="col-sm-3 col-form-label col-form-label-sm">Mjera/zahvat:</label>
               <div class="col-sm-9">
-                <input list="careNameList" type="text" class="form-control form-control-sm" id="careName" name="careName" placeholder="Naziv mjere ili zahvata">
+                <input list="careNameList" type="text" class="form-control form-control-sm" id="careName" name="careName" placeholder="Naziv mjere ili zahvata" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Mjera ili zahvat je obavezan (max 100 znakova).
+                </div>
                 <datalist id="careNameList">
                   <option value="Rezidba"></option>
                   <option value="Uzorkovanje"></option>
@@ -704,7 +713,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="careCulture" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="careCulture" name="careCulture" placeholder="Naziv kulture">
+                <input type="text" class="form-control form-control-sm" id="careCulture" name="careCulture" placeholder="Naziv kulture" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -716,7 +725,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="careNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="careNote" name="careNote" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="careNote" name="careNote" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -748,7 +757,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='careFieldEdit' id='careFieldEdit'>";
+                      echo "<select class='form-control form-control-sm' name='careFieldEdit' id='careFieldEdit'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -770,7 +779,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="careNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Mjera/zahvat:</label>
               <div class="col-sm-9">
-                <input list="careNameListEdit" type="text" class="form-control form-control-sm" id="careNameEdit" name="careNameEdit" placeholder="Naziv mjere ili zahvata">
+                <input list="careNameListEdit" type="text" class="form-control form-control-sm" id="careNameEdit" name="careNameEdit" placeholder="Naziv mjere ili zahvata" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Mjera ili zahvat je obavezan (max 100 znakova).
+                </div>
                 <datalist id="careNameListEdit">
                   <option value="Rezidba"></option>
                   <option value="Uzorkovanje"></option>
@@ -788,7 +800,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="careCultureEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="careCultureEdit" name="careCultureEdit" placeholder="Naziv kulture">
+                <input type="text" class="form-control form-control-sm" id="careCultureEdit" name="careCultureEdit" placeholder="Naziv kulture" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -800,7 +812,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="careNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="careNoteEdit" name="careNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="careNoteEdit" name="careNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
