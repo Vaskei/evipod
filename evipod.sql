@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 07, 2019 at 08:36 PM
+-- Generation Time: Sep 09, 2019 at 01:01 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -33,22 +33,22 @@ USE `evipod`;
 DROP TABLE IF EXISTS `business`;
 CREATE TABLE IF NOT EXISTS `business` (
   `business_id` int(11) NOT NULL AUTO_INCREMENT,
-  `business_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `business_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
-  `business_owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `business_owner` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_oib` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_mibpg` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business_county` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `business_county` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `business_location` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_post` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `business_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `business_address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `business_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_tel` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_mob` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `business`
@@ -58,7 +58,7 @@ INSERT INTO `business` (`business_id`, `business_name`, `user_id`, `business_own
 (48, 'Gospodarstvo 1', 17, 'Djed Mraz', '12345678901', '1234567', 'Međimurje', 'Doma&scaron;inec', '40318', 'Selska 41', 'test@test.com', '911', '098911', '2019-07-05 18:52:47', '2019-08-13 01:22:55'),
 (49, 'Test 2', 17, 'Macho Orach', '10000000000', '6969696', 'Zagorje', 'Kamenjara', '10101', 'Sumska 99', 'seljak@test.com', '555100', '099199000', '2019-07-05 18:54:48', '2019-08-07 23:29:13'),
 (50, '&lt;!-- č &scaron; đ ć ž Č &Scaron; Đ Ć Ž afdasda', 17, 'Vrijeme', '', '', '', '', '', '', '', '', '', '2019-07-05 21:01:55', '2019-09-04 18:42:53'),
-(55, 'sfsdfsdfadasda1', 17, '', '', '', 'afjbfiawiabhifahsfauigsduipgasdigaisdauisgyduaigysduagvsduavsduagsduhavbsduhvausdagdouiawgyduagywduagwuodgyuaolgy', '', '', '', '', '0718128596203722704284674073240596279441761014487880794533553230907265813352151627929174204537135764', '0718128596203722704284674073240596279441761014487880794533553230907265813352151627929174204537135764', '2019-08-03 00:45:38', '2019-08-07 23:25:35'),
+(55, 'sfsdfsdfadasda1', 17, '', '', '', 'afjbfiawiabhifahsf', '', '', '', '', '0718128596203722', '0718128', '2019-08-03 00:45:38', '2019-09-09 12:28:49'),
 (56, 'OPG 1', 30, 'Tester 2', '', '', '', '', '', '', '', '', '', '2019-08-07 19:47:57', '2019-08-07 19:47:57'),
 (57, 'OPG 2', 30, 'Tester 2', '', '', 'Međimurje', '', '', '', '', '', '', '2019-08-07 19:48:16', '2019-08-07 19:48:16'),
 (58, 'OPG 3', 30, 'Tester 2', '', '', '', '', '', '', '', '', '', '2019-08-07 19:48:27', '2019-08-07 19:48:27'),
@@ -189,8 +189,9 @@ CREATE TABLE IF NOT EXISTS `harvest` (
   `harvest_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`harvest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`harvest_id`),
+  KEY `field_id` (`field_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `harvest`
@@ -198,7 +199,9 @@ CREATE TABLE IF NOT EXISTS `harvest` (
 
 INSERT INTO `harvest` (`harvest_id`, `field_id`, `business_id`, `harvest_name`, `harvest_amount`, `harvest_amount_unit`, `harvest_date`, `harvest_note`, `created_at`, `updated_at`) VALUES
 (1, 12, 48, 'Jabuka', 15000, 'kg', '2019-09-02', 'Gala', '2019-09-06 21:35:19', '2019-09-06 21:35:19'),
-(2, 16, 48, 'Grah', 2, 't', '2019-09-06', '', '2019-09-06 21:49:52', '2019-09-06 21:49:52');
+(2, 16, 48, 'Grah', 2, 't', '2019-09-06', '', '2019-09-06 21:49:52', '2019-09-06 21:49:52'),
+(3, 32, 48, 'test', 3, 'kg', '2019-09-08', 'Gala', '2019-09-08 21:51:00', '2019-09-08 21:51:00'),
+(5, 17, 48, 'Kuruza', 1001, 't', '2019-09-09', 'Mokra', '2019-09-08 22:16:17', '2019-09-08 22:23:31');
 
 -- --------------------------------------------------------
 
@@ -342,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 48, '2018-12-29 00:33:40', '2019-09-07 00:06:50'),
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 72, '2018-12-29 00:33:40', '2019-09-09 12:45:00'),
 (30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', 57, '2019-04-05 14:11:59', '2019-08-07 19:48:36'),
 (31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$DkZaLOoFAcyC0nXEx5XkNuCxlvgYFi4dIjn3RYG6FgdnW0LByjmQa', 1, '', NULL, '2019-08-07 19:50:30', '2019-08-08 00:06:18');
 
@@ -367,6 +370,12 @@ ALTER TABLE `fertilization`
 --
 ALTER TABLE `fields`
   ADD CONSTRAINT `fields_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `business` (`business_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `harvest`
+--
+ALTER TABLE `harvest`
+  ADD CONSTRAINT `harvest_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `fields` (`field_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `planting`

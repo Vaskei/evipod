@@ -14,7 +14,7 @@ $userId = $_SESSION['user_id'];
   <?php include('./includes/partials/index_sidebar.php'); ?>
 
   <!-- Modal za uredivanje gospodarstva -->
-  <form method="POST" action="./includes/application/business_edit_inc.php">
+  <form method="POST" action="./includes/application/business_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="businessEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -29,69 +29,90 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="businessNameEdit" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessNameEdit" name="businessNameEdit" placeholder="Naziv subjekta">
+                <input type="text" class="form-control form-control-sm" id="businessNameEdit" name="businessNameEdit" placeholder="Naziv subjekta" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv subjekta je obavezan (max 100 znakova).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessOwnerEdit" class="col-sm-2 col-form-label col-form-label-sm">Vlasnik:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessOwnerEdit" name="businessOwnerEdit" placeholder="Vlasnik subjekta">
+                <input type="text" class="form-control form-control-sm" id="businessOwnerEdit" name="businessOwnerEdit" placeholder="Vlasnik subjekta" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessOIBEdit" class="col-sm-2 col-form-label col-form-label-sm">OIB:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessOIBEdit" name="businessOIBEdit" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)">
+                <input type="text" class="form-control form-control-sm" id="businessOIBEdit" name="businessOIBEdit" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)" pattern="^[0-9]{11}$">
+                <div class="invalid-feedback">
+                  Neispravan format OIB-a.
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessMIBPGEdit" class="col-sm-2 col-form-label col-form-label-sm">MIBPG:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessMIBPGEdit" name="businessMIBPGEdit" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)">
+                <input type="text" class="form-control form-control-sm" id="businessMIBPGEdit" name="businessMIBPGEdit" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)" pattern="^[0-9]{1,7}$">
+                <div class="invalid-feedback">
+                  Neispravan format MIBPG-a.
+                </div>
               </div>
             </div>
             <h5 class="text-muted">Lokacija</h5>
             <div class="form-group row pl-3">
               <label for="businessCountyEdit" class="col-sm-2 col-form-label col-form-label-sm">Županija:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessCountyEdit" name="businessCountyEdit" placeholder="Naziv županije">
+                <input type="text" class="form-control form-control-sm" id="businessCountyEdit" name="businessCountyEdit" placeholder="Naziv županije" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessLocationEdit" class="col-sm-2 col-form-label col-form-label-sm">Mjesto:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessLocationEdit" name="businessLocationEdit" placeholder="Mjesto subjekta">
+                <input type="text" class="form-control form-control-sm" id="businessLocationEdit" name="businessLocationEdit" placeholder="Mjesto subjekta" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessPostEdit" class="col-sm-2 col-form-label col-form-label-sm">Pošta:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessPostEdit" name="businessPostEdit" placeholder="Pošta subjekta">
+                <input type="text" class="form-control form-control-sm" id="businessPostEdit" name="businessPostEdit" placeholder="Pošta subjekta" pattern="^[0-9]{5}$">
+                <div class="invalid-feedback">
+                  Neispravan format poštanskog broja.
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessAddressEdit" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessAddressEdit" name="businessAddressEdit" placeholder="Adresa subjekta">
+                <input type="text" class="form-control form-control-sm" id="businessAddressEdit" name="businessAddressEdit" placeholder="Adresa subjekta" maxlength="100">
               </div>
             </div>
             <h5 class="text-muted">Kontakt informacije</h5>
             <div class="form-group row pl-3">
               <label for="businessEmailEdit" class="col-sm-2 col-form-label col-form-label-sm">E-mail:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessEmailEdit" name="businessEmailEdit" placeholder="E-mail adresa">
+                <input type="email" class="form-control form-control-sm" id="businessEmailEdit" name="businessEmailEdit" placeholder="E-mail adresa" maxlength="100">
+                <div class="invalid-feedback">
+                  Neispravan format Email adrese.
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessTelEdit" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessTelEdit" name="businessTelEdit" placeholder="Broj telefona">
+                <input type="text" class="form-control form-control-sm" id="businessTelEdit" name="businessTelEdit" placeholder="Broj telefona" maxlength="100" pattern="^[0-9]{1,100}$">
+                <div class="invalid-feedback">
+                  Neispravan format broja telefona.
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="businessMobEdit" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessMobEdit" name="businessMobEdit" placeholder="Broj mobitela">
+                <input type="text" class="form-control form-control-sm" id="businessMobEdit" name="businessMobEdit" placeholder="Broj mobitela" maxlength="100" pattern="^[0-9]{1,100}$">
+                <div class="invalid-feedback">
+                  Neispravan format broja mobitela.
+                </div>
               </div>
             </div>
           </div>
@@ -280,74 +301,95 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="businessAdd" role="tabpanel">
               <h3>Dodaj gospodarstvo</h3>
               <hr>
-              <form method="POST" action="./includes/application/business_add_inc.php">
+              <form method="POST" action="./includes/application/business_add_inc.php" class="needs-validation" novalidate>
                 <h5 class="text-muted">Osnovne informacije</h5>
                 <div class="form-group row pl-3">
                   <label for="businessName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessName" name="businessName" placeholder="Naziv subjekta">
+                    <input type="text" class="form-control form-control-sm" id="businessName" name="businessName" placeholder="Naziv subjekta" maxlength="100" required>
+                    <div class="invalid-feedback">
+                      Naziv subjekta je obavezan (max 100 znakova).
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessOwner" class="col-sm-2 col-form-label col-form-label-sm">Vlasnik:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessOwner" name="businessOwner" placeholder="Vlasnik subjekta">
+                    <input type="text" class="form-control form-control-sm" id="businessOwner" name="businessOwner" placeholder="Vlasnik subjekta" maxlength="100">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessOIB" class="col-sm-2 col-form-label col-form-label-sm">OIB:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessOIB" name="businessOIB" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)">
+                    <input type="text" class="form-control form-control-sm" id="businessOIB" name="businessOIB" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)" pattern="^[0-9]{11}$">
+                    <div class="invalid-feedback">
+                      Neispravan format OIB-a.
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessMIBPG" class="col-sm-2 col-form-label col-form-label-sm">MIBPG:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessMIBPG" name="businessMIBPG" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)">
+                    <input type="text" class="form-control form-control-sm" id="businessMIBPG" name="businessMIBPG" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)" pattern="^[0-9]{1,7}$">
+                    <div class="invalid-feedback">
+                      Neispravan format MIBPG-a.
+                    </div>
                   </div>
                 </div>
                 <h5 class="text-muted">Lokacija</h5>
                 <div class="form-group row pl-3">
                   <label for="businessCounty" class="col-sm-2 col-form-label col-form-label-sm">Županija:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessCounty" name="businessCounty" placeholder="Naziv županije">
+                    <input type="text" class="form-control form-control-sm" id="businessCounty" name="businessCounty" placeholder="Naziv županije" maxlength="100">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessLocation" class="col-sm-2 col-form-label col-form-label-sm">Mjesto:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessLocation" name="businessLocation" placeholder="Mjesto subjekta">
+                    <input type="text" class="form-control form-control-sm" id="businessLocation" name="businessLocation" placeholder="Mjesto subjekta" maxlength="100">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessPost" class="col-sm-2 col-form-label col-form-label-sm">Pošta:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessPost" name="businessPost" placeholder="Pošta subjekta">
+                    <input type="text" class="form-control form-control-sm" id="businessPost" name="businessPost" placeholder="Pošta subjekta" pattern="^[0-9]{5}$">
+                    <div class="invalid-feedback">
+                      Neispravan format poštanskog broja.
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessAddress" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessAddress" name="businessAddress" placeholder="Adresa subjekta">
+                    <input type="text" class="form-control form-control-sm" id="businessAddress" name="businessAddress" placeholder="Adresa subjekta" maxlength="100">
                   </div>
                 </div>
                 <h5 class="text-muted">Kontakt informacije</h5>
                 <div class="form-group row pl-3">
                   <label for="businessEmail" class="col-sm-2 col-form-label col-form-label-sm">E-mail:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessEmail" name="businessEmail" placeholder="E-mail adresa">
+                    <input type="email" class="form-control form-control-sm" id="businessEmail" name="businessEmail" placeholder="E-mail adresa" maxlength="100">
+                    <div class="invalid-feedback">
+                      Neispravan format Email adrese.
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessTel" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessTel" name="businessTel" placeholder="Broj telefona">
+                    <input type="text" class="form-control form-control-sm" id="businessTel" name="businessTel" placeholder="Broj telefona" maxlength="100" pattern="^[0-9]{1,100}$">
+                    <div class="invalid-feedback">
+                      Neispravan format broja telefona.
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="businessMob" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessMob" name="businessMob" placeholder="Broj mobitela">
+                    <input type="text" class="form-control form-control-sm" id="businessMob" name="businessMob" placeholder="Broj mobitela" maxlength="100" pattern="^[0-9]{1,100}$">
+                    <div class="invalid-feedback">
+                      Neispravan format broja mobitela.
+                    </div>
                   </div>
                 </div>
                 <div class="row justify-content-center">

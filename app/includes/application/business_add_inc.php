@@ -27,12 +27,12 @@ if (isset($_POST['businessAdd'])) {
 
   // Provjera maksimalne duzine pojedinih podataka
   if (
-    strlen(trim($_POST['businessName'])) > 255 ||
-    strlen(trim($_POST['businessOwner'])) > 255 ||
-    strlen(trim($_POST['businessCounty'])) > 255 ||
-    strlen(trim($_POST['businessLocation'])) > 255 ||
-    strlen(trim($_POST['businessAddress'])) > 255 ||
-    strlen(trim($_POST['businessEmail'])) > 255
+    strlen(trim($_POST['businessName'])) > 100 ||
+    strlen(trim($_POST['businessOwner'])) > 100 ||
+    strlen(trim($_POST['businessCounty'])) > 100 ||
+    strlen(trim($_POST['businessLocation'])) > 100 ||
+    strlen(trim($_POST['businessAddress'])) > 100 ||
+    strlen(trim($_POST['businessEmail'])) > 100
   ) {
     redirectWithToastError("warning", "Unesen neispravan format podatka!", "../../business");
   }
@@ -50,6 +50,11 @@ if (isset($_POST['businessAdd'])) {
   // Provjera poštanskog broja ukoliko je unesen
   if ($businessPost != "" && !preg_match('/^[0-9]{5}$/', $businessPost)) {
     redirectWithToastError("warning", "Neispravan format poštanskog broja!", "../../business");
+  }
+
+  // Provjera Email adrese ukoliko je unesena
+  if ($businessEmail != "" && filter_var($businessEmail, FILTER_VALIDATE_EMAIL) === false) {
+    redirectWithMsg("warning", "Neispravan format Email adrese!", "../../business");
   }
 
   // Provjera broja telefona ukoliko je unesen
