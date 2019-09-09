@@ -48,14 +48,14 @@ $userId = $_SESSION['user_id'];
                       echo "</select>";
                     } else {
                       echo "
-                      <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
-                        <option value=''>Nema evidentiranih zemljišta.</option>
+                      <select class='form-control form-control-sm' name='' id='' required>
+                        <option value='' selected required>Nema evidentiranih zemljišta.</option>
                       </select>";
                     }
                     ?>
                 <?php else : ?>
-                  <select class="form-control form-control-sm" name="" id="" disabled="disabled">
-                    <option value="">Nema aktivnog gospodarstva.</option>
+                  <select class="form-control form-control-sm" name="" id="" required>
+                    <option value="" selected required>Nema aktivnog gospodarstva.</option>
                   </select>
                 <?php endif; ?>
               </div>
@@ -231,14 +231,14 @@ $userId = $_SESSION['user_id'];
                           echo "</select>";
                         } else {
                           echo "
-                      <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
-                        <option value=''>Nema evidentiranih zemljišta.</option>
+                      <select class='form-control form-control-sm' name='' id='' required>
+                        <option value='' selected required>Nema evidentiranih zemljišta.</option>
                       </select>";
                         }
                         ?>
                     <?php else : ?>
-                      <select class="form-control form-control-sm" name="" id="" disabled="disabled">
-                        <option value="">Nema aktivnog gospodarstva.</option>
+                      <select class="form-control form-control-sm" name="" id="" required>
+                        <option value="" selected required>Nema aktivnog gospodarstva.</option>
                       </select>
                     <?php endif; ?>
                   </div>

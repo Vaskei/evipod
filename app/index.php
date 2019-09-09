@@ -66,6 +66,15 @@ $userId = $_SESSION['user_id'];
           <i class="fas fa-home"></i><strong>&nbsp;&nbsp;Start</strong>
         </h5>
         <div class="card-body">
+          <h3>
+            <?php
+            // echo "Dobrodošli {$resultUser['user_name']} u Evipod aplikaciju!";
+            echo "<div class='alert alert-light text-center'>
+                    <strong>Dobrodošli {$resultUser['user_name']} u Evipod aplikaciju!</strong>
+                  </div>";
+            ?>
+          </h3>
+
           <h3>Zadnje aktivnosti</h3>
           <hr>
           <div class="row">
@@ -74,7 +83,7 @@ $userId = $_SESSION['user_id'];
                 <h5 class="card-header"><strong>Sadnja/sjetva</strong></h5>
                 <div class="card-body px-2 pt-2 pb-0 px-2 pt-2 pb-0">
                   <?php
-                  if ($resultPlanting->num_rows > 0) {
+                  if ($resultUser['current_business_id'] != NULL && $resultPlanting->num_rows > 0) {
                     while ($row = $resultPlanting->fetch_assoc()) {
                       echo "<div class='latest-activity latest-1 text-truncate'>
                             {$row['planting_name']} <small class='text-muted pl-2'>{$row['field_name']}, " . date('d. m. Y.', strtotime($row['planting_date'])) . "</small>
@@ -92,7 +101,7 @@ $userId = $_SESSION['user_id'];
                 <h5 class="card-header"><strong>Zaštita</strong></h5>
                 <div class="card-body px-2 pt-2 pb-0">
                   <?php
-                  if ($resultProtection->num_rows > 0) {
+                  if ($resultUser['current_business_id'] != NULL && $resultProtection->num_rows > 0) {
                     while ($row = $resultProtection->fetch_assoc()) {
                       echo "<div class='latest-activity latest-2 text-truncate'>
                             {$row['protection_name']} <small class='text-muted pl-2'>{$row['field_name']}, " . date('d. m. Y.', strtotime($row['protection_date'])) . "</small>
@@ -110,7 +119,7 @@ $userId = $_SESSION['user_id'];
                 <h5 class="card-header"><strong>Gnojidba</strong></h5>
                 <div class="card-body px-2 pt-2 pb-0">
                   <?php
-                  if ($resultFertilization->num_rows > 0) {
+                  if ($resultUser['current_business_id'] != NULL && $resultFertilization->num_rows > 0) {
                     while ($row = $resultFertilization->fetch_assoc()) {
                       echo "<div class='latest-activity latest-3 text-truncate'>
                             {$row['fertilization_name']} <small class='text-muted pl-2'>{$row['field_name']}, " . date('d. m. Y.', strtotime($row['fertilization_date'])) . "</small>
@@ -128,7 +137,7 @@ $userId = $_SESSION['user_id'];
                 <h5 class="card-header"><strong>Obrada tla</strong></h5>
                 <div class="card-body px-2 pt-2 pb-0">
                   <?php
-                  if ($resultTillage->num_rows > 0) {
+                  if ($resultUser['current_business_id'] != NULL && $resultTillage->num_rows > 0) {
                     while ($row = $resultTillage->fetch_assoc()) {
                       echo "<div class='latest-activity latest-4 text-truncate'>
                             {$row['tillage_name']} <small class='text-muted pl-2'>{$row['field_name']}, " . date('d. m. Y.', strtotime($row['tillage_date'])) . "</small>
@@ -146,7 +155,7 @@ $userId = $_SESSION['user_id'];
                 <h5 class="card-header"><strong>Njega usjeva/nasada</strong></h5>
                 <div class="card-body px-2 pt-2 pb-0">
                   <?php
-                  if ($resultCare->num_rows > 0) {
+                  if ($resultUser['current_business_id'] != NULL && $resultCare->num_rows > 0) {
                     while ($row = $resultCare->fetch_assoc()) {
                       echo "<div class='latest-activity latest-5 text-truncate'>
                             {$row['care_name']} <small class='text-muted pl-2'>{$row['field_name']}, " . date('d. m. Y.', strtotime($row['care_date'])) . "</small>
@@ -164,7 +173,7 @@ $userId = $_SESSION['user_id'];
                 <h5 class="card-header"><strong>Berba/žetva</strong></h5>
                 <div class="card-body px-2 pt-2 pb-0">
                   <?php
-                  if ($resultHarvest->num_rows > 0) {
+                  if ($resultUser['current_business_id'] != NULL && $resultHarvest->num_rows > 0) {
                     while ($row = $resultHarvest->fetch_assoc()) {
                       echo "<div class='latest-activity latest-6 text-truncate'>
                             {$row['harvest_name']} <small class='text-muted pl-2'>{$row['harvest_amount']}{$row['harvest_amount_unit']}, {$row['field_name']}, " . date('d. m. Y.', strtotime($row['harvest_date'])) . "</small>

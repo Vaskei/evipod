@@ -77,6 +77,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
+  // Funkcija za provjeru lozinki kod resetiranja u postavkama
+  function checkSettingsPass() {
+    var settingsPass = document.getElementById('newPassword');
+    var settingsPassConfirm = document.getElementById('newPasswordRepeat');
+    if (settingsPass && settingsPassConfirm) {
+      if (settingsPass.value != settingsPassConfirm.value) {
+        settingsPassConfirm.setCustomValidity('Lozinke moraju biti jednake.');
+      } else {
+        settingsPassConfirm.setCustomValidity('');
+      }
+    }
+  }
+
   // Inicijalizacija DataTable tabele
   $(".datatable-enable").DataTable({
     "pageLength": 10,
@@ -117,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Provjera podudaranja lozinki prilikom tipkanja
   $("#registrationPass, #registrationPassConfirm").keyup(checkRegistrationPass);
   $("#pwdResetConfirm, #pwdResetConfirmRepeat").keyup(checkResetPass);
+  $("#newPassword, #newPasswordRepeat").keyup(checkSettingsPass);
 
   // Sidebar kontrola
   $('#sidebarToggle').on('click', function () {

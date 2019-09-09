@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 /* 
-userName = min 3 znakova, max 100 znakova
+userName = min 3 znakova, max 20 znakova
 userEmail = filter_var
 userPass = min 6 znakova, max 50 znakova, slova i brojke
 */
@@ -37,8 +37,8 @@ if (isset($_POST['registrationSubmit'])) {
     redirectWithMsg("warning", "Nepodržani format Email adrese!", "../../membership");
   }
   // Provjera da li je ime korisnika u zadanim granicama
-  else if (strlen($userName) < 3 || strlen($userName) > 100) {
-    redirectWithMsg("warning", "Ime može imati min. 3 i max. 100 znakova!", "../../membership");
+  else if (strlen($userName) < 3 || strlen($userName) > 20) {
+    redirectWithMsg("warning", "Ime može imati min. 3 i max. 20 znakova!", "../../membership");
   }
   // Provjera da li korisnicka zaporka ima nedozvoljene znakove
   else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {

@@ -101,8 +101,8 @@ $title = "Evipod - Članstvo"
                     <div class="form-group">
                       <label for="registrationName">Ime</label>
                       <input type="text" class="form-control" id="registrationName" name="registrationName"
-                        placeholder="Min. 3, max. 100 znakova." minlength="3" maxlength="100" required>
-                      <div class="invalid-feedback">Ime je obavezno (min. 3, max. 100 znakova).</div>
+                        placeholder="Min. 3, max. 20 znakova." minlength="3" maxlength="20" required>
+                      <div class="invalid-feedback">Ime je obavezno (min. 3, max. 20 znakova).</div>
                     </div>
                     <div class="form-group">
                       <label for="registrationEmail">Email</label>
