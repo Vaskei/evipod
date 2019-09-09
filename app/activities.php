@@ -856,16 +856,16 @@ $userId = $_SESSION['user_id'];
         <div class="card-header p-0 collapse show d-sm-block" id="activitiesHeaderCollapse">
           <ul class="nav nav-pills nav-justified flex-column flex-sm-row" id="activitiesTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link rounded-0 active" id="protectionTab" data-toggle="tab" href="#protectionList" role="tab">Zaštita</a>
+              <a class="nav-link rounded-0 active" id="protectionTab" data-toggle="tab" href="#protectionList" role="tab"><i class="fas fa-flask"></i>&nbsp;&nbsp;Zaštita</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rounded-0" id="fertilizationTab" data-toggle="tab" href="#fertilizationList" role="tab">Gnojidba</a>
+              <a class="nav-link rounded-0" id="fertilizationTab" data-toggle="tab" href="#fertilizationList" role="tab"><i class="fas fa-poo"></i>&nbsp;&nbsp;Gnojidba</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rounded-0" id="tillageTab" data-toggle="tab" href="#tillageList" role="tab">Obrada tla</a>
+              <a class="nav-link rounded-0" id="tillageTab" data-toggle="tab" href="#tillageList" role="tab"><i class="fas fa-tractor"></i>&nbsp;&nbsp;Obrada tla</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rounded-0 px-1" id="careTab" data-toggle="tab" href="#careList" role="tab">Njega usjeva/nasada</a>
+              <a class="nav-link rounded-0 px-1" id="careTab" data-toggle="tab" href="#careList" role="tab"><i class="fas fa-hand-holding-heart"></i>&nbsp;&nbsp;Njega usjeva/nasada</a>
             </li>
           </ul>
         </div>
@@ -1014,9 +1014,10 @@ $userId = $_SESSION['user_id'];
 
             <!-- Odjeljak njege -->
             <div class="tab-pane fade" id="careList" role="tabpanel">
-              <h3>
-                Njega usjeva/nasada
-                <button class="btn btn-success float-right" id="careAddModalBtn"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+              <h3 class="d-flex">
+                <div class="d-none d-sm-block">Njega usjeva/nasada</div>
+                <div class="d-block d-sm-none">Njega</div>                
+                <button class="btn btn-success ml-auto" id="careAddModalBtn"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
               </h3>
               <hr>
               <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="careTable">

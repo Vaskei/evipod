@@ -30,6 +30,10 @@
   min-width: 250px;
 }
 
+.btn-pdf {
+  width: 70px;
+}
+
 .latest-activity {
   padding: 15px;
   background-color: #fafafa;
