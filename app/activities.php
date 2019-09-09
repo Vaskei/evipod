@@ -22,7 +22,7 @@ $userId = $_SESSION['user_id'];
   ?>
 
   <!-- Modal za dodavanje zastite -->
-  <form method="POST" action="./includes/application/protection_add_inc.php">
+  <form method="POST" action="./includes/application/protection_add_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="protectionAddModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -40,7 +40,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='protectionField' id='protectionField'>";
+                      echo "<select class='form-control form-control-sm' name='protectionField' id='protectionField'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -62,7 +62,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionName" class="col-sm-3 col-form-label col-form-label-sm">Naziv SZB:</label>
               <div class="col-sm-9">
-                <input list="protectionNameList" type="text" class="form-control form-control-sm" id="protectionName" name="protectionName" placeholder="Naziv sredstva za zaštitu bilja">
+                <input list="protectionNameList" type="text" class="form-control form-control-sm" id="protectionName" name="protectionName" placeholder="Naziv sredstva za zaštitu bilja" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv sredstva je obavezan (max 100 znakova).
+                </div>
                 <datalist id="protectionNameList">
                   <!-- JSON ucitavanje -->
                 </datalist>
@@ -71,7 +74,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionOrganism" class="col-sm-3 col-form-label col-form-label-sm">Štetni organizam:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="protectionOrganism" name="protectionOrganism" placeholder="Naziv štetnog organizma">
+                <input type="text" class="form-control form-control-sm" id="protectionOrganism" name="protectionOrganism" placeholder="Naziv štetnog organizma" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -83,7 +86,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionAmount" class="col-sm-3 col-form-label col-form-label-sm">Količina:</label>
               <div class="col-sm-6">
-                <input type="number" class="form-control form-control-sm" name="protectionAmount" id="protectionAmount" min="0" max="99999999" step="0.01" placeholder="Količina SZB (kg/ha ili l/ha)">
+                <input type="number" class="form-control form-control-sm" name="protectionAmount" id="protectionAmount" min="0" max="99999999" step="0.01" placeholder="Količina SZB (kg/ha ili l/ha)" pattern="^\d{0,8}(\.\d{0,2})?$">
+                <div class="invalid-feedback">
+                  Neispravna količina sredstva (min 0, max 99999999).
+                </div>
               </div>
               <div class="col-sm-3">
                 <select class="form-control form-control-sm" name="protectionAmountUnit" id="protectionAmountUnit">
@@ -95,13 +101,13 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionPlant" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="protectionPlant" name="protectionPlant" placeholder="Kultura">
+                <input type="text" class="form-control form-control-sm" id="protectionPlant" name="protectionPlant" placeholder="Kultura" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="protectionNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="protectionNote" name="protectionNote" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="protectionNote" name="protectionNote" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -115,7 +121,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za uredivanje zastite -->
-  <form method="POST" action="./includes/application/protection_edit_inc.php">
+  <form method="POST" action="./includes/application/protection_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="protectionEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -133,7 +139,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='protectionFieldEdit' id='protectionFieldEdit'>";
+                      echo "<select class='form-control form-control-sm' name='protectionFieldEdit' id='protectionFieldEdit'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -155,7 +161,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv SZB:</label>
               <div class="col-sm-9">
-                <input list="protectionNameListEdit" type="text" class="form-control form-control-sm" id="protectionNameEdit" name="protectionNameEdit" placeholder="Naziv sredstva za zaštitu bilja">
+                <input list="protectionNameListEdit" type="text" class="form-control form-control-sm" id="protectionNameEdit" name="protectionNameEdit" placeholder="Naziv sredstva za zaštitu bilja" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv sredstva je obavezan (max 100 znakova).
+                </div>
                 <datalist id="protectionNameListEdit">
                   <!-- JSON ucitavanje -->
                 </datalist>
@@ -164,7 +173,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionOrganismEdit" class="col-sm-3 col-form-label col-form-label-sm">Štetni organizam:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="protectionOrganismEdit" name="protectionOrganismEdit" placeholder="Naziv štetnog organizma">
+                <input type="text" class="form-control form-control-sm" id="protectionOrganismEdit" name="protectionOrganismEdit" placeholder="Naziv štetnog organizma" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -176,7 +185,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionAmountEdit" class="col-sm-3 col-form-label col-form-label-sm">Količina:</label>
               <div class="col-sm-6">
-                <input type="number" class="form-control form-control-sm" name="protectionAmountEdit" id="protectionAmountEdit" min="0" max="99999999" step="0.01" placeholder="Količina SZB (kg/ha ili l/ha)">
+                <input type="number" class="form-control form-control-sm" name="protectionAmountEdit" id="protectionAmountEdit" min="0" max="99999999" step="0.01" placeholder="Količina SZB (kg/ha ili l/ha)" pattern="^\d{0,8}(\.\d{0,2})?$">
+                <div class="invalid-feedback">
+                  Neispravna količina sredstva (min 0, max 99999999).
+                </div>
               </div>
               <div class="col-sm-3">
                 <select class="form-control form-control-sm" name="protectionAmountUnitEdit" id="protectionAmountUnitEdit">
@@ -188,13 +200,13 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="protectionPlantEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="protectionPlantEdit" name="protectionPlantEdit" placeholder="Kultura">
+                <input type="text" class="form-control form-control-sm" id="protectionPlantEdit" name="protectionPlantEdit" placeholder="Kultura" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="protectionNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="protectionNoteEdit" name="protectionNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="protectionNoteEdit" name="protectionNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -242,7 +254,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za dodavanje gnojidbe -->
-  <form method="POST" action="./includes/application/fertilization_add_inc.php">
+  <form method="POST" action="./includes/application/fertilization_add_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="fertilizationAddModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -260,7 +272,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='fertilizationField' id='fertilizationField'>";
+                      echo "<select class='form-control form-control-sm' name='fertilizationField' id='fertilizationField'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -282,7 +294,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="fertilizationName" class="col-sm-3 col-form-label col-form-label-sm">Gnojivo:</label>
               <div class="col-sm-9">
-                <input list="fertilizationNameList" type="text" class="form-control form-control-sm" id="fertilizationName" name="fertilizationName" placeholder="Naziv gnojiva">
+                <input list="fertilizationNameList" type="text" class="form-control form-control-sm" id="fertilizationName" name="fertilizationName" placeholder="Naziv gnojiva" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Ime gnojiva je obavezno (max 100 znakova).
+                </div>
                 <datalist id="fertilizationNameList">
                   <!-- JSON ucitavanje -->
                 </datalist>
@@ -297,13 +312,16 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="fertilizationAmount" class="col-sm-3 col-form-label col-form-label-sm">Količina (kg/ha):</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control form-control-sm" name="fertilizationAmount" id="fertilizationAmount" min="0" max="99999999" step="0.01" placeholder="Količina gnojiva (kg/ha)">
+                <input type="number" class="form-control form-control-sm" name="fertilizationAmount" id="fertilizationAmount" min="0" max="99999999" step="0.01" placeholder="Količina gnojiva (kg/ha)" pattern="^\d{0,8}(\.\d{0,2})?$">
+                <div class="invalid-feedback">
+                  Neispravna količina gnojiva (min 0, max 99999999).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="fertilizationNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="fertilizationNote" name="fertilizationNote" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="fertilizationNote" name="fertilizationNote" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -317,7 +335,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za uredivanje gnojidbe -->
-  <form method="POST" action="./includes/application/fertilization_edit_inc.php">
+  <form method="POST" action="./includes/application/fertilization_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="fertilizationEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -335,7 +353,7 @@ $userId = $_SESSION['user_id'];
                   <?php
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='fertilizationFieldEdit' id='fertilizationFieldEdit'>";
+                      echo "<select class='form-control form-control-sm' name='fertilizationFieldEdit' id='fertilizationFieldEdit'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -357,7 +375,10 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="fertilizationNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Gnojivo:</label>
               <div class="col-sm-9">
-                <input list="fertilizationNameListEdit" type="text" class="form-control form-control-sm" id="fertilizationNameEdit" name="fertilizationNameEdit" placeholder="Naziv gnojiva">
+                <input list="fertilizationNameListEdit" type="text" class="form-control form-control-sm" id="fertilizationNameEdit" name="fertilizationNameEdit" placeholder="Naziv gnojiva" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Ime gnojiva je obavezno (max 100 znakova).
+                </div>
                 <datalist id="fertilizationNameListEdit">
                   <!-- JSON ucitavanje -->
                 </datalist>
@@ -372,13 +393,16 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="fertilizationAmountEdit" class="col-sm-3 col-form-label col-form-label-sm">Količina (kg/ha):</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control form-control-sm" name="fertilizationAmountEdit" id="fertilizationAmountEdit" min="0" max="99999999" step="0.01" placeholder="Količina gnojiva (kg/ha)">
+                <input type="number" class="form-control form-control-sm" name="fertilizationAmountEdit" id="fertilizationAmountEdit" min="0" max="99999999" step="0.01" placeholder="Količina gnojiva (kg/ha)" pattern="^\d{0,8}(\.\d{0,2})?$">
+                <div class="invalid-feedback">
+                  Neispravna količina gnojiva (min 0, max 99999999).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="fertilizationNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="fertilizationNoteEdit" name="fertilizationNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" id="fertilizationNoteEdit" name="fertilizationNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -426,7 +450,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za dodavanje obrade tla -->
-  <form method="POST" action="./includes/application/tillage_add_inc.php">
+  <form method="POST" action="./includes/application/tillage_add_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="tillageAddModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -507,7 +531,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za uredivanje obrade tla -->
-  <form method="POST" action="./includes/application/tillage_edit_inc.php">
+  <form method="POST" action="./includes/application/tillage_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="tillageEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -622,7 +646,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za dodavanje njege usjeva/nasada -->
-  <form method="POST" action="./includes/application/care_add_inc.php">
+  <form method="POST" action="./includes/application/care_add_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="careAddModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -706,7 +730,7 @@ $userId = $_SESSION['user_id'];
   </form>
 
   <!-- Modal za uredivanje njege usjeva/nasada -->
-  <form method="POST" action="./includes/application/care_edit_inc.php">
+  <form method="POST" action="./includes/application/care_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="careEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -1016,7 +1040,7 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="careList" role="tabpanel">
               <h3 class="d-flex">
                 <div class="d-none d-sm-block">Njega usjeva/nasada</div>
-                <div class="d-block d-sm-none">Njega</div>                
+                <div class="d-block d-sm-none">Njega</div>
                 <button class="btn btn-success ml-auto" id="careAddModalBtn"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
               </h3>
               <hr>
