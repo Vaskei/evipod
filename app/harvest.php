@@ -22,7 +22,7 @@ $userId = $_SESSION['user_id'];
   ?>
 
   <!-- Modal za uredivanje berbe/zetve -->
-  <form method="POST" action="./includes/application/harvest_edit_inc.php">
+  <form method="POST" action="./includes/application/harvest_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="harvestEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -41,7 +41,7 @@ $userId = $_SESSION['user_id'];
                     // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
                     $resultFields->data_seek(0);
                     if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='harvestFieldEdit' id='harvestFieldEdit'>";
+                      echo "<select class='form-control form-control-sm' name='harvestFieldEdit' id='harvestFieldEdit'> required";
                       while ($row = $resultFields->fetch_assoc()) {
                         echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                       }
@@ -63,13 +63,19 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="harvestNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="harvestNameEdit" id="harvestNameEdit" placeholder="Kultura">
+                <input type="text" class="form-control form-control-sm" name="harvestNameEdit" id="harvestNameEdit" placeholder="Kultura" required>
+                <div class="invalid-feedback">
+                  Kultura berbe ili žetve je obavezna (max 100 znakova).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="harvestAmountEdit" class="col-sm-3 col-form-label col-form-label-sm">Količina (kg/t):</label>
               <div class="col-sm-7">
-                <input type="number" class="form-control form-control-sm" name="harvestAmountEdit" id="harvestAmountEdit" min="0" max="99999999" step="1" placeholder="Količina (kg/t)">
+                <input type="number" class="form-control form-control-sm" name="harvestAmountEdit" id="harvestAmountEdit" min="0" max="99999999" step="1" placeholder="Količina (kg/t)" pattern="^[0-9]{1,11}$">
+                <div class="invalid-feedback">
+                  Neispravna količina.
+                </div>
               </div>
               <div class="col-sm-2">
                 <select class="form-control form-control-sm" name="harvestAmountUnitEdit" id="harvestAmountUnitEdit">
@@ -87,7 +93,7 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="harvestNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="harvestNoteEdit" id="harvestNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" name="harvestNoteEdit" id="harvestNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -209,7 +215,7 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="harvestAdd" role="tabpanel">
               <h3>Dodaj berbu/žetvu</h3>
               <hr>
-              <form method="POST" action="./includes/application/harvest_add_inc.php">
+              <form method="POST" action="./includes/application/harvest_add_inc.php" class="needs-validation" novalidate>
                 <div class="form-group row pl-3">
                   <label for="harvestField" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
                   <div class="col-sm-9">
@@ -218,7 +224,7 @@ $userId = $_SESSION['user_id'];
                         // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
                         $resultFields->data_seek(0);
                         if ($resultFields->num_rows > 0) {
-                          echo "<select class='form-control form-control-sm' name='harvestField' id='harvestField'>";
+                          echo "<select class='form-control form-control-sm' name='harvestField' id='harvestField'> required";
                           while ($row = $resultFields->fetch_assoc()) {
                             echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
                           }
@@ -240,13 +246,19 @@ $userId = $_SESSION['user_id'];
                 <div class="form-group row pl-3">
                   <label for="harvestName" class="col-sm-3 col-form-label col-form-label-sm">Kultura:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="harvestName" id="harvestName" placeholder="Kultura">
+                    <input type="text" class="form-control form-control-sm" name="harvestName" id="harvestName" placeholder="Kultura" maxlength="100" required>
+                    <div class="invalid-feedback">
+                      Kultura berbe ili žetve je obavezna (max 100 znakova).
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="harvestAmount" class="col-sm-3 col-form-label col-form-label-sm">Količina (kg/t):</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control form-control-sm" name="harvestAmount" id="harvestAmount" min="0" max="99999999" step="1" placeholder="Količina (kg/t)">
+                    <input type="number" class="form-control form-control-sm" name="harvestAmount" id="harvestAmount" min="0" max="99999999" step="1" placeholder="Količina (kg/t)" pattern="^[0-9]{1,11}$">
+                    <div class="invalid-feedback">
+                      Neispravna količina.
+                    </div>
                   </div>
                   <div class="col-sm-2">
                     <select class="form-control form-control-sm" name="harvestAmountUnit" id="harvestAmountUnit">
@@ -264,7 +276,7 @@ $userId = $_SESSION['user_id'];
                 <div class="form-group row pl-3">
                   <label for="harvestNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="harvestNote" id="harvestNote" placeholder="Napomena">
+                    <input type="text" class="form-control form-control-sm" name="harvestNote" id="harvestNote" placeholder="Napomena" maxlength="100">
                   </div>
                 </div>
                 <div class="row justify-content-center">

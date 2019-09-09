@@ -14,7 +14,7 @@ $userId = $_SESSION['user_id'];
   <?php include('./includes/partials/index_sidebar.php'); ?>
 
   <!-- Modal za uredivanje zemljista -->
-  <form method="POST" action="./includes/application/fields_edit_inc.php">
+  <form method="POST" action="./includes/application/fields_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="fieldsEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -28,25 +28,34 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="fieldNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" id="fieldNameEdit" name="fieldNameEdit" placeholder="Naziv zemljišta">
+                <input type="text" class="form-control form-control-sm" id="fieldNameEdit" name="fieldNameEdit" placeholder="Naziv zemljišta" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv zemljišta je obavezan (max 100 znakova).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="fieldSizeEdit" class="col-sm-3 col-form-label col-form-label-sm">Površina (ha):</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control form-control-sm" name="fieldSizeEdit" id="fieldSizeEdit" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
+                <input type="number" class="form-control form-control-sm" name="fieldSizeEdit" id="fieldSizeEdit" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)" pattern="^\d{0,8}(\.\d{0,2})?$">
+                <div class="invalid-feedback">
+                  Neispravna veličina zemljišta (min 0, max 99999999).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="fieldARKODEdit" class="col-sm-3 col-form-label col-form-label-sm">ARKOD ID:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="fieldARKODEdit" id="fieldARKODEdit" placeholder="ARKOD ID zemljišta">
+                <input type="text" class="form-control form-control-sm" name="fieldARKODEdit" id="fieldARKODEdit" placeholder="ARKOD ID zemljišta" pattern="^[0-9]{7}$">
+                <div class="invalid-feedback">
+                  Neispravan format ARKOD-a.
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="fieldNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="fieldNoteEdit" id="fieldNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" name="fieldNoteEdit" id="fieldNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -168,29 +177,38 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="fieldsAdd" role="tabpanel">
               <h3>Dodaj zemljište</h3>
               <hr>
-              <form method="POST" action="./includes/application/fields_add_inc.php">
+              <form method="POST" action="./includes/application/fields_add_inc.php" class="needs-validation" novalidate>
                 <div class="form-group row pl-3">
                   <label for="fieldName" class="col-sm-3 col-form-label col-form-label-sm">Naziv:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="fieldName" id="fieldName" placeholder="Naziv zemljišta">
+                    <input type="text" class="form-control form-control-sm" name="fieldName" id="fieldName" placeholder="Naziv zemljišta" maxlength="100" required>
+                    <div class="invalid-feedback">
+                      Naziv zemljišta je obavezan (max 100 znakova).
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldSize" class="col-sm-3 col-form-label col-form-label-sm">Površina (ha):</label>
                   <div class="col-sm-9">
-                    <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)">
+                    <input type="number" class="form-control form-control-sm" name="fieldSize" id="fieldSize" min="0" max="99999999" step="0.01" placeholder="Površina zemljišta (ha)" pattern="^\d{0,8}(\.\d{0,2})?$">
+                    <div class="invalid-feedback">
+                      Neispravna veličina zemljišta (min 0, max 99999999).
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldARKOD" class="col-sm-3 col-form-label col-form-label-sm">ARKOD ID:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="fieldARKOD" id="fieldARKOD" placeholder="ARKOD ID zemljišta">
+                    <input type="text" class="form-control form-control-sm" name="fieldARKOD" id="fieldARKOD" placeholder="ARKOD ID zemljišta" pattern="^[0-9]{7}$">
+                    <div class="invalid-feedback">
+                      Neispravan format ARKOD-a.
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="fieldNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="fieldNote" id="fieldNote" placeholder="Napomena">
+                    <input type="text" class="form-control form-control-sm" name="fieldNote" id="fieldNote" placeholder="Napomena" maxlength="100">
                   </div>
                 </div>
                 <div class="row justify-content-center">

@@ -22,7 +22,7 @@ $userId = $_SESSION['user_id'];
   ?>
 
   <!-- Modal za uredivanje sjetve/sadnje -->
-  <form method="POST" action="./includes/application/planting_edit_inc.php">
+  <form method="POST" action="./includes/application/planting_edit_inc.php" class="needs-validation" novalidate>
     <div class="modal fade" id="plantingEditModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
@@ -37,37 +37,43 @@ $userId = $_SESSION['user_id'];
               <label for="plantingFieldEdit" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
               <div class="col-sm-9">
                 <?php if ($resultUser['current_business_id'] != NULL) : ?>
-                <?php
-                  if ($resultFields->num_rows > 0) {
-                    echo "<select class='form-control form-control-sm' name='plantingFieldEdit' id='plantingFieldEdit'>";
-                    while ($row = $resultFields->fetch_assoc()) {
-                      echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
-                    }
-                    echo "</select>";
-                  } else {
-                    echo "
+                  <?php
+                    if ($resultFields->num_rows > 0) {
+                      echo "<select class='form-control form-control-sm' name='plantingFieldEdit' id='plantingFieldEdit'> required";
+                      while ($row = $resultFields->fetch_assoc()) {
+                        echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                      }
+                      echo "</select>";
+                    } else {
+                      echo "
                         <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
                           <option value=''>Nema evidentiranih zemljišta.</option>
                         </select>";
-                  }
-                  ?>
+                    }
+                    ?>
                 <?php else : ?>
-                <select class="form-control form-control-sm" name="" id="" disabled="disabled">
-                  <option value="">Nema aktivnog gospodarstva.</option>
-                </select>
+                  <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                    <option value="">Nema aktivnog gospodarstva.</option>
+                  </select>
                 <?php endif; ?>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="plantingNameEdit" class="col-sm-3 col-form-label col-form-label-sm">Kultivar:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="plantingNameEdit" id="plantingNameEdit" placeholder="Kultivar / sadni materijal">
+                <input type="text" class="form-control form-control-sm" name="plantingNameEdit" id="plantingNameEdit" placeholder="Kultivar / sadni materijal" maxlength="100" required>
+                <div class="invalid-feedback">
+                  Naziv kultivara je obavezan (max 100 znakova).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="plantingCountEdit" class="col-sm-3 col-form-label col-form-label-sm">Sjeme (kg/ha):</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control form-control-sm" name="plantingCountEdit" id="plantingCountEdit" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)">
+                <input type="number" class="form-control form-control-sm" name="plantingCountEdit" id="plantingCountEdit" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)" pattern="^[0-9]{1,11}$">
+                <div class="invalid-feedback">
+                  Neispravna količina (min 0, max 99999999999).
+                </div>
               </div>
             </div>
             <div class="form-group row pl-3">
@@ -79,13 +85,13 @@ $userId = $_SESSION['user_id'];
             <div class="form-group row pl-3">
               <label for="plantingSourceEdit" class="col-sm-3 col-form-label col-form-label-sm">Porijeklo:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="plantingSourceEdit" id="plantingSourceEdit" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)">
+                <input type="text" class="form-control form-control-sm" name="plantingSourceEdit" id="plantingSourceEdit" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)" maxlength="100">
               </div>
             </div>
             <div class="form-group row pl-3">
               <label for="plantingNoteEdit" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control form-control-sm" name="plantingNoteEdit" id="plantingNoteEdit" placeholder="Napomena">
+                <input type="text" class="form-control form-control-sm" name="plantingNoteEdit" id="plantingNoteEdit" placeholder="Napomena" maxlength="100">
               </div>
             </div>
           </div>
@@ -212,44 +218,50 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="plantingAdd" role="tabpanel">
               <h3>Dodaj sadnju/sjetvu</h3>
               <hr>
-              <form method="POST" action="./includes/application/planting_add_inc.php">
+              <form method="POST" action="./includes/application/planting_add_inc.php" class="needs-validation" novalidate>
                 <div class="form-group row pl-3">
                   <label for="plantingField" class="col-sm-3 col-form-label col-form-label-sm">Naziv zemljišta:</label>
                   <div class="col-sm-9">
                     <?php if ($resultUser['current_business_id'] != NULL) : ?>
-                    <?php
-                    // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
-                    $resultFields->data_seek(0);
-                    if ($resultFields->num_rows > 0) {
-                      echo "<select class='form-control form-control-sm' name='plantingField' id='plantingField'>";
-                      while ($row = $resultFields->fetch_assoc()) {
-                        echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
-                      }
-                      echo "</select>";
-                    } else {
-                      echo "
+                      <?php
+                        // Pokazivac result_set-a od prve while petlje pokazuje na kraj, pa resetiramo pokazivac na pocetak result_set-a ili sljedeca while petlja vraca null
+                        $resultFields->data_seek(0);
+                        if ($resultFields->num_rows > 0) {
+                          echo "<select class='form-control form-control-sm' name='plantingField' id='plantingField'> required";
+                          while ($row = $resultFields->fetch_assoc()) {
+                            echo "<option value='{$row['field_id']}'>{$row['field_name']}</option>";
+                          }
+                          echo "</select>";
+                        } else {
+                          echo "
                       <select class='form-control form-control-sm' name='' id='' disabled='disabled'>
                         <option value=''>Nema evidentiranih zemljišta.</option>
                       </select>";
-                    }
-                    ?>
+                        }
+                        ?>
                     <?php else : ?>
-                    <select class="form-control form-control-sm" name="" id="" disabled="disabled">
-                      <option value="">Nema aktivnog gospodarstva.</option>
-                    </select>
+                      <select class="form-control form-control-sm" name="" id="" disabled="disabled">
+                        <option value="">Nema aktivnog gospodarstva.</option>
+                      </select>
                     <?php endif; ?>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="plantingName" class="col-sm-3 col-form-label col-form-label-sm">Kultivar:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="plantingName" id="plantingName" placeholder="Kultivar / sadni materijal">
+                    <input type="text" class="form-control form-control-sm" name="plantingName" id="plantingName" placeholder="Kultivar / sadni materijal" maxlength="100" required>
+                    <div class="invalid-feedback">
+                      Naziv kultivara je obavezan (max 100 znakova).
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="plantingCount" class="col-sm-3 col-form-label col-form-label-sm">Sjeme (kg/ha):</label>
                   <div class="col-sm-9">
-                    <input type="number" class="form-control form-control-sm" name="plantingCount" id="plantingCount" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)">
+                    <input type="number" class="form-control form-control-sm" name="plantingCount" id="plantingCount" min="0" max="99999999999" step="1" placeholder="Sjeme (kg/ha)" pattern="^[0-9]{1,11}$">
+                    <div class="invalid-feedback">
+                      Neispravna količina (min 0, max 99999999999).
+                    </div>
                   </div>
                 </div>
                 <div class="form-group row pl-3">
@@ -261,13 +273,13 @@ $userId = $_SESSION['user_id'];
                 <div class="form-group row pl-3">
                   <label for="plantingSource" class="col-sm-3 col-form-label col-form-label-sm">Porijeklo:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="plantingSource" id="plantingSource" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)">
+                    <input type="text" class="form-control form-control-sm" name="plantingSource" id="plantingSource" placeholder="Porijeklo sjemena / sadnica (ili proizvođač)" maxlength="100">
                   </div>
                 </div>
                 <div class="form-group row pl-3">
                   <label for="plantingNote" class="col-sm-3 col-form-label col-form-label-sm">Napomena:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="plantingNote" id="plantingNote" placeholder="Napomena">
+                    <input type="text" class="form-control form-control-sm" name="plantingNote" id="plantingNote" placeholder="Napomena" maxlength="100">
                   </div>
                 </div>
                 <div class="row justify-content-center">
