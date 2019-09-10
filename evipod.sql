@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 09, 2019 at 01:01 PM
+-- Generation Time: Sep 10, 2019 at 01:17 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `business` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `business`
@@ -62,7 +62,8 @@ INSERT INTO `business` (`business_id`, `business_name`, `user_id`, `business_own
 (56, 'OPG 1', 30, 'Tester 2', '', '', '', '', '', '', '', '', '', '2019-08-07 19:47:57', '2019-08-07 19:47:57'),
 (57, 'OPG 2', 30, 'Tester 2', '', '', 'Međimurje', '', '', '', '', '', '', '2019-08-07 19:48:16', '2019-08-07 19:48:16'),
 (58, 'OPG 3', 30, 'Tester 2', '', '', '', '', '', '', '', '', '', '2019-08-07 19:48:27', '2019-08-07 19:48:27'),
-(72, '1111', 17, '', '', '', '', '', '', '', '', '', '', '2019-08-08 00:28:07', '2019-08-08 00:36:42');
+(72, '1111', 17, '', '', '', '', '', '', '', '', '', '', '2019-08-08 00:28:07', '2019-08-08 00:36:42'),
+(77, 'Gospodarstvo Tester 3', 31, '', '', '', '', '', '', '', '', '', '', '2019-09-09 14:41:00', '2019-09-09 14:41:00');
 
 -- --------------------------------------------------------
 
@@ -143,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`field_id`),
   KEY `business_id` (`business_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fields`
@@ -158,7 +159,7 @@ INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `fi
 (19, 57, 'Polje 1', '0.50', '', '', '2019-08-07 19:48:53', '2019-08-13 00:21:16'),
 (20, 57, 'Polje 2', '4.00', '', '', '2019-08-07 19:49:02', '2019-08-13 00:21:17'),
 (29, 72, '111', '0.00', '', '', '2019-08-08 00:28:14', '2019-08-13 00:21:19'),
-(30, 48, 'aronija', '1.26', '3408664', 'nekaj null 2', '2019-08-13 00:19:05', '2019-08-13 01:15:37'),
+(30, 48, 'aronija', '1.26', '3408664', 'nekaj null 2 test test test test test test test test test test test test test test test test test te', '2019-08-13 00:19:05', '2019-09-09 22:12:45'),
 (31, 48, 'zemlja 10', '0.00', '', '', '2019-08-13 01:15:45', '2019-08-13 01:15:45'),
 (32, 48, '&lt;!-- zemlja 11 &scaron; đ č ć ž &Scaron; Đ Č Ć Ž', '0.00', '', '', '2019-08-13 01:15:56', '2019-09-04 18:58:03'),
 (33, 48, 'zemlja 12', '0.00', '', '', '2019-08-13 01:16:02', '2019-09-04 17:03:57'),
@@ -169,7 +170,22 @@ INSERT INTO `fields` (`field_id`, `business_id`, `field_name`, `field_size`, `fi
 (38, 48, 'zemlja 17', '0.00', '', '', '2019-08-13 01:16:27', '2019-08-13 01:16:27'),
 (39, 48, 'zemlja 18', '0.00', '3127704', '', '2019-08-13 01:16:31', '2019-08-13 01:17:09'),
 (40, 48, 'zemlja 19', '0.00', '', '', '2019-08-13 01:16:36', '2019-08-13 01:16:36'),
-(42, 48, 'test zemlja', '3.20', '', '', '2019-08-21 23:24:33', '2019-08-21 23:24:33');
+(42, 48, 'test zemlja', '3.20', '', '', '2019-08-21 23:24:33', '2019-08-21 23:24:33'),
+(44, 48, '11', '0.00', '', '', '2019-09-09 22:07:54', '2019-09-09 22:07:54'),
+(45, 48, '12', '0.00', '', '', '2019-09-09 22:07:57', '2019-09-09 22:07:57'),
+(46, 48, '13', '0.00', '', '', '2019-09-09 22:08:00', '2019-09-09 22:08:00'),
+(47, 48, '14', '0.00', '', '', '2019-09-09 22:08:02', '2019-09-09 22:08:02'),
+(48, 48, '15', '0.00', '', '', '2019-09-09 22:08:05', '2019-09-09 22:08:05'),
+(49, 48, '16', '0.00', '', '', '2019-09-09 22:08:08', '2019-09-09 22:08:08'),
+(50, 48, '17', '0.00', '', '', '2019-09-09 22:08:10', '2019-09-09 22:08:10'),
+(51, 48, '18', '0.00', '', '', '2019-09-09 22:08:14', '2019-09-09 22:08:14'),
+(52, 48, '19', '0.00', '', '', '2019-09-09 22:08:16', '2019-09-09 22:08:16'),
+(53, 48, '20', '0.00', '', '', '2019-09-09 22:08:19', '2019-09-09 22:08:19'),
+(54, 48, '21', '0.00', '', '', '2019-09-09 22:09:57', '2019-09-09 22:09:57'),
+(55, 48, '22', '0.00', '', '', '2019-09-09 22:09:59', '2019-09-09 22:09:59'),
+(56, 48, '23', '0.00', '', '', '2019-09-09 22:10:02', '2019-09-09 22:10:02'),
+(57, 48, '24', '0.00', '', '', '2019-09-09 22:10:05', '2019-09-09 22:10:05'),
+(58, 48, '25', '0.00', '', '', '2019-09-09 22:10:07', '2019-09-09 22:10:07');
 
 -- --------------------------------------------------------
 
@@ -328,7 +344,7 @@ INSERT INTO `tillage` (`tillage_id`, `field_id`, `business_id`, `tillage_name`, 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_email_confirmed` tinyint(4) NOT NULL DEFAULT '0',
@@ -345,9 +361,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$PtCaSRY2fIsG.iBc8ETA/.oeYvPOLFNwWpXX1sDhplMBY3xGC0VZ6', 1, '', 72, '2018-12-29 00:33:40', '2019-09-09 12:45:00'),
-(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', 57, '2019-04-05 14:11:59', '2019-08-07 19:48:36'),
-(31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$DkZaLOoFAcyC0nXEx5XkNuCxlvgYFi4dIjn3RYG6FgdnW0LByjmQa', 1, '', NULL, '2019-08-07 19:50:30', '2019-08-08 00:06:18');
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$0lgsWG9hOoketWx2bc/p6ebnOuGphIfoxuNaJ9YY.2iIQ36QWMXM6', 1, '', 48, '2018-12-29 00:33:40', '2019-09-10 00:23:52'),
+(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$OONFIjH2iFVplQQ/TVUVIOuPRoUcsaE/4eaRtNXbiqH6si285l63.', 1, '', 57, '2019-04-05 14:11:59', '2019-09-09 14:22:08'),
+(31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$DkZaLOoFAcyC0nXEx5XkNuCxlvgYFi4dIjn3RYG6FgdnW0LByjmQa', 1, '', 77, '2019-08-07 19:50:30', '2019-09-09 14:41:00');
 
 --
 -- Constraints for dumped tables
