@@ -50,16 +50,17 @@ $userId = $_SESSION['user_id'];
               (SELECT COUNT(*) FROM fertilization WHERE fertilization.business_id = ?) AS fertilization_table,
               (SELECT COUNT(*) FROM tillage WHERE tillage.business_id = ?) AS tillage_table,
               (SELECT COUNT(*) FROM care WHERE care.business_id = ?) AS care_table,
+              (SELECT COUNT(*) FROM rotation WHERE rotation.business_id = ?) AS rotation_table,
               (SELECT COUNT(*) FROM harvest WHERE harvest.business_id = ?) AS harvest_table
               ");
-              $query->bind_param("iiiiiii", $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id']);
+              $query->bind_param("iiiiiiii", $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id'], $resultUser['current_business_id']);
               $query->execute();
               $result = $query->get_result();
               if ($result->num_rows > 0) {
-                $activities = array("Zemljišta", "Sadnja/sjetva", "Zaštita", "Gnojidba", "Obrada tla", "Njega usjeva/nasada", "Berba/žetva");
-                $tables = array("fieldsPDF", "plantingPDF", "protectionPDF", "fertilizationPDF", "tillagePDF", "carePDF", "harvestPDF");
-                $actions = array("reports_fields_inc.php", "reports_planting_inc.php", "reports_protection_inc.php", "reports_fertilization_inc.php", "reports_tillage_inc.php", "reports_care_inc.php", "reports_harvest_inc.php");
-                $fa = array("<i class='fas fa-map-marked-alt pr-2'></i>", "<i class='fas fa-seedling pr-2'></i>", "<i class='fas fa-flask pr-2'></i>", "<i class='fas fa-poo pr-2'></i>", "<i class='fas fa-tractor pr-2'></i>", "<i class='fas fa-hand-holding-heart pr-2'></i>", "<i class='fas fa-clipboard-check pr-2'></i>");
+                $activities = array("Zemljišta", "Sadnja/sjetva", "Zaštita", "Gnojidba", "Obrada tla", "Njega usjeva/nasada", "Plodored", "Berba/žetva");
+                $tables = array("fieldsPDF", "plantingPDF", "protectionPDF", "fertilizationPDF", "tillagePDF", "carePDF", "rotationPDF", "harvestPDF");
+                $actions = array("reports_fields_inc.php", "reports_planting_inc.php", "reports_protection_inc.php", "reports_fertilization_inc.php", "reports_tillage_inc.php", "reports_care_inc.php", "reports_rotation_inc.php", "reports_harvest_inc.php");
+                $fa = array("<i class='fas fa-map-marked-alt pr-2'></i>", "<i class='fas fa-seedling pr-2'></i>", "<i class='fas fa-flask pr-2'></i>", "<i class='fas fa-poo pr-2'></i>", "<i class='fas fa-tractor pr-2'></i>", "<i class='fas fa-hand-holding-heart pr-2'></i>", "<i class='fas fa-sync pr-2'></i>", "<i class='fas fa-clipboard-check pr-2'></i>");
                 $row = $result->fetch_array();
                 // var_dump($row);exit();
                 for ($index = 0; $index < count($activities); $index++) {
