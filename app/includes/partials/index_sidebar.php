@@ -6,12 +6,14 @@
     <a href="./fields" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_fields"><i class="fas fa-map-marked-alt"></i><strong>&nbsp;&nbsp;Zemljišta</strong></a>
     <a href="./planting" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_planting"><i class="fas fa-seedling"></i><strong>&nbsp;&nbsp;Sadnja/sjetva</strong></a>
     <a href="./activities" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_activities"><i class="fas fa-tasks"></i><strong>&nbsp;&nbsp;Evidencija djelatnosti</strong></a>
+    <a href="./rotation" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_rotation"><i class="fas fa-sync"></i><strong>&nbsp;&nbsp;Plodored</strong></a>
     <a href="./harvest" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_harvest"><i class="fas fa-clipboard-check"></i><strong>&nbsp;&nbsp;Berba/žetva</strong></a>
     <a href="./reports" class="list-group-item list-group-item-action bg-secondary text-primary" id="app_reports"><i class="fas fa-print"></i><strong>&nbsp;&nbsp;Izvještaji</strong></a>
     <?php else: ?>
     <a href="#" class="list-group-item list-group-item-action bg-secondary text-dark disabled" id="app_fields"><i class="fas fa-map-marked-alt"></i><strong>&nbsp;&nbsp;Zemljišta</strong></a>
     <a href="#" class="list-group-item list-group-item-action bg-secondary text-dark disabled" id="app_planting"><i class="fas fa-seedling"></i><strong>&nbsp;&nbsp;Sadnja/sjetva</strong></a>
     <a href="#" class="list-group-item list-group-item-action bg-secondary text-dark disabled" id="app_activities"><i class="fas fa-tasks"></i><strong>&nbsp;&nbsp;Evidencija djelatnosti</strong></a>
+    <a href="#" class="list-group-item list-group-item-action bg-secondary text-dark disabled" id="app_rotation"><i class="fas fa-sync"></i><strong>&nbsp;&nbsp;Plodored</strong></a>
     <a href="#" class="list-group-item list-group-item-action bg-secondary text-dark disabled" id="app_harvest"><i class="fas fa-clipboard-check"></i><strong>&nbsp;&nbsp;Berba/žetva</strong></a>
     <a href="#" class="list-group-item list-group-item-action bg-secondary text-dark disabled" id="app_reports"><i class="fas fa-print"></i><strong>&nbsp;&nbsp;Izvještaji</strong></a>
     <?php endif; ?>

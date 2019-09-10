@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 10, 2019 at 01:17 AM
+-- Generation Time: Sep 10, 2019 at 01:32 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -306,6 +306,36 @@ CREATE TABLE IF NOT EXISTS `pwd_reset` (
   `pwd_expiration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`pwd_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rotation`
+--
+
+DROP TABLE IF EXISTS `rotation`;
+CREATE TABLE IF NOT EXISTS `rotation` (
+  `rotation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `rotation_year` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rotation_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rotation_note` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`rotation_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `rotation`
+--
+
+INSERT INTO `rotation` (`rotation_id`, `field_id`, `business_id`, `rotation_year`, `rotation_name`, `rotation_note`, `created_at`, `updated_at`) VALUES
+(1, 16, 48, '2018', 'Kukuruz', '', '2019-09-10 13:02:14', '2019-09-10 13:02:14'),
+(2, 12, 48, '2020', 'Jabuka', 'Budući planovi', '2019-09-10 13:02:27', '2019-09-10 13:26:09'),
+(3, 11, 48, '2017', 'Suncokret', '', '2019-09-10 13:06:44', '2019-09-10 13:06:44'),
+(4, 16, 48, '2016', 'Soja', 'Probna godina', '2019-09-10 13:10:02', '2019-09-10 13:10:02'),
+(5, 32, 48, '2015', '&lt;!-- test --&gt;', '&lt;!-- test --&gt;', '2019-09-10 13:19:44', '2019-09-10 13:19:44');
 
 -- --------------------------------------------------------
 

@@ -809,4 +809,47 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
   });
 
+  // Dohvacanje podataka za uredenje plodoreda
+  $('#rotationTable tbody').on('click', '.rotationEditBtn', function () {
+    let rotationEditId = $(this).attr('data-rotation-id-edit');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/rotation_fetch_inc.php',
+      data: 'rotationId=' + rotationEditId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#rotationFieldEdit').val(decodeHtml(data.row.field_id));
+          $('#rotationYearEdit').val(decodeHtml(data.row.rotation_year));
+          $('#rotationNameEdit').val(decodeHtml(data.row.rotation_name));
+          $('#rotationNoteEdit').val(decodeHtml(data.row.rotation_note));
+          $('#rotationEdit').val(data.row.rotation_id);
+          $('#rotationEditModal').modal('toggle');
+        }
+      }
+    });
+  });
+
+  // Dohvacanje podataka za brisanje berbe/zetve
+  $('#rotationTable tbody').on('click', '.rotationDeleteBtn', function () {
+    let rotationDeleteId = $(this).attr('data-rotation-id-delete');
+    $.ajax({
+      type: 'POST',
+      url: './includes/application/rotation_fetch_inc.php',
+      data: 'rotationId=' + rotationDeleteId,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status == 'error') {
+          window.location.reload();
+        } else if (data.status == 'success') {
+          $('#rotationDeleteName').html(data.row.field_name + ' - ' + data.row.rotation_year + '. - ' + data.row.rotation_name);
+          $('#rotationDelete').val(data.row.rotation_id);
+          $('#rotationDeleteModal').modal('toggle');
+        }
+      }
+    });
+  });
+
 });
