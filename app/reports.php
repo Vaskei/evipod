@@ -32,6 +32,11 @@ $userId = $_SESSION['user_id'];
         </h5>
         <div class="card-body">
           <h3>Izvještaji</h3>
+          <a class="btn btn-primary" href="./includes/application/reports_fields_inc.php" target="_blank" rel="noopener noreferrer" role="button">Link PDF</a>
+          <form action="./includes/application/reports_fields_inc.php" method="post">
+            <button type="submit" class="btn btn-primary" name="fieldsPDF">PDF Test</button>
+          </form>
+
           <hr>
           <table class="table table-sm table-bordered table-hover text-center" id="reportsTable">
             <thead>
@@ -58,15 +63,16 @@ $userId = $_SESSION['user_id'];
               if ($result->num_rows > 0) {
                 $activities = array("Zemljišta", "Sadnja/sjetva", "Zaštita", "Gnojidba", "Obrada tla", "Njega usjeva/nasada", "Berba/žetva");
                 $tables = array("fieldsPDF", "plantingPDF", "protectionPDF", "fertilizationPDF", "tillagePDF", "carePDF", "harvestPDF");
+                $actions = array("reports_fields_inc.php", "reports_planting_inc.php", "reports_protection_inc.php", "reports_fertilization_inc.php", "reports_tillage_inc.php", "reports_care_inc.php", "reports_harvest_inc.php");
                 $fa = array("<i class='fas fa-map-marked-alt pr-2'></i>", "<i class='fas fa-seedling pr-2'></i>", "<i class='fas fa-flask pr-2'></i>", "<i class='fas fa-poo pr-2'></i>", "<i class='fas fa-tractor pr-2'></i>", "<i class='fas fa-hand-holding-heart pr-2'></i>", "<i class='fas fa-clipboard-check pr-2'></i>");
                 $row = $result->fetch_array();
                 // var_dump($row);exit();
-                for ($index=0; $index < count($activities); $index++) { 
+                for ($index = 0; $index < count($activities); $index++) {
                   echo "<tr>";
                   echo "<td class='align-middle'>{$activities[$index]}</td>";
                   echo "<td class='align-middle'>{$row[$index]}</td>";
                   echo "<td class='align-middle'>
-                          <form action='' method='POST'>
+                          <form action='./includes/application/{$actions[$index]}' method='POST'>
                             <button type='submit' name='{$tables[$index]}' class='btn btn-info btn-sm btn-pdf' title='PDF'>{$fa[$index]}PDF</button>
                           </form>
                         </td>";
