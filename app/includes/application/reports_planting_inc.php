@@ -26,9 +26,6 @@
 
 session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../../");
-// Include the main TCPDF library (search for installation path).
-require_once('../tcpdf/config/tcpdf_config.php');
-require_once('../tcpdf/tcpdf.php');
 
 if (isset($_POST['plantingPDF'])) {
 
@@ -50,6 +47,9 @@ if (isset($_POST['plantingPDF'])) {
   $query->execute();
   $result = $query->get_result();
 
+  // Include the main TCPDF library (search for installation path).
+  require_once('../tcpdf/config/tcpdf_config.php');
+  require_once('../tcpdf/tcpdf.php');
 
   // create new PDF document
   $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -62,7 +62,7 @@ if (isset($_POST['plantingPDF'])) {
   $pdf->SetKeywords('TCPDF, PDF');
 
   // set default header data
-  $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, html_entity_decode($currentBusiness['business_name']).' - Sadnja/sjetva izvještaj', PDF_HEADER_STRING, array(111, 125, 126), array(111, 125, 126));
+  $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, html_entity_decode($currentBusiness['business_name']) . ' - Sadnja/sjetva izvještaj', PDF_HEADER_STRING, array(111, 125, 126), array(111, 125, 126));
   $pdf->setFooterData(array(111, 125, 126), array(111, 125, 126));
 
   // set header and footer fonts
@@ -129,7 +129,7 @@ if (isset($_POST['plantingPDF'])) {
     <td>{$row['field_name']}<br><small>{$row['field_arkod']}</small></td>
     <td>{$row['planting_name']}</td>
     <td>{$row['planting_count']}</td>
-    <td>".date('d. m. Y.', strtotime($row['planting_date']))."</td>
+    <td>" . date('d. m. Y.', strtotime($row['planting_date'])) . "</td>
     <td>{$row['planting_source']}</td>
     <td>{$row['planting_note']}</td>
     </tr>";
@@ -140,7 +140,7 @@ if (isset($_POST['plantingPDF'])) {
   $pdf->writeHTML($html, true, false, true, false, '');
 
   //Close and output PDF document
-  $pdf->Output($currentBusiness['business_name'].'_sadnja_sjetva_izvjestaj.pdf', 'D');
+  $pdf->Output($currentBusiness['business_name'] . '_sadnja_sjetva_izvjestaj.pdf', 'D');
 } else {
   header('Location: ../../');
 }

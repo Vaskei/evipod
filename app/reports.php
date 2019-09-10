@@ -32,11 +32,6 @@ $userId = $_SESSION['user_id'];
         </h5>
         <div class="card-body">
           <h3>Izvještaji</h3>
-          <a class="btn btn-primary" href="./includes/application/reports_fields_inc.php" target="_blank" rel="noopener noreferrer" role="button">Link PDF</a>
-          <form action="./includes/application/reports_fields_inc.php" method="post">
-            <button type="submit" class="btn btn-primary" name="fieldsPDF">PDF Test</button>
-          </form>
-
           <hr>
           <table class="table table-sm table-bordered table-hover text-center" id="reportsTable">
             <thead>

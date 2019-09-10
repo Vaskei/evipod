@@ -27,7 +27,7 @@
 session_start();
 if (!isset($_SESSION['user_id'])) header("Location: ../../");
 
-if (isset($_POST['fieldsPDF'])) {
+if (isset($_POST['harvestPDF'])) {
 
   require_once '../connection.php';
   $userId = $_SESSION['user_id'];
@@ -42,7 +42,7 @@ if (isset($_POST['fieldsPDF'])) {
   $query->execute();
   $currentBusiness = $query->get_result()->fetch_assoc();
 
-  $query = $conn->prepare("SELECT * FROM fields WHERE business_id = ? ORDER BY created_at");
+  $query = $conn->prepare("SELECT fields.field_name, fields.field_arkod, harvest.* FROM harvest INNER JOIN fields ON harvest.field_id = fields.field_id WHERE fields.business_id = ? ORDER BY fields.field_id, harvest.harvest_date");
   $query->bind_param("i", $currentBusinessId);
   $query->execute();
   $result = $query->get_result();
@@ -57,12 +57,12 @@ if (isset($_POST['fieldsPDF'])) {
   // set document information
   $pdf->SetCreator(PDF_CREATOR);
   $pdf->SetAuthor('Evipod');
-  $pdf->SetTitle('Izvještaj - zemljišta');
-  $pdf->SetSubject('Izvještaj - zemljišta');
+  $pdf->SetTitle('Izvještaj - berba/žetva');
+  $pdf->SetSubject('Izvještaj - berba/žetva');
   $pdf->SetKeywords('TCPDF, PDF');
 
   // set default header data
-  $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, html_entity_decode($currentBusiness['business_name']) . ' - Zemljišta izvještaj', PDF_HEADER_STRING, array(111, 125, 126), array(111, 125, 126));
+  $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, html_entity_decode($currentBusiness['business_name']) . ' - Berba/žetva izvještaj', PDF_HEADER_STRING, array(111, 125, 126), array(111, 125, 126));
   $pdf->setFooterData(array(111, 125, 126), array(111, 125, 126));
 
   // set header and footer fonts
@@ -115,19 +115,21 @@ if (isset($_POST['fieldsPDF'])) {
   <table cellpadding="4" align="center">
   <thead>
   <tr class="thead">
-    <th>Naziv</th>
-    <th>Površina (ha)</th>
-    <th>ARKOD ID</th>
+    <th>Zemljište (ARKOD)</th>
+    <th>Kultura</th>
+    <th>Količina (kg/t)</th>
+    <th>Datum</th>
     <th>Napomena</th>
   </tr>
   </thead>';
 
   while ($row = $result->fetch_assoc()) {
     $html .= "<tr>
-    <td>{$row['field_name']}</td>
-    <td>{$row['field_size']}</td>
-    <td>{$row['field_arkod']}</td>
-    <td>{$row['field_note']}</td>
+    <td>{$row['field_name']}<br><small>{$row['field_arkod']}</small></td>
+    <td>{$row['harvest_name']}</td>
+    <td>{$row['harvest_amount']} {$row['harvest_amount_unit']}</td>
+    <td>" . date('d. m. Y.', strtotime($row['harvest_date'])) . "</td>
+    <td>{$row['harvest_note']}</td>
     </tr>";
   }
   $html .= '</table>';
@@ -136,7 +138,7 @@ if (isset($_POST['fieldsPDF'])) {
   $pdf->writeHTML($html, true, false, true, false, '');
 
   //Close and output PDF document
-  $pdf->Output($currentBusiness['business_name'] . '_zemljista_izvjestaj.pdf', 'D');
+  $pdf->Output($currentBusiness['business_name'] . '_berba_zetva_izvjestaj.pdf', 'D');
 } else {
   header('Location: ../../');
 }

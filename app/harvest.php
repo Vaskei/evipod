@@ -175,7 +175,7 @@ $userId = $_SESSION['user_id'];
               <table class="table table-sm table-bordered table-hover text-center datatable-enable" id="harvestTable">
                 <thead>
                   <tr>
-                    <th>Naziv zemljišta</th>
+                    <th>Zemljište (ARKOD)</th>
                     <th>Kultura</th>
                     <th>Količina (kg/t)</th>
                     <th>Datum</th>
