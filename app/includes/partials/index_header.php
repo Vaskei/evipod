@@ -67,6 +67,8 @@ if ($resultUser['current_business_id'] != NULL) {
             <i class="fas fa-id-card-alt fa-lg"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item text-info" href="./settings">Admin</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="./settings">Postavke</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="./includes/membership/logout.php">Odjava</a>

@@ -71,17 +71,17 @@ $title = "Evipod - Uvod"
 
   <!-- Usluge -->
   <section class="bg-gray" id="services">
-    <div class="container h-100">
-      <div class="row h-50 align-items-center justify-content-center text-center">
+    <div class="container">
+      <div class="row align-items-center justify-content-center text-center mb-5">
         <div class="col-lg-10 align-self-end">
-          <h2 class="text-center mt-3">Usluge</h2>
+          <h2 class="text-center mt-5">Usluge</h2>
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 col-md-10 align-self-start">
           <p class="mb-5 h4">Web aplikacija Evipod nudi brojne mogućnosti koje olakšavaju rad i poslovanje modernom poljoprivredniku, sve na jednom centraliziranom mjestu.</p>
         </div>
       </div>
-      <div class="row h-50 align-items-top justify-content-center text-center pb-5">
+      <div class="row align-items-top justify-content-center text-center mb-5">
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
             <i class="fas fa-4x fa-map-marker-alt text-primary mb-4"></i>
@@ -115,8 +115,8 @@ $title = "Evipod - Uvod"
 
   <!-- Kontakt -->
   <section id="contact">
-    <div class="container h-100 text-white align-items-center justify-content-center d-flex">
-      <div class="row ">
+    <div class="container text-white align-items-center justify-content-center d-flex">
+      <div class="row my-5">
         <div class="col-md-6 mx-auto">
           <h2 class="text-center my-4">Korisni linkovi</h2>
           <ul class="unstyled-list">

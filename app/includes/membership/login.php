@@ -13,7 +13,7 @@ if (isset($_POST['loginSubmit'])) {
   if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
     redirectWithMsg("warning", "Neispravno uneseni podaci. Pokušajte ponovno.", "../../membership");
     // Provjera ispravnosti tokena
-  } else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
+  } else if (!preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$/", $userPass)) {
     redirectWithMsg("warning", "Neispravno uneseni podaci. Pokušajte ponovno.", "../../membership");
   } else {
     // Dohvacanje korisnika

@@ -37,21 +37,21 @@ $userId = $_SESSION['user_id'];
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="oldPassword">Stara lozinka:</label>
-                <input type="password" class="form-control form-control-sm" id="oldPassword" name="oldPassword" placeholder="Unesite staru lozinku" pattern="^[a-zA-Z0-9]{6,50}$" required>
-                <div class="invalid-feedback">Lozinka može imati samo slova i brojke (min. 6, max. 50 znakova).</div>
+                <input type="password" class="form-control form-control-sm" id="oldPassword" name="oldPassword" placeholder="Unesite staru lozinku" pattern="^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$" required>
+                <div class="invalid-feedback">Lozinka je krivog formata (min. 6, max. 50 znakova).</div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="newPassword">Nova lozinka:</label>
-                <input type="password" class="form-control form-control-sm" id="newPassword" name="newPassword" placeholder="Unesite novu lozinku" pattern="^[a-zA-Z0-9]{6,50}$" required>
-                <div class="invalid-feedback">Lozinka može imati samo slova i brojke (min. 6, max. 50 znakova).</div>
+                <input type="password" class="form-control form-control-sm" id="newPassword" name="newPassword" placeholder="Unesite novu lozinku" pattern="^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$" required>
+                <div class="invalid-feedback">Lozinka mora imati slova i brojke (min. 6, max. 50 znakova).</div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="newPasswordRepeat">Ponovite lozinku:</label>
-                <input type="password" class="form-control form-control-sm" id="newPasswordRepeat" name="newPasswordRepeat" placeholder="Ponovite novu lozinku" pattern="^[a-zA-Z0-9]{6,50}$" required>
+                <input type="password" class="form-control form-control-sm" id="newPasswordRepeat" name="newPasswordRepeat" placeholder="Ponovite novu lozinku" required>
                 <div class="invalid-feedback">Lozinke moraju biti jednake.</div>
               </div>
             </div>

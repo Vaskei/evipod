@@ -71,7 +71,7 @@ $title = "Evipod - Članstvo"
                     <div class="form-group">
                       <label for="loginPass">Lozinka</label>
                       <input type="password" class="form-control" id="loginPass" name="loginPass"
-                        placeholder="Unesite lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
+                        placeholder="Unesite lozinku..." required pattern="^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$">
                       <div class="invalid-feedback">Unesena lozinka je krivog formata.</div>
                     </div>
                     <button type="submit" name="loginSubmit" class="btn btn-primary"><i
@@ -113,15 +113,14 @@ $title = "Evipod - Članstvo"
                     <div class="form-group">
                       <label for="registrationPass">Lozinka</label>
                       <input type="password" class="form-control" id="registrationPass" name="registrationPass"
-                        placeholder="Slova i brojke, min. 6, max. 50 znakova." pattern="^[a-zA-Z0-9]{6,50}$" required>
-                      <div class="invalid-feedback">Lozinka može imati samo slova i brojke (min. 6, max. 50 znakova).
+                        placeholder="Slova i brojke, min. 6, max. 50 znakova." pattern="^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$" required>
+                      <div class="invalid-feedback">Lozinka mora imati slova i brojke (min. 6, max. 50 znakova).
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="registrationPassConfirm">Ponovite lozinku</label>
                       <input type="password" class="form-control" id="registrationPassConfirm"
-                        name="registrationPassConfirm" placeholder="Ponovite lozinku." pattern="^[a-zA-Z0-9]{6,50}$"
-                        required>
+                        name="registrationPassConfirm" placeholder="Ponovite lozinku." required>
                       <div class="invalid-feedback" id="password_match">Lozinke moraju biti jednake.</div>
                     </div>
                     <button type="submit" name="registrationSubmit" id="registrationSubmit" class="btn btn-primary"><i

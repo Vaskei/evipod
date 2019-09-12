@@ -47,13 +47,13 @@ $title = "Evipod - Nova lozinka"
                 <div class="form-group">
                   <label for="pwdResetConfirm">Nova lozinka</label>
                   <input type="password" class="form-control" id="pwdResetConfirm" name="pwdResetConfirm" placeholder="Unesite novu lozinku..."
-                    required pattern="^[a-zA-Z0-9]{6,50}$">
-                  <div class="invalid-feedback">Lozinka može imati samo slova i brojke (min. 6, max. 50 znakova).</div>
+                    required pattern="^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$">
+                  <div class="invalid-feedback">Lozinka mora imati slova i brojke (min. 6, max. 50 znakova).</div>
                 </div>
                 <div class="form-group">
                   <label for="pwdResetConfirmRepeat">Ponovite novu lozinku</label>
                   <input type="password" class="form-control" id="pwdResetConfirmRepeat" name="pwdResetConfirmRepeat"
-                    placeholder="Ponovite novu lozinku..." required pattern="^[a-zA-Z0-9]{6,50}$">
+                    placeholder="Ponovite novu lozinku..." required>
                   <div class="invalid-feedback" id="password_match">Lozinke moraju biti jednake.</div>
                 </div>
                 <input type="hidden" name="pwdResetConfirmSelector" value="<?php echo $selector; ?>">

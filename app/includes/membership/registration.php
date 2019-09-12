@@ -41,7 +41,7 @@ if (isset($_POST['registrationSubmit'])) {
     redirectWithMsg("warning", "Ime može imati min. 3 i max. 20 znakova!", "../../membership");
   }
   // Provjera da li korisnicka zaporka ima nedozvoljene znakove
-  else if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $userPass)) {
+  else if (!preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$/", $userPass)) {
     redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../../membership");
   } else {
     // Provjera da li postoji korisnik sa unesenom Email adresom

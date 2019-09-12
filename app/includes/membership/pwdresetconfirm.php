@@ -20,7 +20,7 @@ if (isset($_POST['pwdResetConfirmSubmit'])) {
   if ($pwdReset != $pwdResetRepeat) {
     redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../../membership");
   }
-  if (!preg_match("/^[a-zA-Z0-9]{6,50}$/", $pwdReset)) {
+  if (!preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$/", $pwdReset)) {
     redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../../membership");
   }
 
