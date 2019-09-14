@@ -18,6 +18,10 @@ if ($resultUser['current_business_id'] != NULL) {
   $queryCurrentBusiness->execute();
   $resultCurrentBusiness = $queryCurrentBusiness->get_result()->fetch_assoc();
 }
+
+if ($resultUser['is_banned'] == 1) {
+  header("Location: ./includes/membership/logout.php");
+}
 ?>
 <header class="header">
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-secondary border-bottom border-dark">
@@ -29,7 +33,7 @@ if ($resultUser['current_business_id'] != NULL) {
     <a class="navbar-brand text-light d-lg-none brandTopScroll" href="">
       <?php
       if ($resultUser['current_business_id'] != NULL) {
-        echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name'];
+        echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20) . "..." : $resultCurrentBusiness['business_name'];
       }
       ?>
     </a>
@@ -40,35 +44,37 @@ if ($resultUser['current_business_id'] != NULL) {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <?php if ($resultUser['current_business_id'] != NULL) : ?>
-        <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
-          <?php echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20)."..." : $resultCurrentBusiness['business_name']; ?>
-        </span>
-        <li class="nav-item dropdown" title="Odabir gospodarstva">
-          <a class="nav-link dropdown-toggle" href="#" id="opgSelectDropdownBtn" role="button" data-toggle="dropdown">
-            <i class="fas fa-building fa-lg"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" id="opgSelect">
-            <?php
-              while ($rowBusiness = $resultBusiness->fetch_assoc()) {
-                // echo "<a class='dropdown-item' href='' data-opgid='{$rowBusiness['business_id']}'>{$rowBusiness['business_name']}</a>";
-                echo "
+          <span class="navbar-text text-light font-weight-bold mr-2 d-none d-lg-block">
+            <?php echo strlen($resultCurrentBusiness['business_name']) > 20 ? substr($resultCurrentBusiness['business_name'], 0, 20) . "..." : $resultCurrentBusiness['business_name']; ?>
+          </span>
+          <li class="nav-item dropdown" title="Odabir gospodarstva">
+            <a class="nav-link dropdown-toggle" href="#" id="opgSelectDropdownBtn" role="button" data-toggle="dropdown">
+              <i class="fas fa-building fa-lg"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" id="opgSelect">
+              <?php
+                while ($rowBusiness = $resultBusiness->fetch_assoc()) {
+                  // echo "<a class='dropdown-item' href='' data-opgid='{$rowBusiness['business_id']}'>{$rowBusiness['business_name']}</a>";
+                  echo "
                 <form action='./includes/application/switch_business_inc.php' method='POST'>
                   <input type='hidden' name='businessId' value='" . $rowBusiness['business_id'] . "' />
-                  <input type='submit' value='". $rowBusiness['business_name'] ."' class='dropdown-item opgSelectBtn'></input>
+                  <input type='submit' value='" . $rowBusiness['business_name'] . "' class='dropdown-item opgSelectBtn'></input>
                 </form>
                 ";
-              }
-              ?>
-          </div>
-        </li>
+                }
+                ?>
+            </div>
+          </li>
         <?php endif; ?>
         <li class="nav-item dropdown ml-lg-3" title="Meni">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
             <i class="fas fa-id-card-alt fa-lg"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item text-info" href="./settings">Admin</a>
-            <div class="dropdown-divider"></div>
+            <?php if ($resultUser['user_role'] == 'admin') : ?>
+              <a class="dropdown-item text-info" href="./admin">Admin</a>
+              <div class="dropdown-divider"></div>
+            <?php endif; ?>
             <a class="dropdown-item" href="./settings">Postavke</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="./includes/membership/logout.php">Odjava</a>

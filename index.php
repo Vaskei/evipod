@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['user_id'])) header("Location: ./app");
-$title = "Evipod - Uvod"
+$title = "Evipod - Uvod";
 ?>
 <!doctype html>
 <html lang="en">

@@ -24,10 +24,14 @@ if (isset($_POST['loginSubmit'])) {
     // Provjera da li je korisnicki racun aktiviran
     if (!empty($user['user_email']) && $user['is_email_confirmed'] === 0 && $user['token_confirm'] != "") {
       redirectWithMsg("light", "Korisnički račun nije aktiviran. Provjerite svoj Email.", "../../membership");
+    } elseif ($user['is_banned'] == 1) {  
+      // Provjera da li je korisnicki racun blokiran
+      redirectWithMsg("warning", "Korisnički račun je blokiran.", "../../membership");
     } else {
       // Provjera da li korisnik postoji i podudaranje unesene lozinke
       if ($user && password_verify($userPass, $user['user_password'])) {
         $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_role'] = $user['user_role'];
         header("Location: ../../");
       } else {
         redirectWithMsg("secondary", "Neispravno uneseni podaci. Pokušajte ponovno.", "../../membership");

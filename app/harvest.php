@@ -132,7 +132,7 @@ $userId = $_SESSION['user_id'];
           </div>
           <div class="modal-footer justify-content-center">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-            <button type="submit" name="harvestDelete" id="harvestDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
+            <button type="submit" name="harvestDelete" id="harvestDelete" class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Obriši</button>
           </div>
         </div>
       </div>
