@@ -861,14 +861,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // Modal za brisanje korisnika
   $('#usersTable tbody').on('click', '.userDeleteBtn', function () {
-    let userId = $(this).attr('data-user-id-ban');
+    let userId = $(this).attr('data-user-id-delete');
     $('#userDelete').val(userId);
     $('#userDeleteModal').modal('toggle');
   });
 
   // Modal za deblokiranje korisnika
   $('#usersTable tbody').on('click', '.userUnbanBtn', function () {
-    let userId = $(this).attr('data-user-id-ban');
+    let userId = $(this).attr('data-user-id-unban');
     $('#userUnban').val(userId);
     $('#userUnbanModal').modal('toggle');
   });

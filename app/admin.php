@@ -104,197 +104,6 @@ $userId = $_SESSION['user_id'];
     </div>
   </form>
 
-  <!-- Modal za uredivanje gospodarstva -->
-  <form method="POST" action="./includes/application/business_edit_inc.php" class="needs-validation" novalidate>
-    <div class="modal fade" id="businessEditModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-bold" id="businessEditModalTitle">Uređivanje gospodarstva</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h5 class="text-muted">Osnovne informacije</h5>
-            <div class="form-group row pl-3">
-              <label for="businessNameEdit" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessNameEdit" name="businessNameEdit" placeholder="Naziv subjekta" maxlength="100" required>
-                <div class="invalid-feedback">
-                  Naziv subjekta je obavezan (max 100 znakova).
-                </div>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessOwnerEdit" class="col-sm-2 col-form-label col-form-label-sm">Vlasnik:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessOwnerEdit" name="businessOwnerEdit" placeholder="Vlasnik subjekta" maxlength="100">
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessOIBEdit" class="col-sm-2 col-form-label col-form-label-sm">OIB:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessOIBEdit" name="businessOIBEdit" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)" pattern="^[0-9]{11}$">
-                <div class="invalid-feedback">
-                  Neispravan format OIB-a.
-                </div>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessMIBPGEdit" class="col-sm-2 col-form-label col-form-label-sm">MIBPG:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessMIBPGEdit" name="businessMIBPGEdit" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)" pattern="^[0-9]{1,7}$">
-                <div class="invalid-feedback">
-                  Neispravan format MIBPG-a.
-                </div>
-              </div>
-            </div>
-            <h5 class="text-muted">Lokacija</h5>
-            <div class="form-group row pl-3">
-              <label for="businessCountyEdit" class="col-sm-2 col-form-label col-form-label-sm">Županija:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessCountyEdit" name="businessCountyEdit" placeholder="Naziv županije" maxlength="100">
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessLocationEdit" class="col-sm-2 col-form-label col-form-label-sm">Mjesto:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessLocationEdit" name="businessLocationEdit" placeholder="Mjesto subjekta" maxlength="100">
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessPostEdit" class="col-sm-2 col-form-label col-form-label-sm">Pošta:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessPostEdit" name="businessPostEdit" placeholder="Pošta subjekta" pattern="^[0-9]{5}$">
-                <div class="invalid-feedback">
-                  Neispravan format poštanskog broja.
-                </div>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessAddressEdit" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessAddressEdit" name="businessAddressEdit" placeholder="Adresa subjekta" maxlength="100">
-              </div>
-            </div>
-            <h5 class="text-muted">Kontakt informacije</h5>
-            <div class="form-group row pl-3">
-              <label for="businessEmailEdit" class="col-sm-2 col-form-label col-form-label-sm">E-mail:</label>
-              <div class="col-sm-10">
-                <input type="email" class="form-control form-control-sm" id="businessEmailEdit" name="businessEmailEdit" placeholder="E-mail adresa" maxlength="100">
-                <div class="invalid-feedback">
-                  Neispravan format Email adrese.
-                </div>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessTelEdit" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessTelEdit" name="businessTelEdit" placeholder="Broj telefona" maxlength="100" pattern="^[0-9]{1,100}$">
-                <div class="invalid-feedback">
-                  Neispravan format broja telefona.
-                </div>
-              </div>
-            </div>
-            <div class="form-group row pl-3">
-              <label for="businessMobEdit" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="businessMobEdit" name="businessMobEdit" placeholder="Broj mobitela" maxlength="100" pattern="^[0-9]{1,100}$">
-                <div class="invalid-feedback">
-                  Neispravan format broja mobitela.
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-            <button type="submit" name="businessEdit" id="businessEdit" class="btn btn-success"><i class="fas fa-edit"></i>&nbsp;&nbsp;Spremi</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-
-  <!-- Modal za brisanje gospodarstva -->
-  <form method="POST" action="./includes/application/business_delete_inc.php">
-    <div class="modal fade" id="businessDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title font-weight-bold" id="businessDeleteModalTitle">Brisanje gospodarstva</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-3">
-                <p class="text-center"><i class="fas fa-trash-alt fa-4x"></i></p>
-              </div>
-              <div class="col-9">
-                <p class="font-weight-bold">Obrisati odabrano gospodarstvo:</p>
-                <u>
-                  <p id="businessDeleteName" class="font-weight-bold text-break mb-0"></p>
-                </u>
-                <small class="text-muted">Brisanjem gospodarstva obrisat će se i djelatnosti vezane uz to gospodarstvo.</small>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-            <button type="submit" name="businessDelete" id="businessDelete" class="btn btn-danger"><i class="fas fa-edit"></i>&nbsp;&nbsp;Obriši</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-
-  <!-- Modal za detalje gospodarstva -->
-  <div class="modal fade" id="businessInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title font-weight-bold text-truncate" id="businessInfoModalTitle"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <dl class="row">
-            <dt class="col-sm-3">Naziv:</dt>
-            <dd class="col-sm-9" id="businessNameInfo"></dd>
-            <dt class="col-sm-3">Vlasnik:</dt>
-            <dd class="col-sm-9" id="businessOwnerInfo"></dd>
-            <dt class="col-sm-3">OIB:</dt>
-            <dd class="col-sm-9" id="businessOIBInfo"></dd>
-            <dt class="col-sm-3">MIBPG:</dt>
-            <dd class="col-sm-9" id="businessMIBPGInfo"></dd>
-            <dt class="col-sm-3">Županija:</dt>
-            <dd class="col-sm-9" id="businessCountyInfo"></dd>
-            <dt class="col-sm-3">Mjesto:</dt>
-            <dd class="col-sm-9" id="businessLocationInfo"></dd>
-            <dt class="col-sm-3">Pošta:</dt>
-            <dd class="col-sm-9" id="businessPostInfo"></dd>
-            <dt class="col-sm-3">Adresa:</dt>
-            <dd class="col-sm-9" id="businessAddressInfo"></dd>
-            <dt class="col-sm-3">E-mail:</dt>
-            <dd class="col-sm-9" id="businessEmailInfo"></dd>
-            <dt class="col-sm-3">Tel:</dt>
-            <dd class="col-sm-9" id="businessTelInfo"></dd>
-            <dt class="col-sm-3">Mob:</dt>
-            <dd class="col-sm-9" id="businessMobInfo"></dd>
-            <dt class="col-sm-3">Dodano:</dt>
-            <dd class="col-sm-9" id="businessAddedInfo"></dd>
-          </dl>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i>&nbsp;&nbsp;Zatvori</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <section class="content">
     <div class="container-fluid">
 
@@ -313,17 +122,17 @@ $userId = $_SESSION['user_id'];
           <i class="fas fa-user-shield"></i><strong>&nbsp;&nbsp;Admin</strong>
         </h5>
         <div class="card-header p-0">
-          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="usersTab" role="tablist">
+          <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="adminTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link rounded-0 active" id="usersListTab" data-toggle="tab" href="#usersList" role="tab">Lista korisnika</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rounded-0" id="usersAddTab" data-toggle="tab" href="#usersAdd" role="tab">Postavke odredišne stranice</a>
+              <a class="nav-link rounded-0" id="landingPageTab" data-toggle="tab" href="#landingPage" role="tab">Postavke odredišne stranice</a>
             </li>
           </ul>
         </div>
         <div class="card-body">
-          <div class="tab-content" id="usersTabContent">
+          <div class="tab-content" id="adminTabContent">
             <!-- Div/tab za listu korisnika -->
             <div class="tab-pane fade show active" id="usersList" role="tabpanel">
               <h3>Lista korisnika</h3>
@@ -350,7 +159,7 @@ $userId = $_SESSION['user_id'];
                       echo "<td class='align-middle'>{$row['user_id']}</td>";
                       echo "<td class='align-middle'>{$row['user_name']}</td>";
                       echo "<td class='align-middle'>{$row['user_email']}</td>";
-                      echo "<td class='align-middle'>{$row['created_at']}</td>";
+                      echo "<td class='align-middle'>". date('d. m. Y. H:i:s', strtotime($row['created_at'])) ."</td>";
                       echo "<td class='align-middle'><div class='btn-group btn-group-sm d-flex' role='group'>";
                       echo $row['is_banned'] == 0 ? "<button type='button' class='btn btn-link text-warning userBanBtn' title='Ban' data-user-id-ban='{$row['user_id']}'><i class='fas fa-user-lock'></i></button>"
                         : "<button type='button' class='btn btn-link text-success userUnbanBtn' title='Unban' data-user-id-unban='{$row['user_id']}'><i class='fas fa-user-check'></i></button>";
@@ -364,8 +173,8 @@ $userId = $_SESSION['user_id'];
               </table>
             </div>
 
-            <!-- Div/tab za dodavanje gospodarstva -->
-            <div class="tab-pane fade" id="businessAdd" role="tabpanel">
+            <!-- Div/tab za odredisnu stranicu -->
+            <div class="tab-pane fade" id="landingPage" role="tabpanel">
               <h3>Dodaj gospodarstvo</h3>
               <hr>
               <form method="POST" action="./includes/application/business_add_inc.php" class="needs-validation" novalidate>

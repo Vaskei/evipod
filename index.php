@@ -115,9 +115,9 @@ $title = "Evipod - Uvod";
 
   <!-- Kontakt -->
   <section id="contact">
-    <div class="container text-white align-items-center justify-content-center d-flex">
-      <div class="row my-5">
-        <div class="col-md-6 mx-auto">
+    <div class="container text-white d-flex h-100">
+      <div class="row align-self-center w-100">
+        <!-- <div class="col-md-6 mx-auto">
           <h2 class="text-center my-4">Korisni linkovi</h2>
           <ul class="unstyled-list">
             <li>
@@ -149,9 +149,8 @@ $title = "Evipod - Uvod";
               </h5>
             </li>
           </ul>
-        </div>
-        <div class="col-md-6 mx-auto">
-
+        </div> -->
+        <div class="col-md-6 mx-auto text-center">
           <h2 class="text-center my-4">Kontaktirajte nas</h2>
           <ul class="unstyled-list">
             <li>
