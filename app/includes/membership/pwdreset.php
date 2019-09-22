@@ -79,10 +79,14 @@ if (isset($_POST['pwdResetSubmit'])) {
   $query = $conn->prepare("INSERT INTO pwd_reset(pwd_email, pwd_selector, pwd_token, pwd_expiration) VALUES (?,?,?,?)");
   $hashedToken = password_hash($token, PASSWORD_DEFAULT);
   $query->bind_param("ssss", $resetEmail, $selector, $hashedToken, $expiration);
-  $query->execute();
-  if ($mail->send() && $query->affected_rows >= 1) {
-    $query->close();
-    redirectWithMsgNoFadeout("info", "Provjerite svoj Email za daljnje upute.", "../../membership");
+  if ($mail->send()) {
+    $query->execute();
+    if ($query->affected_rows >= 1) {
+      $query->close();
+      redirectWithMsgNoFadeout("info", "Provjerite svoj Email za daljnje upute.", "../../membership");
+    } else {
+      redirectWithMsg("warning", "Greška!", "../../passwordreset");
+    }  
   } else {
     redirectWithMsg("warning", "Greška!", "../../passwordreset");
   }

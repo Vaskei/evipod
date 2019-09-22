@@ -98,10 +98,14 @@ if (isset($_POST['registrationSubmit'])) {
       // Zapisivanje korisnickog racuna u bazu i slanje email-a sa linkom za potvrdu racuna
       $query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, token_confirm) VALUES (?,?,?,?)");
       $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
-      $query->execute();
-      if ($mail->send() && $query->affected_rows >= 1) {
-        $query->close();
-        redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "../../membership");
+      if ($mail->send()) {
+        $query->execute();
+        if ($query->affected_rows >= 1) {
+          $query->close();
+          redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "../../membership");
+        } else {
+          redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../../membership");
+        }        
       } else {
         redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../../membership");
       }

@@ -159,7 +159,7 @@ $userId = $_SESSION['user_id'];
                       echo "<td class='align-middle'>{$row['user_id']}</td>";
                       echo "<td class='align-middle'>{$row['user_name']}</td>";
                       echo "<td class='align-middle'>{$row['user_email']}</td>";
-                      echo "<td class='align-middle'>". date('d. m. Y. H:i:s', strtotime($row['created_at'])) ."</td>";
+                      echo "<td class='align-middle'>" . date('d. m. Y. H:i:s', strtotime($row['created_at'])) . "</td>";
                       echo "<td class='align-middle'><div class='btn-group btn-group-sm d-flex' role='group'>";
                       echo $row['is_banned'] == 0 ? "<button type='button' class='btn btn-link text-warning userBanBtn' title='Ban' data-user-id-ban='{$row['user_id']}'><i class='fas fa-user-lock'></i></button>"
                         : "<button type='button' class='btn btn-link text-success userUnbanBtn' title='Unban' data-user-id-unban='{$row['user_id']}'><i class='fas fa-user-check'></i></button>";
@@ -175,101 +175,207 @@ $userId = $_SESSION['user_id'];
 
             <!-- Div/tab za odredisnu stranicu -->
             <div class="tab-pane fade" id="landingPage" role="tabpanel">
-              <h3>Dodaj gospodarstvo</h3>
+              <h3>Postavke odredišne stranice</h3>
               <hr>
-              <form method="POST" action="./includes/application/business_add_inc.php" class="needs-validation" novalidate>
-                <h5 class="text-muted">Osnovne informacije</h5>
-                <div class="form-group row pl-3">
-                  <label for="businessName" class="col-sm-2 col-form-label col-form-label-sm">Naziv:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessName" name="businessName" placeholder="Naziv subjekta" maxlength="100" required>
-                    <div class="invalid-feedback">
-                      Naziv subjekta je obavezan (max 100 znakova).
+              <form method="POST" action="./includes/application/landing_page_inc.php">
+                <div class="row">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                  </div>
+                  <div class="col-lg-6 order-lg-first">
+                    <h5 class="text-muted">Odjeljak 1</h5>
+                    <div class="form-group row pl-3">
+                      <label for="sectionOneTitle" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionOneTitle" name="sectionOneTitle" placeholder="Naslov prvog odjeljka">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionOneDesc" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionOneDesc" name="sectionOneDesc" placeholder="Opis prvog odjeljka">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row pl-3">
-                  <label for="businessOwner" class="col-sm-2 col-form-label col-form-label-sm">Vlasnik:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessOwner" name="businessOwner" placeholder="Vlasnik subjekta" maxlength="100">
+                <hr>
+                <div class="row pb-4">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
                   </div>
-                </div>
-                <div class="form-group row pl-3">
-                  <label for="businessOIB" class="col-sm-2 col-form-label col-form-label-sm">OIB:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessOIB" name="businessOIB" placeholder="OIB subjekta ili vlasnika (osobni identifikacijski broj)" pattern="^[0-9]{11}$">
-                    <div class="invalid-feedback">
-                      Neispravan format OIB-a.
+                  <div class="col-lg-6 order-lg-first">
+                    <h5 class="text-muted">Odjeljak 2</h5>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoTitle" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitle" name="sectionTwoTitle" placeholder="Naslov drugog odjeljka">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoDesc" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDesc" name="sectionTwoDesc" placeholder="Opis drugog odjeljka">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row pl-3">
-                  <label for="businessMIBPG" class="col-sm-2 col-form-label col-form-label-sm">MIBPG:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessMIBPG" name="businessMIBPG" placeholder="MIBPG subjekta (matični identifikacijski broj poljoprivrednog gospodarstva)" pattern="^[0-9]{1,7}$">
-                    <div class="invalid-feedback">
-                      Neispravan format MIBPG-a.
+                <div class="row pb-4">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                  </div>
+                  <div class="col-lg-6 order-lg-first">
+                    <h6 class="text-muted">Prva usluga</h6>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoIconA" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconA" name="sectionTwoIconA" placeholder="Ikona prve usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoTitleA" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleA" name="sectionTwoTitleA" placeholder="Naslov prve usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoDescA" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescA" name="sectionTwoDescA" placeholder="Opis prve usluge">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <h5 class="text-muted">Lokacija</h5>
-                <div class="form-group row pl-3">
-                  <label for="businessCounty" class="col-sm-2 col-form-label col-form-label-sm">Županija:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessCounty" name="businessCounty" placeholder="Naziv županije" maxlength="100">
+                <div class="row pb-4">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
                   </div>
-                </div>
-                <div class="form-group row pl-3">
-                  <label for="businessLocation" class="col-sm-2 col-form-label col-form-label-sm">Mjesto:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessLocation" name="businessLocation" placeholder="Mjesto subjekta" maxlength="100">
-                  </div>
-                </div>
-                <div class="form-group row pl-3">
-                  <label for="businessPost" class="col-sm-2 col-form-label col-form-label-sm">Pošta:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessPost" name="businessPost" placeholder="Pošta subjekta" pattern="^[0-9]{5}$">
-                    <div class="invalid-feedback">
-                      Neispravan format poštanskog broja.
+                  <div class="col-lg-6 order-lg-first">
+                    <h6 class="text-muted">Druga usluga</h6>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoIconB" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconB" name="sectionTwoIconB" placeholder="Ikona druge usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoTitleB" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleB" name="sectionTwoTitleB" placeholder="Naslov druge usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoDescB" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescB" name="sectionTwoDescB" placeholder="Opis druge usluge">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row pl-3">
-                  <label for="businessAddress" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessAddress" name="businessAddress" placeholder="Adresa subjekta" maxlength="100">
+                <div class="row pb-4">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
                   </div>
-                </div>
-                <h5 class="text-muted">Kontakt informacije</h5>
-                <div class="form-group row pl-3">
-                  <label for="businessEmail" class="col-sm-2 col-form-label col-form-label-sm">E-mail:</label>
-                  <div class="col-sm-10">
-                    <input type="email" class="form-control form-control-sm" id="businessEmail" name="businessEmail" placeholder="E-mail adresa" maxlength="100">
-                    <div class="invalid-feedback">
-                      Neispravan format Email adrese.
+                  <div class="col-lg-6 order-lg-first">
+                    <h6 class="text-muted">Treća usluga</h6>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoIconC" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconC" name="sectionTwoIconC" placeholder="Ikona treće usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoTitleC" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleC" name="sectionTwoTitleC" placeholder="Naslov treće usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoDescC" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescC" name="sectionTwoDescC" placeholder="Opis treće usluge">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row pl-3">
-                  <label for="businessTel" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessTel" name="businessTel" placeholder="Broj telefona" maxlength="100" pattern="^[0-9]{1,100}$">
-                    <div class="invalid-feedback">
-                      Neispravan format broja telefona.
+                <div class="row">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                  </div>
+                  <div class="col-lg-6 order-lg-first">
+                    <h6 class="text-muted">Četvrta usluga</h6>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoIconD" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconD" name="sectionTwoIconD" placeholder="Ikona četvrte usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoTitleD" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleD" name="sectionTwoTitleD" placeholder="Naslov četvrte usluge">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionTwoDescD" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescD" name="sectionTwoDescD" placeholder="Opis četvrte usluge">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row pl-3">
-                  <label for="businessMob" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-sm" id="businessMob" name="businessMob" placeholder="Broj mobitela" maxlength="100" pattern="^[0-9]{1,100}$">
-                    <div class="invalid-feedback">
-                      Neispravan format broja mobitela.
+                <hr>
+                <div class="row">
+                  <div class="col-lg-6 text-center my-auto order-lg-last">
+                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x240" alt="">
+                  </div>
+                  <div class="col-lg-6 order-lg-first">
+                    <h5 class="text-muted">Odjeljak 3</h5>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreeName" class="col-sm-2 col-form-label col-form-label-sm">Ime:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeName" name="sectionThreeName" placeholder="Ime tvrtke">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreeAddress" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeAddress" name="sectionThreeAddress" placeholder="Adresa tvrtke">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreePost" class="col-sm-2 col-form-label col-form-label-sm">Poš. broj:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreePost" name="sectionThreePost" placeholder="Poštanski broj">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreeWebsite" class="col-sm-2 col-form-label col-form-label-sm">Web:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeWebsite" name="sectionThreeWebsite" placeholder="Web stranica tvrtke">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreeEmail" class="col-sm-2 col-form-label col-form-label-sm">Email:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeEmail" name="sectionThreeEmail" placeholder="Email tvrtke">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreeTel" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeTel" name="sectionThreeTel" placeholder="Broj telefona">
+                      </div>
+                    </div>
+                    <div class="form-group row pl-3">
+                      <label for="sectionThreeMob" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeMob" name="sectionThreeMob" placeholder="Broj mobitela">
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="row justify-content-center">
-                  <button type="submit" name="businessAdd" class="btn btn-success px-5"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Dodaj</button>
+                <div class="row justify-content-center pt-5">
+                  <button type="submit" name="landingPageEdit" value="edit" class="btn btn-info px-5"><i class="fas fa-pencil-alt"></i>&nbsp;&nbsp;Uredi</button>
                 </div>
               </form>
             </div>

@@ -1,6 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['user_id'])) header("Location: ./app");
+require_once "./app/includes/connection.php";
+$query = $conn->query("SELECT * FROM landing_page WHERE id = 1");
+if ($query) {
+  $row = $query->fetch_assoc();
+}
 $title = "Evipod - Uvod";
 ?>
 <!doctype html>
@@ -152,7 +157,7 @@ $title = "Evipod - Uvod";
         </div> -->
         <div class="col-md-6 mx-auto text-center">
           <h2 class="text-center my-4">Kontaktirajte nas</h2>
-          <ul class="unstyled-list">
+          <ul class="unstyled-list px-0">
             <li>
               <p>Za sva pitanja stojimo Vam na raspolaganju putem dolje navedenih podataka:</p>
             </li>
