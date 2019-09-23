@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 17, 2019 at 09:48 PM
+-- Generation Time: Sep 23, 2019 at 10:53 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `evipod`
 --
+CREATE DATABASE IF NOT EXISTS `evipod` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `evipod`;
 
 -- --------------------------------------------------------
 
@@ -249,19 +251,19 @@ CREATE TABLE IF NOT EXISTS `landing_page` (
   `section_1_desc` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Aplikacija omogućuje korisniku evidentiranje resursa (gospodarstva, zemljišta), nasada (sadnja/sjetva), aktivnosti (zaštita, gnojidba, obrada tla, njega usjeva/nasada), te rezultate (berba/žetva).',
   `section_2_title` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Usluge',
   `section_2_desc` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Web aplikacija Evipod nudi brojne mogućnosti koje olakšavaju rad i poslovanje modernom poljoprivredniku, sve na jednom centraliziranom mjestu.',
-  `section_2_icon_1` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fa-map-marker-alt',
+  `section_2_icon_1` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'map-marker-alt',
   `section_2_title_1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Centralizirano',
   `section_2_desc_1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Svi podaci i evidencije su na jednome mjestu, uvijek dostupni.',
-  `section_2_icon_2` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fa-laptop-code',
+  `section_2_icon_2` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'laptop-code',
   `section_2_title_2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Neovisno o uređaju',
   `section_2_desc_2` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Računalo, laptop, mobitel, tablet. Pristupite aplikaciji sa svakog uređaja s internet vezom.',
-  `section_2_icon_3` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fa-globe',
+  `section_2_icon_3` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'globe',
   `section_2_title_3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Bilo gdje',
   `section_2_desc_3` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Mogućnost uporabe aplikacije doma ili na polju/poslu. Jedini uvjet je prisutnost internet veze.',
-  `section_2_icon_4` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fa-calendar-alt',
+  `section_2_icon_4` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'calendar-alt',
   `section_2_title_4` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Podrška',
   `section_2_desc_4` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Podrška 24 sata, 7 dana u tjednu. Osim na blagdane.',
-  `section_3_name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '-',
+  `section_3_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '-',
   `section_3_address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '-',
   `section_3_post` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '-',
   `section_3_website` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '-',
@@ -276,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `landing_page` (
 --
 
 INSERT INTO `landing_page` (`id`, `section_1_title`, `section_1_desc`, `section_2_title`, `section_2_desc`, `section_2_icon_1`, `section_2_title_1`, `section_2_desc_1`, `section_2_icon_2`, `section_2_title_2`, `section_2_desc_2`, `section_2_icon_3`, `section_2_title_3`, `section_2_desc_3`, `section_2_icon_4`, `section_2_title_4`, `section_2_desc_4`, `section_3_name`, `section_3_address`, `section_3_post`, `section_3_website`, `section_3_email`, `section_3_tel`, `section_3_mob`) VALUES
-(1, 'DOBRODOŠLI U EVIPOD', 'Aplikacija omogućuje korisniku evidentiranje resursa (gospodarstva, zemljišta), nasada (sadnja/sjetva), aktivnosti (zaštita, gnojidba, obrada tla, njega usjeva/nasada), te rezultate (berba/žetva).', 'Usluge', 'Web aplikacija Evipod nudi brojne mogućnosti koje olakšavaju rad i poslovanje modernom poljoprivredniku, sve na jednom centraliziranom mjestu.', 'fa-map-marker-alt', 'Centralizirano', 'Svi podaci i evidencije su na jednome mjestu, uvijek dostupni.', 'fa-laptop-code', 'Neovisno o uređaju', 'Računalo, laptop, mobitel, tablet. Pristupite aplikaciji sa svakog uređaja s internet vezom.', 'fa-globe', 'Bilo gdje', 'Mogućnost uporabe aplikacije doma ili na polju/poslu. Jedini uvjet je prisutnost internet veze.', 'fa-calendar-alt', 'Podrška', 'Podrška 24 sata, 7 dana u tjednu. Osim na blagdane.', '-', '-', '-', '-', '-', '-', '-');
+(1, 'DOBRODOŠLI U EVIPOD', 'Aplikacija omogućuje korisniku evidentiranje resursa (gospodarstva, zemljišta), nasada (sadnja/sjetva), aktivnosti (zaštita, gnojidba, obrada tla, njega usjeva/nasada), te rezultate (berba/žetva).', 'Usluge', 'Web aplikacija Evipod nudi brojne mogućnosti koje olakšavaju rad i poslovanje modernom poljoprivredniku, sve na jednom centraliziranom mjestu.', 'map-marker-alt', 'Centralizirano', 'Svi podaci i evidencije su na jednome mjestu, uvijek dostupni.', 'laptop-code', 'Neovisno o uređaju', 'Računalo, laptop, mobitel, tablet. Pristupite aplikaciji sa svakog uređaja s internet vezom.', 'globe', 'Bilo gdje', 'Mogućnost uporabe aplikacije doma ili na polju/poslu. Jedini uvjet je prisutnost internet veze.', 'calendar-alt', 'Podrška', 'Podrška 24 sata, 7 dana u tjednu. Osim na blagdane.', 'Međimursko veleučilište u Čakovcu', 'BANA JOSIPA JELAČIĆA 22a', '40 000 Čakovec', 'https://www.mev.hr', 'veleuciliste@mev.hr', '+385(0)40396 990', '+385(0)40396 980');
 
 -- --------------------------------------------------------
 
@@ -478,9 +480,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_role`, `is_banned`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$WRsE9.v9szzsxErmOkj32uLMtLkQTi/Wi4KiPnWYRpd9pvYSDicZW', 'user', 0, 1, '', 48, '2018-12-29 00:33:40', '2019-09-12 12:13:19'),
-(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$MO0JH51G5Yha87VNLw9fquf8Q6bC5/UrH/2APprdMVPrdtxFTTY.C', 'user', 1, 1, '', 57, '2019-04-05 14:11:59', '2019-09-13 23:14:04'),
-(31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$bcD8utlBwNPfDTUEWU4/ge5L55BDgKOf42LhcmLqFkjXUyPG1e0/i', 'user', 0, 1, '', NULL, '2019-08-07 19:50:30', '2019-09-16 00:08:02'),
+(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$WRsE9.v9szzsxErmOkj32uLMtLkQTi/Wi4KiPnWYRpd9pvYSDicZW', 'user', 0, 1, '', 48, '2018-12-29 00:33:40', '2019-09-19 20:54:16'),
+(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$MO0JH51G5Yha87VNLw9fquf8Q6bC5/UrH/2APprdMVPrdtxFTTY.C', 'user', 1, 1, '', 57, '2019-04-05 14:11:59', '2019-09-19 20:54:19'),
+(31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$bcD8utlBwNPfDTUEWU4/ge5L55BDgKOf42LhcmLqFkjXUyPG1e0/i', 'user', 0, 1, '', NULL, '2019-08-07 19:50:30', '2019-09-19 20:53:54'),
 (32, 'Admin', 'evipodtech@gmail.com', '$2y$10$xU8khM5jkT8r9H8Cq/gYcOm/nFEtzBTPQVrMDPW/BY7cEEDWP8mlK', 'admin', 0, 1, '', NULL, '2019-09-13 22:27:30', '2019-09-13 22:27:57'),
 (33, 'Goran', 'opgferenc@gmail.com', '$2y$10$Vs2RHaZAbiOeAlILfsBiqeZZNUkmPKooFclDwsTsVZOJBuhH/q7Wi', 'user', 0, 1, '', 78, '2019-09-15 21:34:03', '2019-09-16 00:25:37');
 

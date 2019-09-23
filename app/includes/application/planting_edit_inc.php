@@ -49,7 +49,7 @@ if (isset($_POST['plantingEdit'])) {
   // Konverzija datuma (DD. MM. YYYY. u MySQL format YYYY-MM-DD)
   $mysqlDate = date('Y-m-d', strtotime(str_replace(' ', '', $plantingDate)));
 
-  // dohvacanje aktivnog gospodarstva
+  // Dohvacanje aktivnog gospodarstva
   $query = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
   $query->bind_param("i", $userId);
   $query->execute();

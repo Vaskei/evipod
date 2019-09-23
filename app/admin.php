@@ -174,26 +174,34 @@ $userId = $_SESSION['user_id'];
             </div>
 
             <!-- Div/tab za odredisnu stranicu -->
+            <?php
+            $result = $conn->query("SELECT * FROM landing_page");
+            if ($result->num_rows > 0) {
+              $row = $result->fetch_assoc();
+            }
+            ?>
             <div class="tab-pane fade" id="landingPage" role="tabpanel">
               <h3>Postavke odredišne stranice</h3>
               <hr>
-              <form method="POST" action="./includes/application/landing_page_inc.php">
+              <form method="POST" action="./includes/application/landing_page_inc.php" class="needs-validation" novalidate>
                 <div class="row">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-1.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h5 class="text-muted">Odjeljak 1</h5>
                     <div class="form-group row pl-3">
                       <label for="sectionOneTitle" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionOneTitle" name="sectionOneTitle" placeholder="Naslov prvog odjeljka">
+                        <input type="text" class="form-control form-control-sm" id="sectionOneTitle" name="sectionOneTitle" value="<?php echo htmlentities($row['section_1_title']); ?>" placeholder="Naslov prvog odjeljka" maxlength="20" required>
+                        <div class="invalid-feedback">Naslov prvog odjeljka je obavezan (max 20 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionOneDesc" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionOneDesc" name="sectionOneDesc" placeholder="Opis prvog odjeljka">
+                        <input type="text" class="form-control form-control-sm" id="sectionOneDesc" name="sectionOneDesc" value="<?php echo htmlentities($row['section_1_desc']); ?>" placeholder="Opis prvog odjeljka" maxlength="200" required>
+                        <div class="invalid-feedback">Opis prvog odjeljka je obavezan (max 200 znakova).</div>
                       </div>
                     </div>
                   </div>
@@ -201,124 +209,142 @@ $userId = $_SESSION['user_id'];
                 <hr>
                 <div class="row pb-4">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-2.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h5 class="text-muted">Odjeljak 2</h5>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoTitle" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitle" name="sectionTwoTitle" placeholder="Naslov drugog odjeljka">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitle" name="sectionTwoTitle" value="<?php echo htmlentities($row['section_2_title']); ?>" placeholder="Naslov drugog odjeljka" maxlength="20" required>
+                        <div class="invalid-feedback">Naslov drugog odjeljka je obavezan (max 20 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoDesc" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoDesc" name="sectionTwoDesc" placeholder="Opis drugog odjeljka">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDesc" name="sectionTwoDesc" value="<?php echo htmlentities($row['section_2_desc']); ?>" placeholder="Opis drugog odjeljka" maxlength="200" required>
+                        <div class="invalid-feedback">Opis drugog odjeljka je obavezan (max 200 znakova).</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row pb-4">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-2-part-1.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h6 class="text-muted">Prva usluga</h6>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoIconA" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconA" name="sectionTwoIconA" placeholder="Ikona prve usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconA" name="sectionTwoIconA" value="<?php echo htmlentities($row['section_2_icon_1']); ?>" placeholder="Ikona prve usluge" maxlength="30" required>
+                        <small class="form-text text-muted">Pronađite ime ikone na stranici <a href="https://fontawesome.com/icons?d=gallery" target="_blank" rel="noopener noreferrer">FontAwesome.</a></small>
+                        <div class="invalid-feedback">Ikona prve usluge je obavezna (max 30 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoTitleA" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleA" name="sectionTwoTitleA" placeholder="Naslov prve usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleA" name="sectionTwoTitleA" value="<?php echo htmlentities($row['section_2_title_1']); ?>" placeholder="Naslov prve usluge" maxlength="20" required>
+                        <div class="invalid-feedback">Naslov prve usluge je obavezan (max 20 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoDescA" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescA" name="sectionTwoDescA" placeholder="Opis prve usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescA" name="sectionTwoDescA" value="<?php echo htmlentities($row['section_2_desc_1']); ?>" placeholder="Opis prve usluge" maxlength="100" required>
+                        <div class="invalid-feedback">Opis prve usluge je obavezan (max 100 znakova).</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row pb-4">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-2-part-2.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h6 class="text-muted">Druga usluga</h6>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoIconB" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconB" name="sectionTwoIconB" placeholder="Ikona druge usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconB" name="sectionTwoIconB" value="<?php echo htmlentities($row['section_2_icon_2']); ?>" placeholder="Ikona druge usluge" maxlength="30" required>
+                        <small class="form-text text-muted">Pronađite ime ikone na stranici <a href="https://fontawesome.com/icons?d=gallery" target="_blank" rel="noopener noreferrer">FontAwesome.</a></small>
+                        <div class="invalid-feedback">Ikona druge usluge je obavezna (max 30 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoTitleB" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleB" name="sectionTwoTitleB" placeholder="Naslov druge usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleB" name="sectionTwoTitleB" value="<?php echo htmlentities($row['section_2_title_2']); ?>" placeholder="Naslov druge usluge" maxlength="20" required>
+                        <div class="invalid-feedback">Naslov druge usluge je obavezan (max 20 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoDescB" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescB" name="sectionTwoDescB" placeholder="Opis druge usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescB" name="sectionTwoDescB" value="<?php echo htmlentities($row['section_2_desc_2']); ?>" placeholder="Opis druge usluge" maxlength="100" required>
+                        <div class="invalid-feedback">Opis druge usluge je obavezan (max 100 znakova).</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row pb-4">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-2-part-3.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h6 class="text-muted">Treća usluga</h6>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoIconC" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconC" name="sectionTwoIconC" placeholder="Ikona treće usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconC" name="sectionTwoIconC" value="<?php echo htmlentities($row['section_2_icon_3']); ?>" placeholder="Ikona treće usluge" maxlength="30" required>
+                        <small class="form-text text-muted">Pronađite ime ikone na stranici <a href="https://fontawesome.com/icons?d=gallery" target="_blank" rel="noopener noreferrer">FontAwesome.</a></small>
+                        <div class="invalid-feedback">Ikona treće usluge je obavezna (max 30 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoTitleC" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleC" name="sectionTwoTitleC" placeholder="Naslov treće usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleC" name="sectionTwoTitleC" value="<?php echo htmlentities($row['section_2_title_3']); ?>" placeholder="Naslov treće usluge" maxlength="20" required>
+                        <div class="invalid-feedback">Naslov treće usluge je obavezan (max 20 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoDescC" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescC" name="sectionTwoDescC" placeholder="Opis treće usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescC" name="sectionTwoDescC" value="<?php echo htmlentities($row['section_2_desc_3']); ?>" placeholder="Opis treće usluge" maxlength="100" required>
+                        <div class="invalid-feedback">Opis treće usluge je obavezan (max 100 znakova).</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x120" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-2-part-4.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h6 class="text-muted">Četvrta usluga</h6>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoIconD" class="col-sm-2 col-form-label col-form-label-sm">Ikona:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconD" name="sectionTwoIconD" placeholder="Ikona četvrte usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoIconD" name="sectionTwoIconD" value="<?php echo htmlentities($row['section_2_icon_4']); ?>" placeholder="Ikona četvrte usluge" maxlength="30" required>
+                        <small class="form-text text-muted">Pronađite ime ikone na stranici <a href="https://fontawesome.com/icons?d=gallery" target="_blank" rel="noopener noreferrer">FontAwesome.</a></small>
+                        <div class="invalid-feedback">Ikona četvrte usluge je obavezna (max 30 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoTitleD" class="col-sm-2 col-form-label col-form-label-sm">Naslov:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleD" name="sectionTwoTitleD" placeholder="Naslov četvrte usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoTitleD" name="sectionTwoTitleD" value="<?php echo htmlentities($row['section_2_title_4']); ?>" placeholder="Naslov četvrte usluge" maxlength="20" required>
+                        <div class="invalid-feedback">Naslov četvrte usluge je obavezan (max 20 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionTwoDescD" class="col-sm-2 col-form-label col-form-label-sm">Opis:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescD" name="sectionTwoDescD" placeholder="Opis četvrte usluge">
+                        <input type="text" class="form-control form-control-sm" id="sectionTwoDescD" name="sectionTwoDescD" value="<?php echo htmlentities($row['section_2_desc_4']); ?>" placeholder="Opis četvrte usluge" maxlength="100" required>
+                        <div class="invalid-feedback">Opis četvrte usluge je obavezan (max 100 znakova).</div>
                       </div>
                     </div>
                   </div>
@@ -326,50 +352,57 @@ $userId = $_SESSION['user_id'];
                 <hr>
                 <div class="row">
                   <div class="col-lg-6 text-center my-auto order-lg-last">
-                    <img class="img-fluid mb-2" src="https://via.placeholder.com/576x240" alt="">
+                    <img class="img-fluid mb-2" src="./images/section-3.jpg" alt="">
                   </div>
                   <div class="col-lg-6 order-lg-first">
                     <h5 class="text-muted">Odjeljak 3</h5>
                     <div class="form-group row pl-3">
                       <label for="sectionThreeName" class="col-sm-2 col-form-label col-form-label-sm">Ime:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreeName" name="sectionThreeName" placeholder="Ime tvrtke">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeName" name="sectionThreeName" value="<?php echo htmlentities($row['section_3_name']); ?>" placeholder="Ime tvrtke" maxlength="50" required>
+                        <div class="invalid-feedback">Ime je obavezno (max 30 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionThreeAddress" class="col-sm-2 col-form-label col-form-label-sm">Adresa:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreeAddress" name="sectionThreeAddress" placeholder="Adresa tvrtke">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeAddress" name="sectionThreeAddress" value="<?php echo htmlentities($row['section_3_address']); ?>" placeholder="Adresa tvrtke" maxlength="100" required>
+                        <div class="invalid-feedback">Adresa je obavezna (max 100 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionThreePost" class="col-sm-2 col-form-label col-form-label-sm">Poš. broj:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreePost" name="sectionThreePost" placeholder="Poštanski broj">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreePost" name="sectionThreePost" value="<?php echo htmlentities($row['section_3_post']); ?>" placeholder="Poštanski broj" maxlength="30" required>
+                        <div class="invalid-feedback">Poštanski broj je obavezan (max 30 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionThreeWebsite" class="col-sm-2 col-form-label col-form-label-sm">Web:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreeWebsite" name="sectionThreeWebsite" placeholder="Web stranica tvrtke">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeWebsite" name="sectionThreeWebsite" value="<?php echo htmlentities($row['section_3_website']); ?>" placeholder="Web stranica tvrtke" maxlength="50" required>
+                        <div class="invalid-feedback">Web stranica je obavezna (max 50 znakova).</div>                      
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionThreeEmail" class="col-sm-2 col-form-label col-form-label-sm">Email:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreeEmail" name="sectionThreeEmail" placeholder="Email tvrtke">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeEmail" name="sectionThreeEmail" value="<?php echo htmlentities($row['section_3_email']); ?>" placeholder="Email tvrtke" maxlength="50" required>
+                        <div class="invalid-feedback">Email je obavezan (max 50 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionThreeTel" class="col-sm-2 col-form-label col-form-label-sm">Tel:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreeTel" name="sectionThreeTel" placeholder="Broj telefona">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeTel" name="sectionThreeTel" value="<?php echo htmlentities($row['section_3_tel']); ?>" placeholder="Broj telefona" maxlength="50" required>
+                        <div class="invalid-feedback">Broj telefona je obavezan (max 50 znakova).</div>
                       </div>
                     </div>
                     <div class="form-group row pl-3">
                       <label for="sectionThreeMob" class="col-sm-2 col-form-label col-form-label-sm">Mob:</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="sectionThreeMob" name="sectionThreeMob" placeholder="Broj mobitela">
+                        <input type="text" class="form-control form-control-sm" id="sectionThreeMob" name="sectionThreeMob" value="<?php echo htmlentities($row['section_3_mob']); ?>" placeholder="Broj mobitela" maxlength="50" required>
+                        <div class="invalid-feedback">Broj mobitela je obavezan (max 50 znakova).</div>
                       </div>
                     </div>
                   </div>
