@@ -68,7 +68,7 @@ $title = "Evipod - Uvod";
         <div class="col-lg-8 align-self-baseline">
           <p class="h4 text-light">Web aplikacija za evidentiranje integrirane poljoprivredne djelatnosti.</p>
           <p class="mb-5 h4 text-light"><?php echo htmlentities($row['section_1_desc']); ?></p>
-          <a class="btn btn-primary" href="./app/membership">Prijava / Registracija</a>
+          <a class="btn btn-primary" href="/app/membership">Prijava / Registracija</a>
         </div>
       </div>
     </div>
