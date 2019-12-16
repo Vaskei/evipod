@@ -16,7 +16,7 @@ $title = "Evipod - Uvod";
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="./styles/bootstrap_solar.css">
