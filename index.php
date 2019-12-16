@@ -16,6 +16,8 @@ $title = "Evipod - Uvod";
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="./styles/bootstrap_solar.css">
 
@@ -68,7 +70,7 @@ $title = "Evipod - Uvod";
         <div class="col-lg-8 align-self-baseline">
           <p class="h4 text-light">Web aplikacija za evidentiranje integrirane poljoprivredne djelatnosti.</p>
           <p class="mb-5 h4 text-light"><?php echo htmlentities($row['section_1_desc']); ?></p>
-          <a class="btn btn-primary" href="/evipod/app/membership">Prijava / Registracija</a>
+          <a class="btn btn-primary" href="/app/membership">Prijava / Registracija</a>
         </div>
       </div>
     </div>
@@ -89,28 +91,28 @@ $title = "Evipod - Uvod";
       <div class="row align-items-top justify-content-center text-center mb-5">
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
-            <?php echo '<i class="fas fa-4x fa-'. htmlentities($row['section_2_icon_1']) .' text-primary mb-4"></i>'; ?>
+            <?php echo '<i class="fas fa-4x '. htmlentities($row['section_2_icon_1']) .' text-primary mb-4"></i>'; ?>
             <h3 class="h4 mb-2"><?php echo htmlentities($row['section_2_title_1']); ?></h3>
             <p class="text-muted mb-0"><?php echo htmlentities($row['section_2_desc_1']); ?></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
-            <?php echo '<i class="fas fa-4x fa-'. htmlentities($row['section_2_icon_2']) .' text-primary mb-4"></i>'; ?>
+            <?php echo '<i class="fas fa-4x '. htmlentities($row['section_2_icon_2']) .' text-primary mb-4"></i>'; ?>
             <h3 class="h4 mb-2"><?php echo htmlentities($row['section_2_title_2']); ?></h3>
             <p class="text-muted mb-0"><?php echo htmlentities($row['section_2_desc_2']); ?></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
-          <?php echo '<i class="fas fa-4x fa-'. htmlentities($row['section_2_icon_3']) .' text-primary mb-4"></i>'; ?>
+          <?php echo '<i class="fas fa-4x '. htmlentities($row['section_2_icon_3']) .' text-primary mb-4"></i>'; ?>
             <h3 class="h4 mb-2"><?php echo htmlentities($row['section_2_title_3']); ?></h3>
             <p class="text-muted mb-0"><?php echo htmlentities($row['section_2_desc_3']); ?></p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
-            <?php echo '<i class="fas fa-4x fa-'. htmlentities($row['section_2_icon_4']) .' text-primary mb-4"></i>'; ?>
+            <?php echo '<i class="fas fa-4x '. htmlentities($row['section_2_icon_4']) .' text-primary mb-4"></i>'; ?>
             <h3 class="h4 mb-2"><?php echo htmlentities($row['section_2_title_4']); ?></h3>
             <p class="text-muted mb-0"><?php echo htmlentities($row['section_2_desc_4']); ?></p>
           </div>
