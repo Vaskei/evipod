@@ -8,9 +8,9 @@ if (isset($_POST['settingsSubmit'])) {
   // var_dump($_POST);
   // exit();
   $userId = $_SESSION['user_id'];
-  $oldPassword = htmlentities(trim($_POST['oldPassword']));
-  $newPassword = htmlentities(trim($_POST['newPassword']));
-  $newPasswordRepeat = htmlentities(trim($_POST['newPasswordRepeat']));
+  $oldPassword = trim($_POST['oldPassword']);
+  $newPassword = trim($_POST['newPassword']);
+  $newPasswordRepeat = trim($_POST['newPasswordRepeat']);
 
   // Provjera da li su polja prazna
   if ($oldPassword == "" || $newPassword == "" || $newPasswordRepeat == "") {

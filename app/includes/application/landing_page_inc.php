@@ -53,7 +53,7 @@ if (isset($_POST['landingPageEdit'])) {
 
   // Provjera formata svih vrijednosti
   foreach ($requiredFields as $key => $value) {
-    if (strlen($value) > $requiredLength[$key]) {
+    if (mb_strlen($value) > $requiredLength[$key]) {
       redirectWithToastError("warning", "Unesen neispravan format podatka!", "../../admin");
     }
   }

@@ -142,7 +142,6 @@ $userId = $_SESSION['user_id'];
                   <tr>
                     <th>ID</th>
                     <th>Ime</th>
-                    <th>Email</th>
                     <th>Registriran</th>
                     <th style="width: 10%">Opcije</th>
                   </tr>
@@ -158,7 +157,6 @@ $userId = $_SESSION['user_id'];
                       echo "<tr>";
                       echo "<td class='align-middle'>{$row['user_id']}</td>";
                       echo "<td class='align-middle'>{$row['user_name']}</td>";
-                      echo "<td class='align-middle'>{$row['user_email']}</td>";
                       echo "<td class='align-middle'>" . date('d. m. Y. H:i:s', strtotime($row['created_at'])) . "</td>";
                       echo "<td class='align-middle'><div class='btn-group btn-group-sm d-flex' role='group'>";
                       echo $row['is_banned'] == 0 ? "<button type='button' class='btn btn-link text-warning userBanBtn' title='Ban' data-user-id-ban='{$row['user_id']}'><i class='fas fa-user-lock'></i></button>"

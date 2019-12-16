@@ -68,8 +68,9 @@ $userId = $_SESSION['user_id'];
         <div class="card-body">
           <h3>
             <?php
-            echo "<div class='alert alert-light text-center'>
-                    <strong>Dobrodošli {$resultUser['user_name']} u Evipod aplikaciju!</strong>
+            $escapedUsername = htmlentities($resultUser['user_name']);
+            echo "<div class='alert alert-light text-center'>            
+                    <strong>Dobrodošli {$escapedUsername} u Evipod aplikaciju!</strong>
                   </div>";
             ?>
           </h3>

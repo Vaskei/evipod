@@ -3,38 +3,19 @@ session_start();
 require_once '../connection.php';
 require_once '../functions.php';
 
-require '../PHPMailer/Exception.php';
-require '../PHPMailer/PHPMailer.php';
-require '../PHPMailer/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-/* 
-userName = min 3 znakova, max 20 znakova
-userEmail = filter_var
-userPass = min 6 znakova, max 50 znakova, slova i brojke
-*/
-
 if (isset($_POST['registrationSubmit'])) {
-  //var_dump($_POST);
-  //$userName = htmlentities(trim($_POST['registrationName']));
+
   $userName = trim($_POST['registrationName']);
-  $userEmail = trim($_POST['registrationEmail']);
   $userPass = trim($_POST['registrationPass']);
   $userPassConfirm = trim($_POST['registrationPassConfirm']);
 
   // Provjera da li su polja prazna
-  if ($userName == "" || $userEmail == "" || $userPass == "" || $userPassConfirm == "") {
+  if ($userName == "" || $userPass == "" || $userPassConfirm == "") {
     redirectWithMsg("warning", "Sva polja su obavezna!", "../../membership");
   }
   // Provjera da li se lozinke poklapaju
   else if ($userPass != $userPassConfirm) {
     redirectWithMsg("warning", "Lozinke se ne podudaraju!", "../../membership");
-  }
-  // Provjera da li se Email adresa valjana
-  else if (filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
-    redirectWithMsg("warning", "Nepodržani format Email adrese!", "../../membership");
   }
   // Provjera da li je ime korisnika u zadanim granicama
   else if (strlen($userName) < 3 || strlen($userName) > 20) {
@@ -44,68 +25,23 @@ if (isset($_POST['registrationSubmit'])) {
   else if (!preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$/", $userPass)) {
     redirectWithMsg("warning", "Lozinka može imati samo slova i brojke! Min. 6 i max. 50 znakova!", "../../membership");
   } else {
-    // Provjera da li postoji korisnik sa unesenom Email adresom
-    $query = $conn->prepare("SELECT * FROM users WHERE user_email=? LIMIT 1");
-    $query->bind_param("s", $userEmail);
+    // Provjera da li postoji korisnik sa unesenim imenom
+    $query = $conn->prepare("SELECT * FROM users WHERE user_name=? LIMIT 1");
+    $query->bind_param("s", $userName);
     $query->execute();
     $result = $query->get_result();
     if ($result->num_rows > 0) {
-      redirectWithMsg("warning", "Email već postoji u bazi.", "../../membership");
+      redirectWithMsg("warning", "Ime već postoji u bazi.", "../../membership");
     } else {
-      // Generiranje tokena
-      $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
-      $token = substr(str_shuffle($token), 0, 20);
-      //var_dump($token);
-
       // Password hash
       $userPassHash = password_hash($userPass, PASSWORD_DEFAULT);
-      //var_dump($userPassHash);
 
-      // Podaci za spajanje na Gmail korisnicki racun
-      require_once '../../../templates/techgmail.php';
-      //var_dump($techusername);
-      //var_dump($techpassword);
-      //var_dump($techtoken);
-
-      // Inicijalizacija PHPMailer klase i kreiranje email-a
-      $mail = new PHPMailer;
-      $mail->isSMTP();
-      //Enable SMTP debugging
-      // 0 = off (for production use)
-      // 1 = client messages
-      // 2 = client and server messages
-      $mail->SMTPDebug = 2;
-      $mail->Host = 'smtp.gmail.com';
-      $mail->Port = 587;
-      $mail->SMTPSecure = 'tls';
-      $mail->SMTPAuth = true;
-      $mail->Username = $techusername;
-      $mail->Password = $techpassword;
-
-      $email = $techusername;
-
-      $mail->setFrom($email, 'Evipod');
-      $mail->addAddress($userEmail, $userName);
-      $mail->Subject = 'Evipod - Aktivacija računa';
-      $mail->CharSet = 'utf-8';
-      $mail->isHTML(true);
-      $mail->Body = '
-            Pozdrav ' . htmlspecialchars($userName) . '.<br><br>
-            Hvala što Ste izradili Evipod račun.<br>
-            Za aktiviranje korisničkog računa i korištenje aplikacije, pritisnite poveznicu ispod:<br><br>
-            <a href="http://localhost/evipod/app/includes/membership/confirm.php?email=' . $userEmail . '&token=' . $token . '">Potvrdite Svoj Račun.</a>';
-
-      // Zapisivanje korisnickog racuna u bazu i slanje email-a sa linkom za potvrdu racuna
-      $query = $conn->prepare("INSERT INTO users(user_name, user_email, user_password, token_confirm) VALUES (?,?,?,?)");
-      $query->bind_param("ssss", $userName, $userEmail, $userPassHash, $token);
-      if ($mail->send()) {
-        $query->execute();
-        if ($query->affected_rows >= 1) {
-          $query->close();
-          redirectWithMsgNoFadeout("info", "Korisnički račun kreiran. Provjerite svoj Email za daljnje upute.", "../../membership");
-        } else {
-          redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../../membership");
-        }        
+      $query = $conn->prepare("INSERT INTO users(user_name, user_password) VALUES (?,?)");
+      $query->bind_param("ss", $userName, $userPassHash);
+      $query->execute();
+      if ($query->affected_rows >= 1) {
+        $query->close();
+        redirectWithMsgNoFadeout("info", "Korisnički račun kreiran.", "../../membership");
       } else {
         redirectWithMsg("warning", "Nije bilo moguće kreirati korisnika!", "../../membership");
       }

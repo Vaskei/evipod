@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 23, 2019 at 10:53 PM
+-- Generation Time: Dec 16, 2019 at 01:44 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.10
 
@@ -370,22 +370,6 @@ INSERT INTO `protection` (`protection_id`, `field_id`, `business_id`, `protectio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pwd_reset`
---
-
-DROP TABLE IF EXISTS `pwd_reset`;
-CREATE TABLE IF NOT EXISTS `pwd_reset` (
-  `pwd_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pwd_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pwd_selector` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pwd_token` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pwd_expiration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`pwd_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `rotation`
 --
 
@@ -462,29 +446,26 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_role` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `is_banned` tinyint(4) NOT NULL DEFAULT '0',
-  `is_email_confirmed` tinyint(4) NOT NULL DEFAULT '0',
-  `token_confirm` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `current_business_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_role`, `is_banned`, `is_email_confirmed`, `token_confirm`, `current_business_id`, `created_at`, `updated_at`) VALUES
-(17, 'Tester One', 'evipodtest1@gmail.com', '$2y$10$WRsE9.v9szzsxErmOkj32uLMtLkQTi/Wi4KiPnWYRpd9pvYSDicZW', 'user', 0, 1, '', 48, '2018-12-29 00:33:40', '2019-09-19 20:54:16'),
-(30, 'Osoba', 'evipodtest2@gmail.com', '$2y$10$MO0JH51G5Yha87VNLw9fquf8Q6bC5/UrH/2APprdMVPrdtxFTTY.C', 'user', 1, 1, '', 57, '2019-04-05 14:11:59', '2019-09-19 20:54:19'),
-(31, 'Tester 3', 'evipodtest3@gmail.com', '$2y$10$bcD8utlBwNPfDTUEWU4/ge5L55BDgKOf42LhcmLqFkjXUyPG1e0/i', 'user', 0, 1, '', NULL, '2019-08-07 19:50:30', '2019-09-19 20:53:54'),
-(32, 'Admin', 'evipodtech@gmail.com', '$2y$10$xU8khM5jkT8r9H8Cq/gYcOm/nFEtzBTPQVrMDPW/BY7cEEDWP8mlK', 'admin', 0, 1, '', NULL, '2019-09-13 22:27:30', '2019-09-13 22:27:57'),
-(33, 'Goran', 'opgferenc@gmail.com', '$2y$10$Vs2RHaZAbiOeAlILfsBiqeZZNUkmPKooFclDwsTsVZOJBuhH/q7Wi', 'user', 0, 1, '', 78, '2019-09-15 21:34:03', '2019-09-16 00:25:37');
+INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_role`, `is_banned`, `current_business_id`, `created_at`, `updated_at`) VALUES
+(17, 'Tester One', '$2y$10$WRsE9.v9szzsxErmOkj32uLMtLkQTi/Wi4KiPnWYRpd9pvYSDicZW', 'user', 0, 48, '2018-12-29 00:33:40', '2019-09-19 20:54:16'),
+(30, 'Osoba', '$2y$10$MO0JH51G5Yha87VNLw9fquf8Q6bC5/UrH/2APprdMVPrdtxFTTY.C', 'user', 1, 57, '2019-04-05 14:11:59', '2019-09-19 20:54:19'),
+(31, 'Tester 3', '$2y$10$bcD8utlBwNPfDTUEWU4/ge5L55BDgKOf42LhcmLqFkjXUyPG1e0/i', 'user', 0, NULL, '2019-08-07 19:50:30', '2019-09-19 20:53:54'),
+(32, 'Admin', '$2y$10$xU8khM5jkT8r9H8Cq/gYcOm/nFEtzBTPQVrMDPW/BY7cEEDWP8mlK', 'admin', 0, NULL, '2019-09-13 22:27:30', '2019-09-13 22:27:57'),
+(33, 'Goran', '$2y$10$Vs2RHaZAbiOeAlILfsBiqeZZNUkmPKooFclDwsTsVZOJBuhH/q7Wi', 'user', 0, 78, '2019-09-15 21:34:03', '2019-12-16 13:36:55'),
+(34, 'test', '$2y$10$FacgcWe1kJqWTBPMpXQq2..mJlViQiqTG1qolkGsK2bzGqLPTTu4C', 'user', 0, NULL, '2019-12-16 13:29:04', '2019-12-16 13:43:31');
 
 --
 -- Constraints for dumped tables

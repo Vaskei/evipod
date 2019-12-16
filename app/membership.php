@@ -63,10 +63,10 @@ $title = "Evipod - Članstvo"
                   <hr>
                   <form class="needs-validation" method="POST" action="./includes/membership/login.php" novalidate>
                     <div class="form-group">
-                      <label for="loginEmail">Email</label>
-                      <input type="email" class="form-control" id="loginEmail" name="loginEmail"
-                        placeholder="Unesite email..." required>
-                      <div class="invalid-feedback">Uneseni Email je krivog formata.</div>
+                      <label for="loginName">Ime</label>
+                      <input type="text" class="form-control" id="loginName" name="loginName"
+                        placeholder="Unesite ime..." minlength="3" maxlength="20" required>
+                      <div class="invalid-feedback">Unesite ime.</div>
                     </div>
                     <div class="form-group">
                       <label for="loginPass">Lozinka</label>
@@ -80,10 +80,6 @@ $title = "Evipod - Članstvo"
                         class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>
                   </form>
 
-                  <hr>
-                  <div class="text-center">
-                    <a class="text-info" href="./passwordreset">Zaboravljena lozinka?</a>
-                  </div>
                 </div>
               </div>
               <!-- /.Login panel -->
@@ -105,12 +101,6 @@ $title = "Evipod - Članstvo"
                       <div class="invalid-feedback">Ime je obavezno (min. 3, max. 20 znakova).</div>
                     </div>
                     <div class="form-group">
-                      <label for="registrationEmail">Email</label>
-                      <input type="email" class="form-control" id="registrationEmail" name="registrationEmail"
-                        placeholder="Potreban za aktivaciju računa i prijavu." required>
-                      <div class="invalid-feedback">Email je obavezan i mora imati važeći format.</div>
-                    </div>
-                    <div class="form-group">
                       <label for="registrationPass">Lozinka</label>
                       <input type="password" class="form-control" id="registrationPass" name="registrationPass"
                         placeholder="Slova i brojke, min. 6, max. 50 znakova." pattern="^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{6,50}$" required>
@@ -129,10 +119,6 @@ $title = "Evipod - Članstvo"
                         class="fas fa-arrow-alt-circle-left"></i>&nbsp;Natrag</a>
                   </form>
 
-                  <hr>
-                  <div class="text-center">
-                    <a class="text-info" href="./passwordreset">Zaboravljena lozinka?</a>
-                  </div>
                 </div>
               </div>
               <!-- /.Registration panel -->
